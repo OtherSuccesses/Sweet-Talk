@@ -1,0 +1,105 @@
+/*********************Global CSS**********************/
+
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-image: url('../img/background.jpg');
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:visited {
+	color: inherit;
+}
+
+
+
+/*************index.handlebars specific CSS*************/
+
+.wrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+	font-family: arial;
+}
+
+#main-title {
+	color: white;
+	font-size: 70px;
+	letter-spacing: 2px;
+	text-shadow: 2px 2px 2px rgba(0,0,0, 1);
+}
+
+#sign-in {
+	border: 3px solid white;
+	padding: 20px 50px;
+	color: white;
+	border-radius: 40px;
+	font-size: 30px;
+	width: 100px;
+	margin: 20px auto;
+	cursor: pointer;
+}
+
+#create-account {
+	color: white;
+}
+
+
+/****************generic modal CSS****************/
+
+.modal {
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	display: none;
+	user-select: none;
+}
+
+.modal-content {
+	margin: 15% auto;
+	width: 50%;
+	height: 50%;
+	background: white;
+	position: relative;
+	border-radius: 10px;
+	text-align: center
+}
+
+.close {
+	position: absolute;
+	right: 3%;;
+	top: 5%;
+}
+
+.close:hover {
+	cursor: pointer;
+}
+
+
+/*********************sign-in-modal CSS***********************/
+#username, #password {
+	height: 20px;
+	margin: 10px 0;
+}
+
+
+/*******************create-account-modal CSS******************

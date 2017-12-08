@@ -1,1 +1,52 @@
 
+<div class="wrapper">
+	<h1 id="main-title">CLEVER TITLE</h1>
+	<div class="button" id="sign-in">Sign in</div>
+	<a href="#" id="create-account">Create an account</a>
+</div>
+
+<div class="modal" id="sign-in-modal">
+	<div class="modal-content">
+		<div class="close"><i class="fa fa-times" aria-hidden="true"></i></div>
+		<div class="modal-header"><h3>Please enter your user name and password:</h3></div>
+		<div class="modal-body">
+			<label for="username">User Name:</label>
+			<input name="username" type="text" id="username">
+			<br>
+			<label for="password">Password:</label>
+			<input name="password" type="password" id="password">
+			<br>
+			<input type="button" value="Log In" id="login-submit">
+		</div>
+		<div class="modal-footer"></div>
+	</div> 	
+</div>
+
+<div class="modal" id="create-account-modal">
+	<div class="modal-content">
+		<div class="close"><i class="fa fa-times" aria-hidden="true"></i></div>
+		<div class="modal-header"><h3>Create an account:</h3></div>
+		<div class="modal-body">
+			<form>
+				<label for="username">User Name:</label>
+				<input name="username" type="text" id="create-username">
+				<br>
+				<label for="password">Password:</label>
+				<input name="password" type="password" id="create-password">
+				<br>
+				<label for="gender">I am a:</label>
+				<input type="checkbox" name="gender" value="man">Man<br>
+  				<input type="checkbox" name="gender" value="woman">Woman<br>
+				<br>
+				<label for="seeking">Seeking:</label>
+				<br>
+				<input type="checkbox" name="seeking" value="man">Men<br>
+  				<input type="checkbox" name="seeking" value="woman">Women<br>
+				<br>
+				<input type="button" value="Create Account!" id="create-submit">
+			</form>
+		</div>
+		<div class="modal-footer"></div>
+	</div> 	
+</div>
+
