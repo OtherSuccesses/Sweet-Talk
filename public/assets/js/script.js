@@ -34,7 +34,7 @@ $('#login-submit').on('click', (event) =>{
 		$('#sign-in-modal').fadeOut();
 	});
 	$('#username').val('');
-	$('#password').val('');	
+	$('#password').val('');
 });
 
 $('#create-submit').on('click', () =>{
