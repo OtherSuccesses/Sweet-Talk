@@ -1,22 +1,22 @@
 
 <div class="wrapper">
 	<h1 id="main-title">CLEVER TITLE</h1>
-	<div class="button" id="sign-in">Sign in</div>
+	<div class="button" id="sign-in">SIGN IN</div>
 	<a href="#" id="create-account">Create an account</a>
 </div>
 
 <div class="modal" id="sign-in-modal">
 	<div class="modal-content">
-		<div class="close"><i class="fa fa-times" aria-hidden="true"></i></div>
-		<div class="modal-header"><h3>Please enter your user name and password:</h3></div>
+		<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+		<div class="modal-header"><h2>Please enter your user name and password:</h2></div>
 		<div class="modal-body">
-			<label for="username">User Name:</label>
-			<input name="username" type="text" id="username">
-			<br>
-			<label for="password">Password:</label>
-			<input name="password" type="password" id="password">
-			<br>
-			<input type="button" value="Log In" id="login-submit">
+			<form>
+				<input name="username" type="text" id="username" placeholder="User Name" class="centered text-input">
+				<br>
+				<input name="password" type="password" id="password" placeholder="Password" class="centered text-input">
+				<br>
+				<input type="button" value="Log In" id="login-submit" class="submit-button centered">
+			</form>
 		</div>
 		<div class="modal-footer"></div>
 	</div> 	
@@ -24,26 +24,31 @@
 
 <div class="modal" id="create-account-modal">
 	<div class="modal-content">
-		<div class="close"><i class="fa fa-times" aria-hidden="true"></i></div>
-		<div class="modal-header"><h3>Create an account:</h3></div>
+		<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+		<div class="modal-header"><h2>Create an account:</h2></div>
 		<div class="modal-body">
 			<form>
-				<label for="username">User Name:</label>
-				<input name="username" type="text" id="create-username">
-				<br>
-				<label for="password">Password:</label>
-				<input name="password" type="password" id="create-password">
-				<br>
-				<label for="gender">I am a:</label>
-				<input type="checkbox" name="gender" value="man">Man<br>
-  				<input type="checkbox" name="gender" value="woman">Woman<br>
-				<br>
-				<label for="seeking">Seeking:</label>
-				<br>
-				<input type="checkbox" name="seeking" value="man">Men<br>
-  				<input type="checkbox" name="seeking" value="woman">Women<br>
-				<br>
-				<input type="button" value="Create Account!" id="create-submit">
+				<input name="create-username" type="text" id="create-username" placeholder="Enter User Name" class="centered text-input">
+				<input name="create-password" type="password" id="create-password" placeholder="Enter Password" class="centered text-input">
+				<input name="create-password" type="password" id="create-password2" placeholder="Re-enter Password" class="centered text-input">
+		
+				<div class="gender-wrapper centered">
+					<h3 class="radio-label">I am a:</h3>
+					<input type="radio" name="gender" value="man" id="gender-m">
+					<label for="gender-m">Man</label>
+	  				<input type="radio" name="gender" value="woman" id="gender-f">
+	  				<label for="gender-f">Woman</label>
+				</div>
+			
+				<div class="seeking-wrapper centered">
+					<h3 class="radio-label">Seeking:</h3>
+					<input type="radio" name="seeking" value="man" id="seeking-m">
+					<label for="seeking-m">Men</label>
+	  				<input type="radio" name="seeking" value="woman" id="seeking-f">
+	  				<label for="seeking-f">Women</label>
+				</div>
+
+				<input type="button" value="Create Account!" id="create-submit" class="submit-button centered">
 			</form>
 		</div>
 		<div class="modal-footer"></div>
