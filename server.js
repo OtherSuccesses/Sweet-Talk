@@ -23,9 +23,9 @@ app.post('/login', function (req, res) {
     res.status(200).end();
 });
 
-app.get('/userview', function (req, res) {
-	console.log('get request firing')
-    res.render('userview');
+app.post('/api/create', function (req, res) {
+	console.log('new user: ', req.body)
+    res.status(200).end();
 });
 
 app.listen(PORT, ()=>{
