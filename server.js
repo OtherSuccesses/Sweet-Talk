@@ -3,8 +3,10 @@ const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 const routes = require("./controllers/controller.js");
 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
