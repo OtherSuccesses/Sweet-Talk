@@ -44,6 +44,6 @@ module.exports = function(sequelize, DataTypes) {
                 min: 18
             }
         }
-    })
+    });
     return User;
 };
