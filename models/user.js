@@ -6,6 +6,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             primaryKey: true,
             validate: {
+                isAlphanumeric: true,
                 len: [8,25]
             }
         },
@@ -17,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+            isAlphanumeric: true,
             validate: {
                 len: [8, 30]
             }
@@ -26,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull:false,
             validate: {
                 len: [1, 1]
-                //Will come from a radio or dropdown list, whatevs example outcome: M, F, or B
+                //Will come from a radio or dropdown list, whatevs example outcome: M, F
             }
         },
         seeking: {
