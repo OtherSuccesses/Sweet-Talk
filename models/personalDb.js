@@ -5,6 +5,9 @@ module.exports = function(sequelize, DataTypes, username) {
             type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true
+            validate:{
+                isAlphanumeric: true
+            }
         },
         swiped: {
             type: DataTypes.BOOLEAN,
