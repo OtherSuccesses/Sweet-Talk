@@ -19,7 +19,7 @@ router.post('/api/create', function (req, res) {
 	console.log('new user: ', req.body)
     // res.status(200).end();
     let {userName, password, gender, seeking, age} = req.body
-    db.PersonalDb.create({
+    db.User.create({
       userName,
       password,
       gender,
