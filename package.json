@@ -1,0 +1,35 @@
+{
+  "name": "sweet-talk",
+  "version": "1.0.0",
+  "description": "Speed Dating application",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "mysql2": "^1.5.1",
+    "sequelize": "^4.27.0",
+    "sequelize-cli": "^3.2.0",
+    "simple-peer": "^8.2.0"
+  },
+  "devDependencies": {
+    "watchify": "^3.9.0",
+    "browserify": "^14.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "browserify ./public/assets/js/video.js -o ./public/assets/js/bundle.js",
+    "watch": "watchify ./public/assets/js/video.js -o ./public/assets/js/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OtherSuccesses/Sweet-Talk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OtherSuccesses/Sweet-Talk/issues"
+  },
+  "homepage": "https://github.com/OtherSuccesses/Sweet-Talk#readme"
+}
