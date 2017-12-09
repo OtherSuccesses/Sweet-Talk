@@ -20,6 +20,7 @@ $(document).ready(() => {
 	closeModal('sign-in-modal')
 	closeModal('create-account-modal')
 
+
 	//click event for login
 	$('#login-submit').on('click', (event) =>{
 		event.preventDefault();
@@ -54,6 +55,7 @@ $(document).ready(() => {
 		$('#username').val('');
 		$('#password').val('');
 	});
+
 
 	//click event for clearing all inputs
 	$('#sign-in, #create-account').on('click', (event) => {
