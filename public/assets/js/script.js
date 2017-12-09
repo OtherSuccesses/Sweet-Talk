@@ -45,6 +45,7 @@ $(document).ready(() => {
 		user.password = $('#create-password').val().trim();
 		user.gender = $("input[name='gender']:checked").val();
 		user.seeking = $("input[name='seeking']:checked").val();
+		user.age = $('#create-age').val().trim();
 		console.log('User created: ', user)
 		$.ajax('/api/create', {
 			type:'POST',
