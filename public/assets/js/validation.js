@@ -1,5 +1,4 @@
-
-		function checkEmpty() {
+	function checkEmpty() {
 		let args = Array.prototype.slice.call(arguments);
 		let counter = 0;
 		args.map(element => {
@@ -31,5 +30,4 @@
 		} else {
 			$(element).css('border-color', color);
 		}
-
 	}
