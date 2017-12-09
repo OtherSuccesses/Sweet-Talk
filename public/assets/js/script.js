@@ -1,56 +1,117 @@
-function triggerModal(triggerId, modalId) {
-	$('#' + triggerId).on('click', (event)=>{
+$(document).ready(() => {
+
+	function openModal(triggerId, modalId) {
+		$('#' + triggerId).on('click', (event)=>{
+			event.preventDefault();
+			$('#' + modalId).fadeIn();
+		});
+	}
+
+	function closeModal(modalId) {
+		$('.close').on('click', (event)=>{
+			event.preventDefault();
+			$('#' + modalId).fadeOut();
+		});
+	}
+
+	function checkEmpty() {
+		let args = Array.prototype.slice.call(arguments);
+		let counter = 0;
+		args.map(element => {
+			let empty;
+			if ($(element).is(':radio')) {
+				counter+=0.5
+				empty = $(element).is(':checked') ? false:true;
+			} else {
+				empty = $(element).val()!=='' ? false:true;
+			}
+			if (empty) {
+				showError(element, true);
+				$(element).val('');
+			} else {
+				counter++;
+				showError(element, false);
+			}
+		});
+		console.log('counter & args.length: '+counter+' '+ args.length);
+		console.log(counter)
+		return counter===args.length ? true : false;
+	}
+
+	function showError(element, bool) {
+		let color = ''
+		bool ? color = 'red' : 'white';	
+		if ($(element).is(':radio')) {
+			$(element).siblings('.radio-label').css('color', color)
+		} else {
+			$(element).css('border-color', color);
+		}
+
+	}
+
+
+	//click events for opening and closing modals
+	openModal('sign-in', 'sign-in-modal');
+	openModal('create-account', 'create-account-modal');
+	closeModal('sign-in-modal')
+	closeModal('create-account-modal')
+
+
+	//click event for login
+	$('#login-submit').on('click', (event) =>{
 		event.preventDefault();
-		$('#' + modalId).fadeIn();
+		let clean = false
+		let user = {};
+		user.username = $('#username').val().trim();
+		user.password = $('#password').val().trim();
+		clean = checkEmpty('#username','#password');
+		console.log(clean);
+		if (clean) {
+			console.log('User logged in: ', user)
+			$.ajax('/login', {
+				type:'POST',
+				data: user
+			}).done((res)=>{
+				$('#sign-in-modal').fadeOut();
+			});
+		}
 	});
-}
 
-function closeModal(modalId) {
-	$('.close').on('click', (event)=>{
+
+	//click event for creating new account
+	$('#create-submit').on('click', (event) =>{
+		$('input#password.centered.text-input').css('border-color', 'red');
 		event.preventDefault();
-		$('#' + modalId).fadeOut();
+		let clean = false
+		let user = {};
+		user.username = $('#create-username').val().trim();
+		user.password = $('#create-password').val().trim();
+		user.gender = $("input[name='gender']:checked").val();
+		user.seeking = $("input[name='seeking']:checked").val();
+		clean = checkEmpty('#create-username','#create-password', '#create-password2', '#gender-m','#gender-f','#seeking-m', '#seeking-f');
+		console.log(clean);
+		if (clean) {
+			console.log('User created: ', user)
+			$.ajax('/api/create', {
+				type:'POST',
+				data: user
+			}).done((res)=>{
+				$('#create-account-modal').fadeOut();
+			});
+		}
 	});
-}
 
-
-//click events for opening and closing modals
-triggerModal('sign-in', 'sign-in-modal');
-triggerModal('create-account', 'create-account-modal');
-closeModal('sign-in-modal')
-closeModal('create-account-modal')
-
-
-//click event for login
-$('#login-submit').on('click', (event) =>{
-	event.preventDefault();
-	let user = {}
-	user.username = $('#username').val().trim();
-	user.password = $('#password').val().trim();
-	console.log('User logged in: ', user)
-	$.ajax('/login', {
-		type:'POST',
-		data: user
-	}).done((res)=>{
-		$('#sign-in-modal').fadeOut();
-	});
-	$('#username').val('');
-	$('#password').val('');	
-});
-
-$('#create-submit').on('click', (event) =>{
-	event.preventDefault();
-	let user = {}
-	user.username = $('#create-username').val().trim();
-	user.password = $('#create-password').val().trim();
-	user.gender = $("input[name='gender']:checked").val();
-	user.seeking = $("input[name='seeking']:checked").val();
-	console.log('User created: ', user)
-	$.ajax('/api/create', {
-		type:'POST',
-		data: user
-	}).done((res)=>{
-		$('#create-account-modal').fadeOut();
-	});
-	$('#username').val('');
-	$('#password').val('');
-})
+	//click event for clearing all inputs
+	$('#sign-in, #create-account').on('click', (event) => {
+		$(':input').each((i, item) => {
+			console.log(item);
+			let type = $(item).attr('type');
+			if (type==='radio') {
+				console.log(item)
+				$(item).prop('checked', false).siblings('.radio-label').css('color', 'white')
+			} else if(type==='text' || type === 'password') {
+				$(item).val('').css('border-color', 'white');
+			}
+		});
+	})
+});//end of document ready function 

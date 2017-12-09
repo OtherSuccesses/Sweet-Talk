@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {title: 'Clever Title'});
 });
 
 //post route for login modal. Body is username and password
