@@ -25,27 +25,28 @@ $(document).ready(() => {
 	$('#login-submit').on('click', (event) =>{
 		event.preventDefault();
 		let user = {}
-		user.username = $('#username').val().trim();
+		user.userName = $('#username').val().trim();
 		user.password = $('#password').val().trim();
+		user.online = 1;
 		console.log('User logged in: ', user)
 		$.ajax('/login', {
 			type:'POST',
 			data: user
 		}).done((res)=>{
 			$('#sign-in-modal').fadeOut();
+			$.ajax('/userView', {type:'GET'});
 		});
-		$('#username').val('');
-		$('#password').val('');
 	});
 
 	$('#create-submit').on('click', (event) =>{
 		event.preventDefault();
 		let user = {}
-		user.username = $('#create-username').val().trim();
+		user.userName = $('#create-username').val().trim();
 		user.password = $('#create-password').val().trim();
 		user.gender = $("input[name='gender']:checked").val();
 		user.seeking = $("input[name='seeking']:checked").val();
 		user.age = $('#create-age').val().trim();
+		user.online = 0;
 		console.log('User created: ', user)
 		$.ajax('/api/create', {
 			type:'POST',
@@ -53,8 +54,6 @@ $(document).ready(() => {
 		}).done((res)=>{
 			$('#create-account-modal').fadeOut();
 		});
-		$('#username').val('');
-		$('#password').val('');
 	});
 
 

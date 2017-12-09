@@ -6,10 +6,6 @@ html, body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	background-image: url('../img/background.jpg');
-	background-attachment: fixed;
-	background-size: cover;
-	background-repeat: no-repeat;
 }
 
 a {
@@ -27,6 +23,16 @@ a:visited {
 
 
 /*************index.handlebars specific CSS*************/
+.landing-page-container {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-image: url('../img/background.jpg');
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
 
 .wrapper {
 	position: absolute;

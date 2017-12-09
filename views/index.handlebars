@@ -1,60 +1,63 @@
 
-<div class="wrapper">
-	<h1 id="main-title">CLEVER TITLE</h1>
-	<div class="button" id="sign-in">SIGN IN</div>
-	<a href="#" id="create-account">Create an account</a>
-  <button id="connect">Connect</button>
-</div>
+<div class="landing-page-container">
+	<div class="wrapper">
+		<h1 id="main-title">CLEVER TITLE</h1>
+		<div class="button" id="sign-in">SIGN IN</div>
+		<a href="#" id="create-account">Create an account</a>
+	  <button id="connect">Connect</button>
+	</div>
 
-<div class="modal" id="sign-in-modal">
-	<div class="modal-content">
-		<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
-		<div class="modal-header">
-			<h2>Please enter your user name and password:</h2>
-		</div>
-		<div class="modal-body">
-			<form id="sign-in-form">
-				<input name="username" type="text" id="username" placeholder="User Name" class="centered text-input">
-				<input name="password" type="password" id="password" placeholder="Password" class="centered text-input">
-				<input type="button" value="Log In" id="login-submit" class="submit-button centered">
-			</form>
-		</div>
-	</div> 	
-</div>{{!-- end of #sign-in-modal --}}
+	<div class="modal" id="sign-in-modal">
+		<div class="modal-content">
+			<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+			<div class="modal-header">
+				<h2>Please enter your user name and password:</h2>
+			</div>
+			<div class="modal-body">
+				<form id="sign-in-form">
+					<input name="username" type="text" id="username" placeholder="User Name" class="centered text-input">
+					<input name="password" type="password" id="password" placeholder="Password" class="centered text-input">
+					<input type="button" value="Log In" id="login-submit" class="submit-button centered">
+				</form>
+			</div>
+		</div> 	
+	</div>{{!-- end of #sign-in-modal --}}
 
 
-<div class="modal" id="create-account-modal">
-	<div class="modal-content">
-		<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
-		<div class="modal-header">
-			<h2>Create an account:</h2>
-		</div>
-		<div class="modal-body">
-			<form id="create-account-form">
-				<input name="create-username" type="text" id="create-username" placeholder="Enter User Name" class="centered text-input">
-				<input name="create-password" type="password" id="create-password" placeholder="Enter Password" class="centered text-input">
-				<input name="create-password" type="password" id="create-password2" placeholder="Re-enter Password" class="centered text-input">
+	<div class="modal" id="create-account-modal">
+		<div class="modal-content">
+			<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+			<div class="modal-header">
+				<h2>Create an account:</h2>
+			</div>
+			<div class="modal-body">
+				<form id="create-account-form">
+					<input name="create-username" type="text" id="create-username" placeholder="Enter User Name" class="centered text-input">
+					<input name="create-password" type="password" id="create-password" placeholder="Enter Password" class="centered text-input">
+					<input name="create-password" type="password" id="create-password2" placeholder="Re-enter Password" class="centered text-input">
+					
+					<input name="create-age" type="text" id="create-age" placeholder="Age" class="centered text-input">
+					<div class="gender-wrapper centered">
+						<h3 class="radio-label">I am a:</h3>
+						<input type="radio" name="gender" value="m" id="gender-m">
+						<label for="gender-m">Man</label>
+		  				<input type="radio" name="gender" value="w" id="gender-f">
+		  				<label for="gender-f">Woman</label>
+					</div>
 				
-				<input name="create-age" type="text" id="create-age" placeholder="Age" class="centered text-input">
-				<div class="gender-wrapper centered">
-					<h3 class="radio-label">I am a:</h3>
-					<input type="radio" name="gender" value="man" id="gender-m">
-					<label for="gender-m">Man</label>
-	  				<input type="radio" name="gender" value="woman" id="gender-f">
-	  				<label for="gender-f">Woman</label>
-				</div>
-			
-				<div class="seeking-wrapper centered">
-					<h3 class="radio-label">Seeking:</h3>
-					<input type="radio" name="seeking" value="man" id="seeking-m">
-					<label for="seeking-m">Men</label>
-	  				<input type="radio" name="seeking" value="woman" id="seeking-f">
-	  				<label for="seeking-f">Women</label>
-				</div>
-				<input type="button" value="Create Account!" id="create-submit" class="submit-button centered">
-			</form>
-		</div>
-	</div> 	
-</div>{{!-- end of #create-account-modal --}}
+					<div class="seeking-wrapper centered">
+						<h3 class="radio-label">Seeking:</h3>
+						<input type="radio" name="seeking" value="m" id="seeking-m">
+						<label for="seeking-m">Men</label>
+		  				<input type="radio" name="seeking" value="w" id="seeking-f">
+		  				<label for="seeking-f">Women</label>
+					</div>
+					<input type="button" value="Create Account!" id="create-submit" class="submit-button centered">
+				</form>
+			</div>
+		</div> 	
+	</div>{{!-- end of #create-account-modal --}}
+
+</div>
 
 </div>
