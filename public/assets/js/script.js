@@ -37,7 +37,7 @@ $('#login-submit').on('click', (event) =>{
 	$('#password').val('');
 });
 
-$('#create-submit').on('click', () =>{
+$('#create-submit').on('click', (event) =>{
 	event.preventDefault();
 	let user = {}
 	user.username = $('#create-username').val().trim();

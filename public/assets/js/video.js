@@ -1,15 +1,21 @@
-$("#connect").on("click", function(e) {
-  console.log("Trying to get initiator ID...");
-  const Peer = require("simple-peer");
+$(document).ready(function() {
+  $("#connect").on("click", function(e) {
+    console.log("Trying to get initiator ID...");
+    const Peer = require("simple-peer");
 
-  const peer = new Peer({
-    initiator: true,
-    trickle: false,
-  });
-  console.log(peer);
-  peer.on('signal', (data) => {
-    console.log("Initiator ID", data);
-  });
+    const peer = new Peer({
+      initiator: location.hash === "#init",
+      trickle: false,
+    });
+    var id;
 
-  peer.on('error', function (err) { console.error('error', err) });
+    console.log(peer);
+    peer.on('signal', (data) => {
+      id = data;
+      console.log("Initiator ID", id);
+      $.post("/video", id);
+    });
+
+    peer.on('error', function (err) { console.error('error', err) });
+  });
 });

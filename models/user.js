@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define('User', {
         //We don't need a timestamp as sequelize will start with one
         userName: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true,
             validate: {
@@ -10,19 +10,19 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         online: {
-            type: DataType.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             allowNull: false,
-        
+
         },
         password: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [8, 30]
             }
         },
         gender: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull:false,
             validate: {
                 len: [1, 1]
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         seeking: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull:false,
             validate: {
                 len: [1, 1]
@@ -38,7 +38,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         age: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
                 min: 18
