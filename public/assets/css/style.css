@@ -141,6 +141,7 @@ a:visited {
 	transition: border 500ms ease;
 	font-size: 20px;
 	border-bottom: 1px solid white;
+	width: 50%;
 }
 
 .text-input:focus {
@@ -149,6 +150,7 @@ a:visited {
 
 .text-input::-webkit-input-placeholder{
 	color:white;
+	font-size: 15px;
 }
 /*********************sign-in-modal CSS***********************/
 
@@ -182,10 +184,6 @@ a:visited {
 	top: 55%;
 }
 
-#create-age {
-	top: 50%;
-}
-
 #create-password2 {
 	top: 45%;
 }
@@ -194,7 +192,11 @@ a:visited {
 	top: 35%;
 }
 
+#create-age {
+	top: 25%;
+}
+
 #create-username {
-	top: 20%;
+	top: 15%;
 }
 
