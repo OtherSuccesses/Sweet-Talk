@@ -17,7 +17,17 @@ router.post('/login', function (req, res) {
 //post route for create user modal. Body is username, password, gender(man, woman), and seeking(man, woman)
 router.post('/api/create', function (req, res) {
 	console.log('new user: ', req.body)
-    res.status(200).end();
+    // res.status(200).end();
+    let {userName, password, gender, seeking, age} = req.body
+    db.PersonalDb.create({
+      userName,
+      password,
+      gender,
+      seeking,
+      age
+    }).then(function(data) {
+      res.redirect('/');
+    })
 });
 
 //post route for login modal. Body is username and password
