@@ -68,9 +68,23 @@ function clearInputs() {
 	});	
 }
 
-
-function userSwipe() {
-	let swipe = $(this).attr('data-swipe'),
-		user  = $(this).data('user');
+function userSwipe(element) {
+ 	let swipe = $(element).attr('data-swipe'),
+ 		user  = $(element).data('user'),
+ 		layer = $(element).data('layer');
+ 	$(element).parent().hide()
+ 	$(element).parent().next().show()
 }
+ 
+ 
+function layerTiles() {
+ 	$('.userTile').each(function (i, item) {
+ 		$(this).css({"z-index": i+"00"});
+ 		if ($(this).data('layer')===0) {
+ 			$(this).show();
+ 		} else {
+ 			$(this).hide();
+ 		}
+ 	});
+ }
 
