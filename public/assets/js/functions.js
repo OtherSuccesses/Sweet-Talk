@@ -24,6 +24,7 @@ function loginUser() {
 		type:'POST',
 		data: user
 	}).done((res)=>{
+		console.log('res from post to /login:',res)
 		if (res==='OK') {
 			console.log('User logged in: ', user)
 			$('#sign-in-modal').fadeOut();
@@ -86,4 +87,3 @@ function layerTiles() {
 		}
 	});
 }
-layerTiles();
