@@ -4,7 +4,10 @@ module.exports = function(sequelize, DataTypes, username) {
         userName: {
             type: DataType.STRING,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            validate:{
+                isAlphanumeric: true
+            }
         },
         swiped: {
             type: DataType.BOOLEAN,
