@@ -33,11 +33,13 @@ router.get("/", (req, res) => {
 router.get("/userView", (req,res) => {
   //userview is populating properly with dummy data
 	res.render("userView", {users: dummyUserArr, title: 'User View'});
+
 });
 
 //route to init page
 router.get('/#init', (req,res) => {
 	console.log('redirect to init');
+
 });
 
 //post route for login modal. Body is username and password
@@ -54,8 +56,10 @@ router.post('/login', function (req, res) {
 
     if (result.userName===userName && result.password===password) {
       console.log(`${userName} successfully logged in...`);
+
       res.sendStatus(200);
       // res.redirect('/userView');
+
     }
   });   
 });
