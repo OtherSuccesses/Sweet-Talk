@@ -10,7 +10,10 @@ router.get("/userView", (req,res) => {
 	console.log('firing')
 	res.render("userView", {title: 'User Page'});
 });
-
+//route to init page
+router.get('/#init', (req,res) => {
+	console.log('redirect to init');
+})
 //post route for login modal. Body is username and password
 router.post('/login', function (req, res) {
 	console.log(req.body);
