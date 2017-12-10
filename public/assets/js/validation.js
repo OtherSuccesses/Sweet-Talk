@@ -18,7 +18,6 @@
 			showError(element, false);
 			return 1;
 		}
-
 	}
 
 	function checkRadioEmpty(element) {

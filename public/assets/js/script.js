@@ -35,8 +35,11 @@ $(document).ready(() => {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-			$('#sign-in-modal').fadeOut();
-			$.ajax('/userView', {type:'GET'});
+			console.log('response from login:',res)
+			if (res==='OK') {
+				$('#sign-in-modal').fadeOut();
+				$.get('/userView');
+			}
 		});
 	});
 
