@@ -20,7 +20,6 @@ $(document).ready(() => {
 		createUser();
 	});
 
-
 	//click event for clearing all inputs
 	$('#sign-in, #create-account').on('click', (event) => {
 		event.preventDefault();
