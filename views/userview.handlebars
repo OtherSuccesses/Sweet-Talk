@@ -5,7 +5,7 @@
 		<h2>Meet {{userName}}!</h2>
 		<img src="{{img}}" alt="image of {{userName}}">
 		<p class="userBio">{{bio}}</p>
-		<button data-swipe="left">left</button>
-		<button data-swipe="right">right</button>
+		<button class="choose" data-swipe="left" data-user="{{userName}}">left</button>
+		<button class="choose" data-swipe="right" data-user="{{userName}}">right</button>
 	</div>
 {{/each}}

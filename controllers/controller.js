@@ -31,26 +31,28 @@ router.get("/", (req, res) => {
 });
 
 router.get("/userView", (req,res) => {
-
   //userview is populating properly with dummy data
 	res.render("userView", {users: dummyUserArr, title: 'User View'});
 });
 
 //post route for login modal. Body is username and password
 router.post('/login', function (req, res) {
+  let {userName, password} = req.body;
 
-  //not quite working.  For some reason, it will still find the person
-  //even if the password is wrong. 
   db.User.findOne({
     where: {
-      userName: req.body.userName,
-      password: req.body.password
+      userName,
+      password
     }
   }).then((result)=>{
-    console.log('res from post to /login',result);
-    res.send(200);
-  });
-    
+
+
+    if (result.userName===userName && result.password===password) {
+      console.log(`${userName} successfully logged in...`);
+      // res.sendStatus(200);
+      res.redirect('/userView')
+    }
+  });   
 });
 
 //post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
