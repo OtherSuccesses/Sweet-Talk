@@ -27,7 +27,7 @@ $(document).ready(() => {
 	//click event listener for "swiping" on users
 	$(document).on('click','.choose', function (event) {
 		event.preventDefault();
-		userSwipe();
+		userSwipe($(this));
 	});
 
 
