@@ -1,2 +1,13 @@
-<h1>hello world</h1>
+<h1>User View</h1>
+
+{{#each users}}
+	<div class="userTile centered" id="{{userName}}" data-layer="{{@index}}">
+		<h2>Meet {{userName}}!</h2>
+		<img src="{{img}}" alt="image of {{userName}}">
+		<p class="userBio">{{bio}}</p>
+		<button class="choose" data-swipe="left" data-user="{{userName}}">left</button>
+		<button class="choose" data-swipe="right" data-user="{{userName}}">right</button>
+	</div>
+{{/each}}
+
 
