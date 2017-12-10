@@ -11,5 +11,10 @@ module.exports = function(sequelize, DataTypes, username) {
             allowNull: false
         }
     });
+    // PersonalDb.belongsTo(models.User, {
+    //   foreignKey: {
+    //     allowNull: false
+    //   }
+    // });
     return PersonalDb;
 };

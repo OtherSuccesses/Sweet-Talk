@@ -27,6 +27,7 @@ router.post('/api/create', function (req, res) {
       age
     }).then(function(data) {
       res.redirect('/');
+
     })
 });
 
