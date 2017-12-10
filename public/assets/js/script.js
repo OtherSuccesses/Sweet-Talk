@@ -24,47 +24,55 @@ $(document).ready(() => {
 	//click event for login
 	$('#login-submit').on('click', (event) =>{
 		event.preventDefault();
+		let clean = false;
 		let user = {}
-		user.username = $('#username').val().trim();
+		user.userName = $('#username').val().trim();
 		user.password = $('#password').val().trim();
+		user.online = 1;
+		clean = checkEmpty('#password', '#username');
 		console.log('User logged in: ', user)
 		$.ajax('/login', {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-			$('#sign-in-modal').fadeOut();
+			console.log('response from login:',res)
+			if (res==='OK') {
+				$('#sign-in-modal').fadeOut();
+				$.get('/userView');
+			}
 		});
-		$('#username').val('');
-		$('#password').val('');
 	});
 
 	$('#create-submit').on('click', (event) =>{
 		event.preventDefault();
-		let user = {}
-		user.username = $('#create-username').val().trim();
-		user.password = $('#create-password').val().trim();
-		user.gender = $("input[name='gender']:checked").val();
-		user.seeking = $("input[name='seeking']:checked").val();
+		let clean = false;
+ 		let user = {};
+ 		user.userName = $('#create-username').val().trim();
+ 		user.password = $('#create-password').val().trim();
+ 		user.gender = $("input[name='gender']:checked").val();
+ 		user.seeking = $("input[name='seeking']:checked").val();
 		user.age = $('#create-age').val().trim();
-		console.log('User created: ', user)
-		$.ajax('/api/create', {
-			type:'POST',
-			data: user
-		}).done((res)=>{
-			$('#create-account-modal').fadeOut();
-		});
-		$('#username').val('');
-		$('#password').val('');
+		user.online = 0;
+		let rightAge = checkAge('#create-age'),
+ 			cleanInput = checkInputs('#create-username','#create-password', '#create-password2'),
+ 			cleanRadio = checkRadio('input[name="gender"]', 'input[name="seeking"]');
+		if (rightAge && cleanInput && cleanRadio) {
+			console.log('User created: ', user)
+			$.ajax('/api/create', {
+				type:'POST',
+				data: user
+			}).done((res)=>{
+				$('#create-account-modal').fadeOut();
+			});
+		}
 	});
 
 
 	//click event for clearing all inputs
 	$('#sign-in, #create-account').on('click', (event) => {
 		$(':input').each((i, item) => {
-			console.log(item);
 			let type = $(item).attr('type');
 			if (type==='radio') {
-				console.log(item)
 				$(item).prop('checked', false).siblings('.radio-label').css('color', 'white')
 			} else if(type==='text' || type === 'password') {
 				$(item).val('').css('border-color', 'white');

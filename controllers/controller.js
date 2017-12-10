@@ -2,45 +2,73 @@ const express = require("express");
 const db = require("../models");
 const router = express.Router();
 
+//DUMMY DATA FOR TESTING RENDERING USERS IN userView
+let dummyUserArr = [
+  {
+    userName: 'Dummy User1',
+    img: 'https://www.fillmurray.com/300/300',
+    bio: 'I like corn.  Corn is life.'
+  },
+  {
+    userName: 'Dummy User2',
+    img: 'https://www.fillmurray.com/300/300',
+    bio: 'I like corn.  Corn is life.'
+  },
+  {
+    userName: 'Dummy User3',
+    img: 'https://www.fillmurray.com/300/300',
+    bio: 'I like corn.  Corn is life.'
+  },
+  {
+    userName: 'Dummy User4',
+    img: 'https://www.fillmurray.com/300/300',
+    bio: 'I like corn.  Corn is life.'
+  }
+];
+
 router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
+
 router.get("/userView", (req,res) => {
-	res.render("userView", {title: 'User Page'});
-})
-//post route for login modal. Body is username and password
-router.post('/login', function (req, res) {
-	console.log(req.body);
-    res.redirect('/userView');
+
+  //userview is populating properly with dummy data
+	res.render("userView", {users: dummyUserArr, title: 'User View'});
 });
 
-//post route for create user modal. Body is username, password, gender(man, woman), and seeking(man, woman)
+//post route for login modal. Body is username and password
+router.post('/login', function (req, res) {
+
+  //not quite working.  For some reason, it will still find the person
+  //even if the password is wrong. 
+  db.User.findOne({
+    where: {
+      userName: req.body.userName,
+      password: req.body.password
+    }
+  }).then((result)=>{
+    console.log('res from post to /login',result);
+    res.send(200);
+  });
+    
+});
+
+//post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {
 	console.log('new user: ', req.body)
-    // res.status(200).end();
-    let {userName, password, gender, seeking, age} = req.body
+    let {userName, password, gender, seeking, age, online} = req.body;
     db.User.create({
       userName,
       password,
       gender,
       seeking,
-      age
+      age, 
+      online
     }).then(function(data) {
       res.redirect('/');
-    })
+    });
 });
 
-//post route for login modal. Body is username and password
-router.post('/login', function (req, res) {
-	console.log(req.body);
-    res.status(200).end();
-});
-
-//post route for create user modal. Body is username, password, gender(man, woman), and seeking(man, woman)
-router.post('/api/create', function (req, res) {
-	console.log('new user: ', req.body)
-    res.status(200).end();
-});
 
 router.post('/video', (req, res) => {
   console.log("video post req.body", req.body);
