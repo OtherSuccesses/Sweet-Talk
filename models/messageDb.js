@@ -17,10 +17,5 @@ module.exports = function(sequelize, DataTypes, username1, username2) {
             }
         }
     });
-    // MessageDb.belongsToMany(models.User, {
-    //   foreignKey: {
-    //     allowNull: false
-    //   }
-    // });
     return MessageDb;
 };
