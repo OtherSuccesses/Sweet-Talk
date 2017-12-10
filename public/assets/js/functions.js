@@ -24,6 +24,7 @@ function loginUser() {
 		type:'POST',
 		data: user
 	}).done((res)=>{
+
 		if (res==='OK') {
 			console.log('User logged in: ', user)
 			$('#sign-in-modal').fadeOut();
@@ -67,7 +68,9 @@ function clearInputs() {
 	});	
 }
 
+
 function userSwipe() {
 	let swipe = $(this).attr('data-swipe'),
 		user  = $(this).data('user');
 }
+

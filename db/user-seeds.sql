@@ -1,4 +1,5 @@
 
+
 INSERT INTO users (userName, online, password, gender, seeking, age, createdAt, updatedAt) VALUES ('WalterWhite', false, 'password','m','f',46,curdate(),curdate());
 INSERT INTO users (userName, online, password, gender, seeking, age, createdAt, updatedAt) VALUES ('BillyBob', false, 'password','m','f',58,curdate(),curdate());
 INSERT INTO users (userName, online, password, gender, seeking, age, createdAt, updatedAt) VALUES ('GeraldoRivera', false, 'password','m','f',28,curdate(),curdate());
@@ -13,6 +14,7 @@ INSERT INTO users (userName, online, password, gender, seeking, age, createdAt, 
 INSERT INTO users (userName, online, password, gender, seeking, age, createdAt, updatedAt) VALUES ('Martha', false, 'password','f','f',41,curdate(),curdate());
 INSERT INTO users (userName, online, password, gender, seeking, age, createdAt, updatedAt) VALUES ('Abby', false, 'password','f','f',18,curdate(),curdate());
 INSERT INTO users (userName, online, password, gender, seeking, age, createdAt, updatedAt) VALUES ('Bebe', false, 'password','f','f',51,curdate(),curdate());
+
 
 CREATE TABLE WalterWhite (
 	userName VARCHAR(255),
