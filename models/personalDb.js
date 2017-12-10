@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes, username) {
     var PersonalDb = sequelize.define(username, {
         //We don't need a timestamp as sequelize will start with one
         userName: {
-            type: DataTypes.STRING,
+            type: DataType.STRING,
             allowNull: false,
             primaryKey: true,
             validate:{
@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes, username) {
             }
         },
         swiped: {
-            type: DataTypes.BOOLEAN,
+            type: DataType.BOOLEAN,
             allowNull: false
         }
     });
