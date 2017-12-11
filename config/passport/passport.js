@@ -4,16 +4,17 @@ module.exports = function(passport, user, db) {
     var User = user; 
     var LocalStrategy = require('passport-local').Strategy; 
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+    	console.log(user)
+        done(null, user.userName);
     });
-    passport.deserializeUser(function(id, done) {
-        User.findById(id).then(function(user) {
+    passport.deserializeUser(function(userName, done) {
+        User.findById(userName).then(function(user) {
             if(user){
           		done(null, user.get());
         	} else{
           		done(user.errors,null);
         	}
-        })
+        });
     });
     passport.use('local-signup', new LocalStrategy( 
         { 
