@@ -33,8 +33,18 @@ router.get("/", (req, res) => {
 
 router.post("/login", (req,res) => {
   //userview is populating properly with dummy data
-	res.render("userView", {users: dummyUserArr, title: 'User View'});
-
+  db.User.findAll({
+    where: {
+      gender: currentUser.seeking,
+      seeking: currentUser.gender
+      // online: true
+    }
+  }).then((results)=>{
+    console.log(results);
+    results.map(user => users.push(user.dataValues))
+    console.log(users);
+  });
+	res.render("userView", {users, title: 'User View', currentUser});
 });
 
 //route to init page
@@ -42,22 +52,57 @@ router.get('/#init', (req,res) => {
 	console.log('redirect to init');
 
 });
-;
+//post route for login modal. Body is username and password
+router.post('/login', function (req, res) {
+  let {userName, password} = req.body;
+
+  db.User.findOne({
+    where: {
+      userName,
+      password
+    }
+  }).then((result)=>{
+    if (result.userName===userName && result.password===password) {
+      console.log(`${userName} successfully logged in...`);
+      currentUser = result.dataValues;
+      res.sendStatus(200);
+      // res.redirect('/userView');
+    }
+  });
+});
 
 //post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {
-	console.log('new user: ', req.body)
-    let {userName, password, gender, seeking, age, online} = req.body;
+  console.log('New user created: ', req.body)
+  let {userName, password, gender, seeking, age, online} = req.body;
+  db.sequelize.define(userName, {
+    userName: {
+        type: db.Sequelize.STRING,
+        allowNull: false,
+        primaryKey: true,
+        validate:{
+            isAlphanumeric: true
+        }
+    },
+    swiped: {
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false
+    }
+  }, {
+    freezeTableName: true
+  });
+  db.sequelize.sync().then(() => {
     db.User.create({
       userName,
       password,
       gender,
       seeking,
-      age, 
+      age,
       online
     }).then(function(data) {
       res.redirect('/');
     });
+  })
 });
 
 
