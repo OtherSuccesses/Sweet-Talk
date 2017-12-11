@@ -6713,7 +6713,6 @@ $(document).ready(function() {
       })
     }
 
-
     peer.on('error', function (err) { console.error('error', err) });
   });
 });
