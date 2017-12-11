@@ -32,8 +32,8 @@ router.get("/", (req, res) => {
 
 router.get("/userView", (req,res) => {
   //userview is populating properly with dummy data
+  console.log('firing')
 	res.render("userView", {users: dummyUserArr, title: 'User View'});
-
 });
 
 //route to init page
@@ -80,6 +80,10 @@ router.post('/api/create', function (req, res) {
     });
 });
 
+router.post('/userView/swipe', (req,res) => {
+  console.log('body from userview swipe:',req.body);
+  res.sendStatus(200);
+})
 
 router.post('/video', (req, res) => {
   console.log("video post req.body", req.body);
