@@ -17,6 +17,7 @@ $(document).ready(() => {
 	$('#create-submit').on('click', (event) =>{
 		event.preventDefault();
 		createUser();
+		addUserTable();
 	});
 
 	//click event for clearing all inputs
@@ -40,4 +41,4 @@ $(document).ready(() => {
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();
 
-});//end of document ready function 
+});//end of document ready function
