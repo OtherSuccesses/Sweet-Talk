@@ -2,31 +2,6 @@ const express = require("express");
 const db = require("../models");
 const router = express.Router();
 
-
-//DUMMY DATA FOR TESTING RENDERING USERS IN userView
-let dummyUserArr = [
-  {
-    userName: 'Dummy User1',
-    img: 'https://www.fillmurray.com/300/300',
-    bio: 'I like corn.  Corn is life.'
-  },
-  {
-    userName: 'Dummy User2',
-    img: 'https://www.fillmurray.com/300/300',
-    bio: 'I like corn.  Corn is life.'
-  },
-  {
-    userName: 'Dummy User3',
-    img: 'https://www.fillmurray.com/300/300',
-    bio: 'I like corn.  Corn is life.'
-  },
-  {
-    userName: 'Dummy User4',
-    img: 'https://www.fillmurray.com/300/300',
-    bio: 'I like corn.  Corn is life.'
-  }
-];
-
 router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
