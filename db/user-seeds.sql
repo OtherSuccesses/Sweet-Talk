@@ -13,7 +13,6 @@ INSERT INTO users (img, userName, OnLine, password, gender, seeking, age, create
 INSERT INTO users (img, userName, OnLine, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES ('https://www.famousbirthdays.com/headshots/abby-donnelly-3.jpg','Abby', false, 'password','f','f',18,curdate(),curdate(),'This is the best dating app ever');
 INSERT INTO users (img, userName, OnLine, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES ('https://www.famousbirthdays.com/headshots/bebe-neuwirth-1.jpg','Bebe', false, 'password','f','f',51,curdate(),curdate(),'This is the best dating app ever');
 
-
 CREATE TABLE WalterWhite (
 	userName VARCHAR(255),
 	swiped BOOLEAN
