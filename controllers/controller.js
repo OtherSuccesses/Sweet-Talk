@@ -42,22 +42,7 @@ router.get('/#init', (req,res) => {
 	console.log('redirect to init');
 
 });
-// router.get('/userView',isLoggedIn, authController.userView);
-// post route for login modal. Body is username and password
-// router.post('/login', passport.authentication('local'), function(req, res) {
-//   // let {userName, password} = req.body;
-
-//   // db.User.findOne({
-//   //   where: {
-//   //     userName,
-//   //     password
-//   //   }
-//   // }).then((result)=>{
-//       console.log(`${userName} successfully logged in...`);
-//       return res.redirect('/userView');
-
-//     });   
-// };
+;
 
 //post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {

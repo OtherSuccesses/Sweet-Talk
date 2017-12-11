@@ -11,7 +11,7 @@ module.exports = function(app, passport) {
         }
  
     ));
-	app.get('/login', isLoggedIn, authController.signin);
+	app.get('/userView', isLoggedIn, authController.signin);
     app.post('/login', passport.authenticate('local-signin', 
     	{
 	    	seccessRedirect: '/userView',
