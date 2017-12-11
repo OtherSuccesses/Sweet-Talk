@@ -33,7 +33,7 @@ router.post('/api/create', function (req, res) {
 });
 
 router.post('/video', (req, res) => {
-  console.log("video post req.body", req.body);
+  console.log("Initiator ID", req.body);
 
   db.VideoChat.create({
     initiatorId: req.body,
@@ -41,6 +41,10 @@ router.post('/video', (req, res) => {
   }).then(function(result) {
     res.json(result);
   });
+});
+
+router.put('/video', (req, res) => {
+  console.log("Recipient ID", req.body);
 });
 
 module.exports = router;
