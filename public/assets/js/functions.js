@@ -24,7 +24,7 @@ function loginUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-
+			console.log('res from right after /login', res);
 			if (res==='OK') {
 				console.log('User logged in: ', user)
 				$('#sign-in-modal').fadeOut();

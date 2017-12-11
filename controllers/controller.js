@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
 //****************************************************************************************************
 router.get("/userView", (req,res) => {
   //userview is populating properly with dummy data
+  console.log('firing in /userview');
   db.User.findAll({
     where: {
       gender: currentUser.seeking,
@@ -20,26 +21,28 @@ router.get("/userView", (req,res) => {
       // online: true
     }
   }).then((results)=>{
-    
+    console.log('firing in /userview .then');
     results.map(user => users.push(user.dataValues))
-  });
   res.render("userView", {users, title: 'User View', currentUser});
+  });
 });
 //****************************************************************************************************
 //passport post /login needs to be integrated
 //****************************************************************************************************
 router.post('/login', function (req, res) {
   let {userName, password} = req.body;
-
+  console.log('login on backend is firing')
   db.User.findOne({
     where: {
       userName,
       password
     }
   }).then((result)=>{
+    console.log(result);
     if (result.userName===userName && result.password===password) {
       console.log(`${userName} successfully logged in...`);
       currentUser = result.dataValues;
+      console.log('firing right before sending 200');
       res.sendStatus(200);
       // res.redirect('/userView');
     }

@@ -9,7 +9,7 @@ $(document).ready(() => {
 
 	//click event for submitting login
 	$('#login-submit').on('click', (event) =>{
-		event.preventDefault();
+		// event.preventDefault();
 		loginUser();
 	});
 
