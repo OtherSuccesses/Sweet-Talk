@@ -51,24 +51,42 @@ router.get('/#init', (req,res) => {
 	console.log('redirect to init');
 
 });
-;
+
 //****************************************************************************************************
 //passport create and this needs to be integrated ****************************************************
 //****************************************************************************************************
 //post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {
-	console.log('new user: ', req.body)
-    let {userName, password, gender, seeking, age, online} = req.body;
+  console.log('New user created: ', req.body)
+  let {userName, password, gender, seeking, age, online} = req.body;
+  db.sequelize.define(userName, {
+    userName: {
+        type: db.Sequelize.STRING,
+        allowNull: false,
+        primaryKey: true,
+        validate:{
+            isAlphanumeric: true
+        }
+    },
+    swiped: {
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false
+    }
+  }, {
+    freezeTableName: true
+  });
+  db.sequelize.sync().then(() => {
     db.User.create({
       userName,
       password,
       gender,
       seeking,
-      age, 
+      age,
       online
     }).then(function(data) {
       res.redirect('/');
     });
+  })
 });
 
 //Code that actually updates user data!
