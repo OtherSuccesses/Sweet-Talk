@@ -55,5 +55,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: true,
         }
     });
+    console.log(typeof User);
     return User;
 };
