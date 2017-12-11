@@ -45,6 +45,14 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 min: 18
             }
+        },
+        img: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        bio: {
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     });
     return User;
