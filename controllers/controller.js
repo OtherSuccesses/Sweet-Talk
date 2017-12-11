@@ -3,29 +3,6 @@ const db = require("../models");
 const router = express.Router();
 let currentUser = {},
     users = [];
-//DUMMY DATA FOR TESTING RENDERING USERS IN userView
-let dummyUserArr = [
-  {
-    userName: 'Dummy User1',
-    img: 'https://www.fillmurray.com/300/300',
-    bio: 'I like corn.  Corn is life.'
-  },
-  {
-    userName: 'Dummy User2',
-    img: 'https://www.fillmurray.com/300/300',
-    bio: 'I like corn.  Corn is life.'
-  },
-  {
-    userName: 'Dummy User3',
-    img: 'https://www.fillmurray.com/300/300',
-    bio: 'I like corn.  Corn is life.'
-  },
-  {
-    userName: 'Dummy User4',
-    img: 'https://www.fillmurray.com/300/300',
-    bio: 'I like corn.  Corn is life.'
-  }
-];
 
 router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
@@ -42,15 +19,22 @@ router.get("/userView", (req,res) => {
   }).then((results)=>{
     
     results.map(user => users.push(user.dataValues))
-    
-    console.log('results from findAll:', users)
   });
-	res.render("userView", {users, title: 'User View'});
+	res.render("userView", {users, title: 'User View', currentUser});
 });
 
 //route to init page
 router.get('/#init', (req,res) => {
 	console.log('redirect to init');
+});
+
+router.get('/api/update/:userName', (req,res) => {
+  console.log('username from profile submit:',req.params.userName);
+  if (req.params.userName===currentUser.userName){
+    res.json(currentUser);
+  } else {
+    res.status(404).end();
+  }
 
 });
 
@@ -67,7 +51,6 @@ router.post('/login', function (req, res) {
     if (result.userName===userName && result.password===password) {
       console.log(`${userName} successfully logged in...`);
       currentUser = result.dataValues;
-      console.log(currentUser)
       res.sendStatus(200);
       // res.redirect('/userView');
     }
@@ -76,7 +59,7 @@ router.post('/login', function (req, res) {
 
 //post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {
-	console.log('new user: ', req.body)
+	console.log('New user created: ', req.body)
     let {userName, password, gender, seeking, age, online} = req.body;
     db.User.create({
       userName,
@@ -90,8 +73,19 @@ router.post('/api/create', function (req, res) {
     });
 });
 
+router.post('/api/update', (req,res) => {
+  console.log('body from post to /api/update',req.body);
+  //
+  // TODO: write sequelize statement to update user with info from req.body
+  //
+  res.status(200).end();
+})
+
 router.post('/userView/swipe', (req,res) => {
   console.log('body from userview swipe:',req.body);
+  //
+  // TODO: write sequelize statement to update user with info from req.body
+  //
   res.sendStatus(200);
 })
 

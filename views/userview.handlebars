@@ -2,9 +2,11 @@
 	<img src="/assets/img/favicon.ico" alt="" class="logo">
 	<nav>
 		<ul>
-			<li>Inbox</li>
+			<li id="update-account" class="navItem">Profile</li>
 			<li>|</li>
-			<li>Conversations</li>
+			<li class="navItem">Inbox</li>
+			<li>|</li>
+			<li class="navItem">Conversations</li>
 		</ul>
 	</nav>
 </header>
@@ -25,5 +27,42 @@
 	
 	<h1 class="noMoreText">There are no more users online. Try back later!</h1>
 </div>
+
+<div class="modal" id="update-account-modal">
+		<div class="modal-content">
+			<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+			<div class="modal-header">
+				<h2>Hello {{currentUser.userName}}, update your account:</h2>
+			</div>
+			<div class="modal-body">
+				<form id="update-account-form">
+					{{!-- <input name="update-username" type="text" id="update-username" placeholder="Enter User Name" class="centered text-input"  value="{{currentUser.userName}}" autofocus> --}}
+				{{!-- 	<input name="update-password" type="password" id="update-password" placeholder="Enter Password" class="centered text-input">
+					<input name="update-password" type="password" id="update-password2" placeholder="Re-enter Password" class="centered text-input"> --}}
+					
+					<input name="update-age" type="text" id="update-age" placeholder="Age" class="centered text-input" value="{{currentUser.age}}">
+					<div class="update-gender-wrapper centered">
+						<h3 class="radio-label">I am a:</h3>
+						<input type="radio" name="gender" value="m" id="gender-m">
+						<label for="gender-m">Man</label>
+		  				<input type="radio" name="gender" value="f" id="gender-f">
+		  				<label for="gender-f">Woman</label>
+					</div>
+				
+					<div class="update-seeking-wrapper centered">
+						<h3 class="radio-label">Seeking:</h3>
+						<input type="radio" name="seeking" value="m" id="seeking-m">
+						<label for="seeking-m">Men</label>
+		  				<input type="radio" name="seeking" value="f" id="seeking-f">
+		  				<label for="seeking-f">Women</label>
+					</div>
+					<input name="update-img" id="update-img" type="text" placeholder="Enter image url" class="centered text-input" value="{{currentUser.img}}">
+					<textarea name="bio" id="update-bio" cols="60" rows="5" class="bio"placeholder="Input user Bio" class="centered text-input" value="{{currentUser.bio}}"></textarea>
+					<input name="update-password" type="password" id="update-password" placeholder="Enter password to submit changes" class="centered text-input">
+					<input type="button" value="Update Account!" id="update-submit" class="submit-button centered" data-user="{{currentUser.userName}}">
+				</form>
+			</div>
+		</div> 	
+	</div>{{!-- end of #create-account-modal --}}
 
 <footer></footer>
