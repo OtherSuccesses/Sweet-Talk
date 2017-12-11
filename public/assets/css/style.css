@@ -201,6 +201,61 @@ a:visited {
 }
 
 
+/*******************update account modal*******************/
+
+#update-account-modal {
+	/*height: 100%;*/
+}
+
+#update-age {
+	top: 15%;
+}
+
+.update-gender-wrapper {
+	top: 60%;
+}
+
+.update-seeking-wrapper{
+	top: 70%;
+}
+
+#update-img {
+	top: 55%;
+}
+
+textarea#update-bio {
+	top: 25%;
+	outline: white;
+	color: white;
+	border: none;
+	background: black;
+	/*height: 20px;*/
+	transition: border 500ms ease;
+	font-size: 20px;
+	border-bottom: 1px solid white;
+	width: 50%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: arial;
+}
+
+#update-bio:focus {
+	border-bottom-width: 4px;
+}
+
+#update-bio::-webkit-input-placeholder{
+	color:white;
+	font-size: 15px;
+}
+
+#update-password {
+	top: 80%;
+}
+#update-submit {
+	top: 90%;
+}
+
 /*****************userView.handlebars CSS*****************/
 
 header {
@@ -214,6 +269,10 @@ img.logo {
 	left: 3vh;
 	top: 2vh;
 	height: 50px;;
+}
+
+.navItem {
+	cursor: pointer;
 }
 
 nav ul {

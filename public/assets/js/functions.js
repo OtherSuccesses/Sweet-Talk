@@ -106,3 +106,28 @@ function layerTiles() {
  		}
  	});
  }
+
+function updateUser(element) {
+	let userName = $(element).data('user'),
+		password = $('#update-password').val().trim(),
+		updateUser = {};
+	updateUser.gender   = $("input[name='gender']:checked").val() || undefined;
+	updateUser.seeking  = $("input[name='seeking']:checked").val() || undefined;
+	updateUser.age      = $('#update-age').val().trim() || undefined;
+	updateUser.img      = $('#update-img').val().trim() || undefined;
+	updateUser.bio      = $('#update-bio').val().trim() || undefined;
+
+	$.ajax('/api/update/'+userName, {
+		type:'GET'
+	}).done((res)=>{
+		console.log('currentUser object: ', res)
+		if (res.password === password) {
+			$.ajax('/api/update', {
+				type: 'POST',
+				data: updateUser
+			}).done((result) => {
+				console.log('result from done after post to /api/update:', result)
+			});
+		}
+	});			
+}
