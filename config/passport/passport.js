@@ -4,7 +4,6 @@ module.exports = function(passport, user, db) {
     var User = user; 
     var LocalStrategy = require('passport-local').Strategy; 
     passport.serializeUser(function(user, done) {
-    	console.log(user)
         done(null, user.userName);
     });
     passport.deserializeUser(function(userName, done) {
@@ -34,14 +33,18 @@ module.exports = function(passport, user, db) {
             }).then(function(user) {
                 if (user) {
                     return done(null, false, {
- 	                   message: 'No'
+ 	                   message: 'User name already in use'
                     });
                 } else {
                     var userPassword = generateHash(password);
                     var data =
                         {
                             userName: userName,
-                            password: password
+                            password: password,
+                            age: req.body.age,
+                            seeking: req.body.seeking,
+                            img: req.body.imp,
+                            gender: req.body.gender
                         };
                     db.User.create(data).then(function(newUser, created) {
                         if (!newUser) {

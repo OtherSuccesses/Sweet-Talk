@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
 
-router.get("/userView", (req,res) => {
+router.post("/login", (req,res) => {
   //userview is populating properly with dummy data
 	res.render("userView", {users: dummyUserArr, title: 'User View'});
 
