@@ -17,6 +17,7 @@ $(document).ready(() => {
 	$('#create-submit').on('click', (event) =>{
 		event.preventDefault();
 		createUser();
+		addUserTable();
 	});
 
 	//click event for clearing all inputs

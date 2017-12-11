@@ -53,7 +53,7 @@ router.get('/#init', (req,res) => {
 });
 ;
 //****************************************************************************************************
-//passport create and this needs to be integrated
+//passport create and this needs to be integrated ****************************************************
 //****************************************************************************************************
 //post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {
@@ -70,11 +70,16 @@ router.post('/api/create', function (req, res) {
       res.redirect('/');
     });
 });
-router.post('/api/update', (req,res) => {
+
+//Code that actually updates user data!
+router.post('/api/update/', (req,res) => {
   console.log('body from post to /api/update',req.body);
-  //
-  // TODO: write sequelize statement to update user with info from req.body
-  //
+  db.User.update(req.body, {
+    where:{
+      userName: currentUser.userName
+    }
+  });
+
   res.status(200).end();
 })
 
