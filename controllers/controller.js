@@ -17,8 +17,9 @@ router.get("/userView", (req,res) => {
       // online: true
     }
   }).then((results)=>{
-    
+    console.log(results);
     results.map(user => users.push(user.dataValues))
+    console.log(users);
   });
 	res.render("userView", {users, title: 'User View', currentUser});
 });
@@ -54,23 +55,41 @@ router.post('/login', function (req, res) {
       res.sendStatus(200);
       // res.redirect('/userView');
     }
-  });   
+  });
 });
 
 //post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {
-	console.log('New user created: ', req.body)
-    let {userName, password, gender, seeking, age, online} = req.body;
+  console.log('New user created: ', req.body)
+  let {userName, password, gender, seeking, age, online} = req.body;
+  db.sequelize.define(userName, {
+    userName: {
+        type: db.Sequelize.STRING,
+        allowNull: false,
+        primaryKey: true,
+        validate:{
+            isAlphanumeric: true
+        }
+    },
+    swiped: {
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false
+    }
+  }, {
+    freezeTableName: true
+  });
+  db.sequelize.sync().then(() => {
     db.User.create({
       userName,
       password,
       gender,
       seeking,
-      age, 
+      age,
       online
     }).then(function(data) {
       res.redirect('/');
     });
+  })
 });
 
 router.post('/api/update', (req,res) => {
