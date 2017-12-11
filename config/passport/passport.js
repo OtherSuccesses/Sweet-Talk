@@ -7,7 +7,7 @@ module.exports = function(passport, user, db) {
         done(null, user.userName);
     });
     passport.deserializeUser(function(userName, done) {
-        User.findById(userName).then(function(user) {
+        User.findById(user.userName).then(function(user) {
             if(user){
           		done(null, user.get());
         	} else{
@@ -77,7 +77,7 @@ module.exports = function(passport, user, db) {
 	        }).then(function(user) {
 	            if (!user) {
 	                return done(null, false, {
-	                    message: 'Email does not exist'
+	                    message: 'Username does not exist'
 	                });
 	            }
 	            if (!isValidPassword(user.password, password)) {

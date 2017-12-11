@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("../models");
 const router = express.Router();
+const bCrypt = require('bcrypt-nodejs');
 
 let currentUser = {},
     users = [];
@@ -8,6 +9,7 @@ let currentUser = {},
 router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
+
 //****************************************************************************************************
 //passport get /userView needs to be integrated
 //****************************************************************************************************
@@ -20,7 +22,7 @@ router.get("/userView", (req,res) => {
       // online: true
     }
   }).then((results)=>{
-    
+    console.log("line 23", result);
     results.map(user => users.push(user.dataValues))
   });
   res.render("userView", {users, title: 'User View', currentUser});
@@ -30,18 +32,20 @@ router.get("/userView", (req,res) => {
 //****************************************************************************************************
 router.post('/login', function (req, res) {
   let {userName, password} = req.body;
-
+  console.log(req.body);
   db.User.findOne({
     where: {
       userName,
       password
     }
   }).then((result)=>{
+
     if (result.userName===userName && result.password===password) {
       console.log(`${userName} successfully logged in...`);
+      console.log("line 42", result);
       currentUser = result.dataValues;
       res.sendStatus(200);
-      // res.redirect('/userView');
+      res.redirect('/userView');
     }
   });   
 });
@@ -84,7 +88,7 @@ router.post('/api/create', function (req, res) {
       age,
       online
     }).then(function(data) {
-      res.redirect('/');
+      res.redirect('/userView');
     });
   })
 });
