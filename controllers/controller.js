@@ -22,7 +22,7 @@ router.get("/userView", (req,res) => {
       // online: true
     }
   }).then((results)=>{
-    console.log("line 23", result);
+    console.log("line 23", results);
     results.map(user => users.push(user.dataValues))
   });
   res.render("userView", {users, title: 'User View', currentUser});
