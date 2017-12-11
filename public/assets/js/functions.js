@@ -47,7 +47,7 @@ function createUser() {
 	user.age      = $('#create-age').val().trim();
 	user.online   = 0;
 	if (rightAge && cleanInput && cleanRadio && samePswd) {
-		
+
 		$.ajax('/api/create', {
 			type:'POST',
 			data: user
@@ -55,7 +55,7 @@ function createUser() {
 			console.log('User created: ', user)
 			$('#create-account-modal').fadeOut();
 		});
-	}	
+	}
 }
 
 function clearInputs() {
@@ -66,7 +66,7 @@ function clearInputs() {
 		} else if(type==='text' || type === 'password') {
 			$(item).val('').css('border-color', 'white');
 		}
-	});	
+	});
 }
 
 function userSwipe(element) {
@@ -94,8 +94,8 @@ function userSwipe(element) {
  		console.log('result from then after userview swipe:', result);
  	})
 }
- 
- 
+
+
 function layerTiles() {
  	$('.userTile').each(function (i, item) {
  		$('.noMore').hide();
@@ -129,5 +129,5 @@ function updateUser(element) {
 				console.log('result from done after post to /api/update:', result)
 			});
 		}
-	});			
+	});
 }

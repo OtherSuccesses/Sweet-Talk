@@ -40,4 +40,4 @@ $(document).ready(() => {
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();
 
-});//end of document ready function 
+});//end of document ready function
