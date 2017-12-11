@@ -6,17 +6,19 @@ $(document).ready(() => {
 	closeModal('create-account-modal')
 
 
-	//click event for login
+
+	//click event for submitting login
 	$('#login-submit').on('click', (event) =>{
 		event.preventDefault();
 		loginUser();
 	});
 
+
+	//click event for submitting a newly created user
 	$('#create-submit').on('click', (event) =>{
 		event.preventDefault();
 		createUser();
 	});
-
 
 	//click event for clearing all inputs
 	$('#sign-in, #create-account').on('click', (event) => {
@@ -30,5 +32,7 @@ $(document).ready(() => {
 		userSwipe($(this));
 	});
 
+	//layers user-tiles in the z-axis when userView loads
+	layerTiles();
 
 });//end of document ready function 

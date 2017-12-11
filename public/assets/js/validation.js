@@ -141,7 +141,9 @@ function checkPasswordsEqual() {
 		showError('#create-password2', true)
 		$('#create-password2').val('').attr('placeholder', 'Passwords don\'t match');
 		setTimeout(()=>{
-			$('#create-password2'	).attr('placeholder', placeholder);
+
+			$('#create-password2').attr('placeholder', placeholder);
+
 		}, 1000 * 3);
 		return false;
 	} else {

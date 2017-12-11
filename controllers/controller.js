@@ -32,12 +32,16 @@ router.get("/", (req, res) => {
 
 router.get("/userView", (req,res) => {
   //userview is populating properly with dummy data
+  console.log('firing')
 	res.render("userView", {users: dummyUserArr, title: 'User View'});
 });
+
 //route to init page
 router.get('/#init', (req,res) => {
 	console.log('redirect to init');
-})
+
+});
+
 //post route for login modal. Body is username and password
 router.post('/login', function (req, res) {
   let {userName, password} = req.body;
@@ -52,8 +56,10 @@ router.post('/login', function (req, res) {
 
     if (result.userName===userName && result.password===password) {
       console.log(`${userName} successfully logged in...`);
-      // res.sendStatus(200);
-      res.redirect('/userView')
+
+      res.sendStatus(200);
+      // res.redirect('/userView');
+
     }
   });   
 });
@@ -74,6 +80,10 @@ router.post('/api/create', function (req, res) {
     });
 });
 
+router.post('/userView/swipe', (req,res) => {
+  console.log('body from userview swipe:',req.body);
+  res.sendStatus(200);
+})
 
 router.post('/video', (req, res) => {
   console.log("video post req.body", req.body);

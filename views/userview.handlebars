@@ -1,13 +1,29 @@
-<h1>User View</h1>
+<header>
+	<img src="/assets/img/favicon.ico" alt="" class="logo">
+	<nav>
+		<ul>
+			<li>Inbox</li>
+			<li>|</li>
+			<li>Conversations</li>
+		</ul>
+	</nav>
+</header>
 
 {{#each users}}
 	<div class="userTile centered" id="{{userName}}" data-layer="{{@index}}">
-		<h2>Meet {{userName}}!</h2>
-		<img src="{{img}}" alt="image of {{userName}}">
+		<h2 class="tileTitle">Meet {{userName}}!</h2>
+		<div class="imgContainer">
+			<img src="{{img}}" alt="image of {{userName}}" class="userImage">
+		</div>
 		<p class="userBio">{{bio}}</p>
-		<button class="choose" data-swipe="left" data-user="{{userName}}">left</button>
-		<button class="choose" data-swipe="right" data-user="{{userName}}">right</button>
+		<button class="choose" data-swipe="left" data-user="{{userName}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
+		<button class="choose" data-swipe="right" data-user="{{userName}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
 	</div>
 {{/each}}
 
+<div class="noMore centered">
+	
+	<h1 class="noMoreText">There are no more users online. Try back later!</h1>
+</div>
 
+<footer></footer>
