@@ -88,11 +88,16 @@ router.post('/api/create', function (req, res) {
     });
   })
 });
-router.post('/api/update', (req,res) => {
+
+//Code that actually updates user data!
+router.post('/api/update/', (req,res) => {
   console.log('body from post to /api/update',req.body);
-  //
-  // TODO: write sequelize statement to update user with info from req.body
-  //
+  db.User.update(req.body, {
+    where:{
+      userName: currentUser.userName
+    }
+  });
+
   res.status(200).end();
 })
 
