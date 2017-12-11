@@ -1,10 +1,11 @@
-
 <div class="landing-page-container">
 	<div class="wrapper">
 		<h1 id="main-title">CLEVER TITLE</h1>
 		<div class="button" id="sign-in">SIGN IN</div>
 		<a href="#" id="create-account">Create an account</a>
+
 	  <button id="connect" onclick="location.href = 'http://localhost:3000/#init';">Connect</button>
+
 	</div>
 
 	<div class="modal" id="sign-in-modal">
@@ -15,13 +16,15 @@
 			</div>
 			<div class="modal-body">
 				<form id="sign-in-form">
-					<input name="username" type="text" id="username" placeholder="User Name" class="centered text-input">
+
+					<input name="username" type="text" id="username" placeholder="User Name" class="centered text-input" autofocus>
 					<input name="password" type="password" id="password" placeholder="Password" class="centered text-input">
 					<input type="button" value="Log In" id="login-submit" class="submit-button centered">
 				</form>
 			</div>
 		</div>
 	</div>{{!-- end of #sign-in-modal --}}
+
 
 	<div class="modal" id="create-account-modal">
 		<div class="modal-content">
@@ -57,3 +60,4 @@
 		</div> 	
 	</div>{{!-- end of #create-account-modal --}}
 </div>
+
