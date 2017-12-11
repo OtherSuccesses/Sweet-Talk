@@ -1,7 +1,8 @@
 const express = require("express");
 const db = require("../models");
 const router = express.Router();
-
+let currentUser = {},
+    users = [];
 //DUMMY DATA FOR TESTING RENDERING USERS IN userView
 let dummyUserArr = [
   {
@@ -32,8 +33,19 @@ router.get("/", (req, res) => {
 
 router.get("/userView", (req,res) => {
   //userview is populating properly with dummy data
-  console.log('firing')
-	res.render("userView", {users: dummyUserArr, title: 'User View'});
+  db.User.findAll({
+    where: {
+      gender: currentUser.seeking,
+      seeking: currentUser.gender
+      // online: true
+    }
+  }).then((results)=>{
+    
+    results.map(user => users.push(user.dataValues))
+    
+    console.log('results from findAll:', users)
+  });
+	res.render("userView", {users, title: 'User View'});
 });
 
 //route to init page
@@ -52,14 +64,12 @@ router.post('/login', function (req, res) {
       password
     }
   }).then((result)=>{
-
-
     if (result.userName===userName && result.password===password) {
       console.log(`${userName} successfully logged in...`);
-
+      currentUser = result.dataValues;
+      console.log(currentUser)
       res.sendStatus(200);
       // res.redirect('/userView');
-
     }
   });   
 });
