@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("../models");
 const router = express.Router();
+const bCrypt = require('bcrypt-nodejs');
 
 let currentUser = {},
     users = [];
@@ -8,6 +9,7 @@ let currentUser = {},
 router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
+
 //****************************************************************************************************
 //passport get /userView needs to be integrated
 //****************************************************************************************************
@@ -21,14 +23,17 @@ router.get("/userView", (req,res) => {
       // online: true
     }
   }).then((results)=>{
+
     console.log('firing in /userview .then');
     results.map(user => users.push(user.dataValues))
+
   res.render("userView", {users, title: 'User View', currentUser});
   });
 });
 //****************************************************************************************************
 //passport post /login needs to be integrated
 //****************************************************************************************************
+
 router.post('/login', function (req, res) {
   let {userName, password} = req.body;
   console.log('login on backend is firing')
@@ -48,6 +53,7 @@ router.post('/login', function (req, res) {
     }
   });   
 });
+
 
 //route to init page
 router.get('/#init', (req,res) => {
