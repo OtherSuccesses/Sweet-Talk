@@ -9,11 +9,8 @@ const passport = require('passport');
 const session = require('express-session');
 const env = require('dotenv').load();
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
