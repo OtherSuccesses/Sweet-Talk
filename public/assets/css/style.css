@@ -200,9 +200,111 @@ a:visited {
 	top: 15%;
 }
 
-/****************image stack CSS****************/
+
+/*****************userView.handlebars CSS*****************/
+
+header {
+	height: 10vh;
+	width: 100%;
+	background: orangered;
+}
+
+img.logo {
+	position: absolute;
+	left: 3vh;
+	top: 2vh;
+	height: 50px;;
+}
+
+nav ul {
+	/*float:right;*/
+	list-style: none;
+	font-family: arial;
+	color: white;
+	font-size: 20px;
+	padding:0;
+	margin:0;
+	position: absolute;
+	right: 3vh;
+	top: 3vh;
+}
+
+nav ul li {
+	display: inline;
+	margin: 0 10px;
+}
+
+footer {
+	height: 10vh;
+	width: 100%;
+	background: orangered;
+	position: absolute;
+	bottom: 0;
+}
+
+/*********************image stack CSS*********************/
 
 .userTile {
-	top: 10%;
+	top: 18%;
+	border: 1px solid black;
+	padding: 0 20px 20px;
+	width: 30%;
+	font-family: arial;
+}
+
+.choose {
+	height: 50px;
+	width: 50px;
+	border: none;
+	border-radius: 50%;
+	color: white;
+	outline: none;
+}
+
+[data-swipe="right"] {
+	background: green;
+	float: right;
+	margin-right: 20%;
+}
+
+[data-swipe="left"] {
+	background: red;
+	margin-left: 20%;
+}
+
+.userBio {
+	text-align: center;
+}
+
+.tileTitle {
+	text-align: center;
+}
+
+.imgContainer {
+	height: 20vw;
+	width: 20vw;
+	overflow: hidden;
+	margin: 0 auto;
+	border-radius: 10px;
+}
+.userImage {
+	display: block;
+	max-height: 300px;
+	max-width: 300px;
+	margin: 0 auto;
+	border-radius: 10px;
+}
+
+.noMore {
+	top: 18%;
+	border: 1px solid black;
+	padding: 0 20px 20px;
+	width: 30%;
+	font-family: arial;
+
+}
+
+.noMoreText {
+	text-align: center;
 }
 
