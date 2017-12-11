@@ -2,11 +2,16 @@ const express = require("express");
 const db = require("../models");
 const router = express.Router();
 
+let currentUser = {},
+    users = [];
+
 router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
-
-router.post("/login", (req,res) => {
+//****************************************************************************************************
+//passport get /userView needs to be integrated
+//****************************************************************************************************
+router.get("/userView", (req,res) => {
   //userview is populating properly with dummy data
   db.User.findAll({
     where: {
@@ -15,19 +20,14 @@ router.post("/login", (req,res) => {
       // online: true
     }
   }).then((results)=>{
-    console.log(results);
+    
     results.map(user => users.push(user.dataValues))
-    console.log(users);
   });
-	res.render("userView", {users, title: 'User View', currentUser});
+  res.render("userView", {users, title: 'User View', currentUser});
 });
-
-//route to init page
-router.get('/#init', (req,res) => {
-	console.log('redirect to init');
-
-});
-//post route for login modal. Body is username and password
+//****************************************************************************************************
+//passport post /login needs to be integrated
+//****************************************************************************************************
 router.post('/login', function (req, res) {
   let {userName, password} = req.body;
 
@@ -43,42 +43,48 @@ router.post('/login', function (req, res) {
       res.sendStatus(200);
       // res.redirect('/userView');
     }
-  });
+  });   
 });
 
+//route to init page
+router.get('/#init', (req,res) => {
+	console.log('redirect to init');
+
+});
+;
+//****************************************************************************************************
+//passport create and this needs to be integrated ****************************************************
+//****************************************************************************************************
 //post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {
-  console.log('New user created: ', req.body)
-  let {userName, password, gender, seeking, age, online} = req.body;
-  db.sequelize.define(userName, {
-    userName: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        primaryKey: true,
-        validate:{
-            isAlphanumeric: true
-        }
-    },
-    swiped: {
-        type: db.Sequelize.BOOLEAN,
-        allowNull: false
-    }
-  }, {
-    freezeTableName: true
-  });
-  db.sequelize.sync().then(() => {
+	console.log('new user: ', req.body)
+    let {userName, password, gender, seeking, age, online} = req.body;
     db.User.create({
       userName,
       password,
       gender,
       seeking,
-      age,
+      age, 
       online
     }).then(function(data) {
       res.redirect('/');
     });
-  })
 });
+router.post('/api/update', (req,res) => {
+  console.log('body from post to /api/update',req.body);
+  //
+  // TODO: write sequelize statement to update user with info from req.body
+  //
+  res.status(200).end();
+})
+
+router.post('/userView/swipe', (req,res) => {
+  console.log('body from userview swipe:',req.body);
+  //
+  // TODO: write sequelize statement to update user with info from req.body
+  //
+  res.sendStatus(200);
+})
 
 
 router.post('/video', (req, res) => {
