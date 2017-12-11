@@ -22,33 +22,33 @@ router.get("/userView", (req,res) => {
       // online: true
     }
   }).then((results)=>{
-    console.log("line 23", result);
-    // results.map(user => users.push(user.dataValues))
+    console.log("line 23", results);
+    results.map(user => users.push(user.dataValues))
   });
   res.render("userView", {users, title: 'User View', currentUser});
 });
 //****************************************************************************************************
 //passport post /login needs to be integrated
 //****************************************************************************************************
-// router.post('/login', function (req, res) {
-//   let {userName, password} = req.body;
-//   console.log(req.body);
-//   db.User.findOne({
-//     where: {
-//       userName,
-//       password: hashedPassword
-//     }
-//   }).then((result)=>{
+router.post('/login', function (req, res) {
+  let {userName, password} = req.body;
+  console.log(req.body);
+  db.User.findOne({
+    where: {
+      userName,
+      password
+    }
+  }).then((result)=>{
 
-//     if (result.userName===userName && result.password===password) {
-//       console.log(`${userName} successfully logged in...`);
-//       console.log("line 42", result);
-//       // currentUser = result.dataValues;
-//       // res.sendStatus(200);
-//       res.redirect('/userView');
-//     }
-//   });   
-// });
+    if (result.userName===userName && result.password===password) {
+      console.log(`${userName} successfully logged in...`);
+      console.log("line 42", result);
+      currentUser = result.dataValues;
+      res.sendStatus(200);
+      res.redirect('/userView');
+    }
+  });   
+});
 
 //route to init page
 router.get('/#init', (req,res) => {
@@ -88,7 +88,7 @@ router.post('/api/create', function (req, res) {
       age,
       online
     }).then(function(data) {
-      res.redirect('/');
+      res.redirect('/userView');
     });
   })
 });
