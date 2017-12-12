@@ -3,6 +3,7 @@ const db = require("../models");
 const router = express.Router();
 const bCrypt = require('bcrypt-nodejs');
 
+
 let currentUser = {},
     users = [];
 
@@ -13,8 +14,7 @@ router.get("/", (req, res) => {
 //****************************************************************************************************
 //passport get /userView needs to be integrated
 //****************************************************************************************************
-router.get("/userView", (req,res) => {
-  //userview is populating properly with dummy data
+router.get("/userView", function (req,res) {
   db.User.findAll({
     where: {
       gender: currentUser.seeking,
@@ -22,30 +22,40 @@ router.get("/userView", (req,res) => {
       // online: true
     }
   }).then((results)=>{
-    console.log("line 23", result);
-    results.map(user => users.push(user.dataValues))
+    console.log("line 23", results[0].dataValues);
+    var users = [];
+    for(var i = 0; i<results.length; i++) {
+      users[i] = results[i].dataValues;
+    }
+    var handlebarsObject = {
+      currentUser: currentUser,
+      users: users 
+    };
+    console.log(res);
+    // results.map(user => users.push(user.dataValues));
+    res.render("userview.handlebars", handlebarsObject);
+      // , {users, title: 'User View', currentUser});
   });
-  res.render("userView", {users, title: 'User View', currentUser});
+  
 });
 //****************************************************************************************************
 //passport post /login needs to be integrated
 //****************************************************************************************************
 router.post('/login', function (req, res) {
   let {userName, password} = req.body;
-  console.log(req.body);
   db.User.findOne({
     where: {
-      userName,
-      password
+      userName: req.body.userName,
+      password: req.body.password
     }
   }).then((result)=>{
-
-    if (result.userName===userName && result.password===password) {
-      console.log(`${userName} successfully logged in...`);
-      console.log("line 42", result);
-      currentUser = result.dataValues;
-      res.sendStatus(200);
-      res.redirect('/userView');
+      if (result.dataValues.userName===req.body.userName && result.dataValues.password===req.body.password) {
+        console.log(`${userName} successfully logged in...`);
+        // console.log("line 42", JSON.stringify(result.dataValues));
+        currentUser = result.dataValues;
+        console.log(currentUser);
+        // res.sendStatus(200);
+        res.redirect('/userView');
     }
   });   
 });

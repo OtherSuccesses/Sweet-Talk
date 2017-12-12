@@ -11,8 +11,8 @@ function closeModal(modalId) {
 		$('#' + modalId).fadeOut();
 	});
 }
-
 function loginUser() {
+	console.log('loginUser called')
 	let clean = false;
 	let user = {}
 	user.userName = $('#username').val().trim();
@@ -24,12 +24,11 @@ function loginUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-
-			if (res==='OK') {
+			console.log(res);
+			// if (res) {
 				console.log('User logged in: ', user)
 				$('#sign-in-modal').fadeOut();
-				$.get('/userView');
-			}
+				window.location.href="/userView";
 		});
 	}
 }
