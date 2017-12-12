@@ -118,7 +118,7 @@ a:visited {
 .submit-button:hover {
 	transform: translate(-50%, -5px) scale(1.1);
 	box-shadow: 0px 15px 26px -14px rgba(255,255,255,0.8);
-} 
+}
 
 .modal-content input[type="radio"] {
 	background: green;
@@ -163,7 +163,7 @@ a:visited {
 }
 
 #login-submit {
-	top: 60%;	
+	top: 60%;
 }
 
 /*******************create-account-modal CSS******************/
@@ -320,13 +320,13 @@ footer {
 	outline: none;
 }
 
-[data-swipe="right"] {
+[data-swipe="true"] {
 	background: green;
 	float: right;
 	margin-right: 20%;
 }
 
-[data-swipe="left"] {
+[data-swipe="false"] {
 	background: red;
 	margin-left: 20%;
 }
@@ -366,4 +366,3 @@ footer {
 .noMoreText {
 	text-align: center;
 }
-

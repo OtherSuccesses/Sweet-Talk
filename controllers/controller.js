@@ -74,6 +74,11 @@ router.post('/api/create', function (req, res) {
   console.log('New user created: ', req.body)
   let {userName, password, gender, seeking, age, online} = req.body;
   db.sequelize.define(userName, {
+    id: {
+        type: db.Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
     userName: {
         type: db.Sequelize.STRING,
         allowNull: false,
@@ -87,7 +92,8 @@ router.post('/api/create', function (req, res) {
         allowNull: false
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   });
   db.sequelize.sync().then(() => {
     db.User.create({
