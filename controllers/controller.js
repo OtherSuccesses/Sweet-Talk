@@ -4,7 +4,7 @@ const router = express.Router();
 const bCrypt = require('bcrypt-nodejs');
 
 
-let currentUser = {},
+var currentUser = {},
     users = [];
 
 router.get("/", (req, res) => {
@@ -29,14 +29,14 @@ router.get("/userView", function (req,res) {
     }
     var handlebarsObject = {
       currentUser: currentUser,
-      users: users 
+      users: users
     };
     console.log(res);
     // results.map(user => users.push(user.dataValues));
     res.render("userview.handlebars", handlebarsObject);
       // , {users, title: 'User View', currentUser});
   });
-  
+
 });
 //****************************************************************************************************
 //passport post /login needs to be integrated
@@ -57,7 +57,7 @@ router.post('/login', function (req, res) {
         // res.sendStatus(200);
         res.redirect('/userView');
     }
-  });   
+  });
 });
 
 //route to init page
@@ -116,11 +116,12 @@ router.post('/api/update/', (req,res) => {
 })
 
 router.post('/userView/swipe', (req,res) => {
+  console.log(currentUser);
   console.log('body from userview swipe:',req.body);
-  //
-  // TODO: write sequelize statement to update user with info from req.body
-  //
-  res.sendStatus(200);
+
+  db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`).then(() => {
+      res.sendStatus(200);
+  });
 })
 
 

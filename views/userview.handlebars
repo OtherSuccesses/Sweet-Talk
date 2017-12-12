@@ -19,13 +19,13 @@
 			<img src="{{img}}" alt="image of {{userName}}" class="userImage">
 		</div>
 		<p class="userBio">{{bio}}</p>
-		<button class="choose" data-swipe="left" data-user="{{userName}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
-		<button class="choose" data-swipe="right" data-user="{{userName}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
+		<button class="choose" data-swipe="false" data-user="{{userName}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
+		<button class="choose" data-swipe="true" data-user="{{userName}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
 	</div>
 {{/each}}
 
 <div class="noMore centered">
-	
+
 	<h1 class="noMoreText">There are no more users online. Try back later!</h1>
 </div>
 
@@ -40,7 +40,7 @@
 					{{!-- <input name="update-username" type="text" id="update-username" placeholder="Enter User Name" class="centered text-input"  value="{{currentUser.userName}}" autofocus> --}}
 				{{!-- 	<input name="update-password" type="password" id="update-password" placeholder="Enter Password" class="centered text-input">
 					<input name="update-password" type="password" id="update-password2" placeholder="Re-enter Password" class="centered text-input"> --}}
-					
+
 					<input name="update-age" type="text" id="update-age" placeholder="Age" class="centered text-input" value="{{currentUser.age}}">
 					<div class="update-gender-wrapper centered">
 						<h3 class="radio-label">I am a:</h3>
@@ -49,7 +49,7 @@
 		  				<input type="radio" name="gender" value="f" id="gender-f">
 		  				<label for="gender-f">Woman</label>
 					</div>
-				
+
 					<div class="update-seeking-wrapper centered">
 						<h3 class="radio-label">Seeking:</h3>
 						<input type="radio" name="seeking" value="m" id="seeking-m">
@@ -63,7 +63,7 @@
 					<input type="button" value="Update Account!" id="update-submit" class="submit-button centered" data-user="{{currentUser.userName}}">
 				</form>
 			</div>
-		</div> 	
+		</div>
 	</div>{{!-- end of #create-account-modal --}}
 
 <footer></footer>
