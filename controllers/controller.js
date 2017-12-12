@@ -25,7 +25,9 @@ router.get("/userView", function (req,res) {
     console.log("line 23", results[0].dataValues);
     var users = [];
     for(var i = 0; i<results.length; i++) {
-      users[i] = results[i].dataValues;
+      if(results[i].dataValues.userName !== currentUser.userName) {
+        users[i] = results[i].dataValues;
+      }
     }
     var handlebarsObject = {
       currentUser: currentUser,
