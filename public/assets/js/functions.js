@@ -145,7 +145,4 @@ function updateUser(element) {
 function signOut() {
 	$.ajax('/logout', {type: 'GET'});
 }
-// $('#sign-out').on('click', function (event) {
-	// event.preventDefault();
-// 	signOut();
-// });
+
