@@ -137,6 +137,7 @@ function updateUser(element) {
 				type: 'POST',
 				data: updateUser
 			}).done((result) => {
+				
 				console.log('result from done after post to /api/update:', result);
 			});
 		}
