@@ -11,6 +11,7 @@ function closeModal(modalId) {
 		$('#' + modalId).fadeOut();
 	});
 }
+
 function loginUser() {
 	console.log('loginUser called')
 	let clean = false;
@@ -44,6 +45,11 @@ function createUser() {
 	user.gender   = $("input[name='gender']:checked").val();
 	user.seeking  = $("input[name='seeking']:checked").val();
 	user.age      = $('#create-age').val().trim();
+	if (user.gender==='m') {
+		user.img =  $('#create-img').val()==='' ? '/assets/img/default_man.jpg':$('#create-img').val().trim();
+	} else {
+		user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
+	}
 	user.online   = 0;
 	if (rightAge && cleanInput && cleanRadio && samePswd) {
 
@@ -100,7 +106,6 @@ function userSwipe(element) {
  	})
 }
 
-
 function layerTiles() {
  	$('.userTile').each(function (i, item) {
  		$('.noMore').hide();
@@ -119,11 +124,8 @@ function updateUser(element) {
 	updateUser.gender   = $("input[name='gender']:checked").val() || undefined;
 	updateUser.seeking  = $("input[name='seeking']:checked").val() || undefined;
 	updateUser.age      = $('#update-age').val().trim() || undefined;
-	if (user.gender==='m') {
-		updateUser.img = $('#update-img').val().trim() || '/assets/img/default_man.jpg';
-	} else {
-		updateUser.img = $('#update-img').val().trim() || '/assets/img/default_woman.jpg';
-	}
+	updateUser.img      = $('#update-img').val().trim() || undefined;
+	updateUser.img      = $('#update-img').val().trim() || undefined;
 	updateUser.bio      = $('#update-bio').val().trim() || undefined;
 
 	$.ajax('/api/update/'+userName, {
@@ -140,7 +142,6 @@ function updateUser(element) {
 		}
 	});
 }
-
 
 function signOut() {
 	$.ajax('/logout', {type: 'GET'});
