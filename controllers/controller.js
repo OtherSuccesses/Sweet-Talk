@@ -34,7 +34,8 @@ router.get("/userView", function (req,res) {
       // online: true
     }
   }).then((results)=>{
-    //console.log("line 23", results[0].dataValues);
+
+
     var users = [];
     for(var i = 0; i<results.length; i++) {
       if(results[i].dataValues.userName !== currentUser.userName) {
@@ -118,7 +119,7 @@ router.post('/api/create', function (req, res) {
       age,
       online
     }).then(function(data) {
-      res.redirect('/userView');
+      res.sendStatus(200);
     });
   })
 });
