@@ -6,13 +6,15 @@ $(document).ready(function() {
     const peer = new Peer({
       initiator: location.hash === "#init",
       trickle: false,
+      stream: stream
     });
-
+    console.log(location);
     if (location.hash === "#init") {
+      console.log("location.hash has been fired");
       peer.on('signal', (data) => {
         let id = data;
         console.log("Initiator ID", id);
-        $.post("/video", id);
+        $.post("/userView/swipe", id);
       });
     } else {
       peer.on('signal', (data) => {

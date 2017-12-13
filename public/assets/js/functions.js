@@ -80,7 +80,7 @@ function userSwipe(element) {
  		tileArr = [],
  		layer = $(element).data('layer'),
  		swipeData ={};
-
+ 		
  		swipeData.user = user;
  		swipeData.swipe = swipe;
  	$(element).parent().hide()

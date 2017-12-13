@@ -46,7 +46,6 @@ router.get("/userView", function (req,res) {
       currentUser: currentUser,
       users: users
     };
-    console.log(res);
     // results.map(user => users.push(user.dataValues));
     res.render("userview.handlebars", handlebarsObject);
       // , {users, title: 'User View', currentUser});
@@ -76,10 +75,6 @@ router.post('/login', function (req, res) {
 });
 
 //route to init page
-router.get('/#init', (req,res) => {
-	console.log('redirect to init');
-
-});
 
 //****************************************************************************************************
 //passport create and this needs to be integrated ****************************************************
@@ -142,10 +137,20 @@ router.post('/userView/swipe', (req,res) => {
   console.log(currentUser);
   console.log('body from userview swipe:',req.body);
 
+  //Update current users swipe table
   db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`).then(() => {
       res.sendStatus(200);
   });
-})
+
+  //Check for match on right swipe
+  if (req.body.swipe === "true") {
+    db.sequelize.query(`SELECT * FROM ${req.body.user} WHERE userName='${currentUser.userName}';`).then((data) => { 
+      if (data[0][0].swiped === 1) {
+        console.log("It's a match!");
+      };
+    });
+  };
+});
 
 //Video Chat Route
 router.post('/video', (req, res) => {
@@ -154,6 +159,8 @@ router.post('/video', (req, res) => {
   db.VideoChat.create({
     initiatorId: req.body,
     recId: null,
+    initiatorUserName: currentUser.userName,
+    recUserName: null,
   }).then(function(result) {
     res.json(result);
   });
