@@ -11,7 +11,6 @@ router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
 
-
 //Get function to bring back the password
 router.get("/api/update/:username", function (req, res){
   db.User.findOne({
@@ -23,109 +22,10 @@ router.get("/api/update/:username", function (req, res){
     });
 });
 
-//****************************************************************************************************
-//passport get /userView needs to be integrated
-//****************************************************************************************************
-router.get("/userView", function (req,res) {
-  db.User.findAll({
-    where: {
-      gender: currentUser.seeking,
-      seeking: currentUser.gender
-      // online: true
-    }
-  }).then((results)=>{
-
-
-    var users = [];
-    for(var i = 0; i<results.length; i++) {
-      if(results[i].dataValues.userName !== currentUser.userName) {
-        users[i] = results[i].dataValues;
-      }
-    }
-    
-    var handlebarsObject = {
-      currentUser: currentUser,
-      users: users
-    };
-    // results.map(user => users.push(user.dataValues));
-    res.render("userview.handlebars", handlebarsObject);
-      // , {users, title: 'User View', currentUser});
-  });
-
-});
-
-
-//****************************************************************************************************
-//passport post /login needs to be integrated
-//****************************************************************************************************
-router.post('/login', function (req, res) {
-  let {userName, password} = req.body;
-  db.User.findOne({
-    where: {
-      userName: req.body.userName,
-      password: req.body.password
-    }
-  }).then((result)=>{
-      if (result.dataValues.userName===req.body.userName && result.dataValues.password===req.body.password) {
-        console.log(`${userName} successfully logged in...`);
-        // console.log("line 42", JSON.stringify(result.dataValues));
-        currentUser = result.dataValues;
-        console.log(currentUser);
-        // res.sendStatus(200);
-        res.redirect('/userView');
-    }
-  });
-});
-
 //route to init page
 router.get('/#init', (req,res) => {
 	console.log('redirect to init');
 
-});
-
-//****************************************************************************************************
-//passport create and this needs to be integrated ****************************************************
-//****************************************************************************************************
-//post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
-router.post('/api/create', function (req, res) {
-  console.log('New user created: ', req.body)
-  let {userName, password, gender, seeking, age, img, bio, online} = req.body;
-  db.sequelize.define(userName, {
-    id: {
-        type: db.Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    userName: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        primaryKey: true,
-        validate:{
-            isAlphanumeric: true
-        }
-    },
-    swiped: {
-        type: db.Sequelize.BOOLEAN,
-        allowNull: false
-    }
-  }, {
-    freezeTableName: true,
-    timestamps: false
-  });
-  db.sequelize.sync().then(() => {
-    db.User.create({
-      userName,
-      password,
-      gender,
-      seeking,
-      age,
-      img,
-      bio,
-      online
-    }).then(function(data) {
-      res.sendStatus(200);
-    });
-  })
 });
 
 //Code that actually updates user data!
