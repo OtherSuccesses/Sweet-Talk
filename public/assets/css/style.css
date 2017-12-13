@@ -83,9 +83,9 @@ a:visited {
 
 .modal-content {
 	color: white;
-	margin: 10% auto;
+	margin: 5% auto;
 	width: 50%;
-	min-height: 60%;
+	min-height: 70%;
 	background: black;
 	position: relative;
 	border-radius: 10px;
@@ -173,31 +173,60 @@ a:visited {
 }
 
 #create-submit {
-	top: 85%;
+	top: 90%;
 }
 
+
+textarea#create-bio {
+	top: 70%;
+	outline: white;
+	color: white;
+	border: none;
+	background: black;
+	transition: border 500ms ease;
+	font-size: 20px;
+	border-bottom: 1px solid white;
+	width: 50%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: arial;
+}
+
+#create-bio:focus {
+	border-bottom-width: 4px;
+}
+
+#create-bio::-webkit-input-placeholder{
+	color:white;
+	font-size: 15px;
+}
+
+#create-img {
+	top: 60%;
+}
 .seeking-wrapper {
-	top: 65%;
+	top: 50%;
 }
 
 .gender-wrapper {
-	top: 55%;
+	top: 40%;
 }
 
 #create-password2 {
-	top: 45%;
+	top: 32%;
 }
 
 #create-password {
-	top: 35%;
+	top: 24%;
 }
 
 #create-age {
-	top: 25%;
+	top: 17%;
 }
 
 #create-username {
-	top: 15%;
+	top: 10%;
 }
 
 
@@ -212,24 +241,23 @@ a:visited {
 }
 
 .update-gender-wrapper {
-	top: 60%;
+	top: 20%;
 }
 
 .update-seeking-wrapper{
-	top: 70%;
+	top: 30%;
 }
 
 #update-img {
-	top: 55%;
+	top: 45%;
 }
 
 textarea#update-bio {
-	top: 25%;
+	top: 55%;
 	outline: white;
 	color: white;
 	border: none;
 	background: black;
-	/*height: 20px;*/
 	transition: border 500ms ease;
 	font-size: 20px;
 	border-bottom: 1px solid white;

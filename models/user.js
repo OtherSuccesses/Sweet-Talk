@@ -44,10 +44,12 @@ module.exports = function(sequelize, DataTypes) {
         img: {
             type: DataTypes.STRING,
             allowNull: true,
+
         },
         bio: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: "This user hasn't entered any information"
         }
     });
     console.log(typeof User);

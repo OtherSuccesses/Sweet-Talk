@@ -11,6 +11,17 @@ router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
 
+//Get function to bring back the password
+router.get("/api/update/:username", function (req, res){
+  db.User.findOne({
+    where: {
+      username: currentUser.userName
+    }
+  }).then((results)=>{
+      res.json(results);
+    });
+});
+
 //route to init page
 router.get('/#init', (req,res) => {
 	console.log('redirect to init');
@@ -19,15 +30,16 @@ router.get('/#init', (req,res) => {
 
 //Code that actually updates user data!
 router.post('/api/update/', (req,res) => {
-  console.log('body from post to /api/update',req.body);
+
+  console.log('body from post to /api/update', req.body);
   db.User.update(req.body, {
     where:{
       userName: currentUser.userName
     }
+  }).then(function () {
+    res.sendStatus(200).end(); 
   });
-
-  res.status(200).end();
-})
+});
 
 //Route to log swipes to personal DB
 router.post('/userView/swipe', (req,res) => {
