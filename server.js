@@ -25,7 +25,7 @@ app.set("view engine", "handlebars");
 
 // const authRoute = require('./routes/auth.js')(app, passport);
 // require('./config/passport/passport.js')(passport, db.user, db);
-
+db.sequelize.sync();
 app.use("/", routes);
 app.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);

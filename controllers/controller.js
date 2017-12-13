@@ -123,6 +123,7 @@ router.post('/api/update/', (req,res) => {
   res.status(200).end();
 })
 
+//Route to log swipes to personal DB
 router.post('/userView/swipe', (req,res) => {
   console.log(currentUser);
   console.log('body from userview swipe:',req.body);
@@ -132,7 +133,7 @@ router.post('/userView/swipe', (req,res) => {
   });
 })
 
-
+//Video Chat Route
 router.post('/video', (req, res) => {
   console.log("video post req.body", req.body);
 
