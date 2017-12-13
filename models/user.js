@@ -10,17 +10,12 @@ module.exports = function(sequelize, DataTypes) {
                 len: [8,25]
             }
         },
-        online: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-
-        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
             isAlphanumeric: true,
             validate: {
-                len: [8, 30]
+                len: [8, 1000]
             }
         },
         gender: {
@@ -49,10 +44,12 @@ module.exports = function(sequelize, DataTypes) {
         img: {
             type: DataTypes.STRING,
             allowNull: true,
+
         },
         bio: {
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: "This user hasn't entered any information"
         }
     });
     console.log(typeof User);

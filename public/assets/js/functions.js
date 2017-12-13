@@ -11,6 +11,7 @@ function closeModal(modalId) {
 		$('#' + modalId).fadeOut();
 	});
 }
+
 function loginUser() {
 	console.log('loginUser called')
 	let clean = false;
@@ -25,11 +26,12 @@ function loginUser() {
 			data: user
 		}).done((res)=>{
 			console.log(res);
-			// if (res) {
+			if (res = "OK") {
 				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
-		});
+			}
+		})
 	}
 }
 
@@ -44,6 +46,11 @@ function createUser() {
 	user.gender   = $("input[name='gender']:checked").val();
 	user.seeking  = $("input[name='seeking']:checked").val();
 	user.age      = $('#create-age').val().trim();
+	if (user.gender==='m') {
+		user.img =  $('#create-img').val()==='' ? '/assets/img/default_man.jpg':$('#create-img').val().trim();
+	} else {
+		user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
+	}
 	user.online   = 0;
 	if (rightAge && cleanInput && cleanRadio && samePswd) {
 
@@ -58,7 +65,7 @@ function createUser() {
 				$('#sign-in-modal').show();
 				$('#username').val(user.userName);
 				$('#password').val(user.password);
-			}
+			} 
 		});
 	}
 }
@@ -84,7 +91,7 @@ function userSwipe(element) {
  		swipeData.user = user;
  		swipeData.swipe = swipe;
  	$(element).parent().hide()
- 	$(element).parent().next().show()
+ 	$(element).parent().next().showi()
  	$('.userTile').each(function (i, item) {
  		tileArr.push(item);
  	});
@@ -99,7 +106,6 @@ function userSwipe(element) {
  		console.log('result from then after userview swipe:', result);
  	})
 }
-
 
 function layerTiles() {
  	$('.userTile').each(function (i, item) {
@@ -120,6 +126,7 @@ function updateUser(element) {
 	updateUser.seeking  = $("input[name='seeking']:checked").val() || undefined;
 	updateUser.age      = $('#update-age').val().trim() || undefined;
 	updateUser.img      = $('#update-img').val().trim() || undefined;
+	updateUser.img      = $('#update-img').val().trim() || undefined;
 	updateUser.bio      = $('#update-bio').val().trim() || undefined;
 
 	$.ajax('/api/update/'+userName, {
@@ -131,8 +138,14 @@ function updateUser(element) {
 				type: 'POST',
 				data: updateUser
 			}).done((result) => {
-				console.log('result from done after post to /api/update:', result)
+				
+				console.log('result from done after post to /api/update:', result);
 			});
 		}
 	});
 }
+
+function signOut() {
+	$.ajax('/logout', {type: 'GET'});
+}
+

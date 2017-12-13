@@ -11,7 +11,6 @@ router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
 
-
 //Get function to bring back the password
 router.get("/api/update/:username", function (req, res){
   db.User.findOne({
@@ -73,51 +72,7 @@ router.post('/login', function (req, res) {
     }
   });
 });
-
 //route to init page
-
-//****************************************************************************************************
-//passport create and this needs to be integrated ****************************************************
-//****************************************************************************************************
-//post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
-router.post('/api/create', function (req, res) {
-  console.log('New user created: ', req.body)
-  let {userName, password, gender, seeking, age, online} = req.body;
-  db.sequelize.define(userName, {
-    id: {
-        type: db.Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    userName: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        primaryKey: true,
-        validate:{
-            isAlphanumeric: true
-        }
-    },
-    swiped: {
-        type: db.Sequelize.BOOLEAN,
-        allowNull: false
-    }
-  }, {
-    freezeTableName: true,
-    timestamps: false
-  });
-  db.sequelize.sync().then(() => {
-    db.User.create({
-      userName,
-      password,
-      gender,
-      seeking,
-      age,
-      online
-    }).then(function(data) {
-      res.sendStatus(200);
-    });
-  })
-});
 
 //Code that actually updates user data!
 router.post('/api/update/', (req,res) => {
@@ -127,10 +82,10 @@ router.post('/api/update/', (req,res) => {
     where:{
       userName: currentUser.userName
     }
+  }).then(function () {
+    res.sendStatus(200).end(); 
   });
-
-  res.status(200).end();
-})
+});
 
 //Route to log swipes to personal DB
 router.post('/userView/swipe', (req,res) => {
