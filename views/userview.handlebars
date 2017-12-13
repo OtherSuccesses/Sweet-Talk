@@ -19,13 +19,13 @@
 			<img src="{{img}}" alt="image of {{userName}}" class="userImage">
 		</div>
 		<p class="userBio">{{bio}}</p>
-		<button class="choose" data-swipe="false" data-user="{{userName}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
-		<button class="choose" data-swipe="true" data-user="{{userName}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
+		<button class="choose" data-swipe="false" data-user="{{userName}}" data-login="{{currentUser}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
+		<button class="choose" data-swipe="true" data-user="{{userName}}" data-login="{{currentUser}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
 	</div>
 {{/each}}
 
 <div class="noMore centered">
-
+	
 	<h1 class="noMoreText">There are no more users online. Try back later!</h1>
 </div>
 

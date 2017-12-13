@@ -14,6 +14,7 @@ router.get("/", (req, res) => {
 
 //Get function to bring back the password
 router.get("/api/update/:username", function (req, res){
+  console.log("update req.body ", req.body);
   db.User.findOne({
     where: {
       username: currentUser.userName
@@ -38,7 +39,9 @@ router.get("/userView", function (req,res) {
     var users = [];
     for(var i = 0; i<results.length; i++) {
       if(results[i].dataValues.userName !== currentUser.userName) {
+        results[i].dataValues["currentUser"] = currentUser.userName;
         users[i] = results[i].dataValues;
+
       }
     }
     var handlebarsObject = {
@@ -136,8 +139,24 @@ router.post('/api/update/', (req,res) => {
   res.status(200).end();
 })
 
+
+//Route to check the swipe database for duplicates 
+router.get('/userView/swipe/:username', (req, res)=>{
+  db.sequelize.query(`SELECT * FROM ${currentUser.userName};`, (err, res)=> {
+    if (err){
+      console.log(err);
+    }
+
+  }).then(function(result){
+    console.log("req console ", req);
+    console.log("Then result ", result[0]);
+    //console.log("legible result", res.json({result:result[0]}));
+    res.json({result:result[0]});
+  });
+});
+
 //Route to log swipes to personal DB
-router.post('/userView/swipe', (req,res) => {
+router.post('/userView/swipe', (req, res) => {
   console.log(currentUser);
   console.log('body from userview swipe:',req.body);
 
