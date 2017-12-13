@@ -25,11 +25,12 @@ function loginUser() {
 			data: user
 		}).done((res)=>{
 			console.log(res);
-			// if (res) {
+			if (res = "OK") {
 				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
-		});
+			}
+		})
 	}
 }
 
@@ -84,7 +85,7 @@ function userSwipe(element) {
  		swipeData.user = user;
  		swipeData.swipe = swipe;
  	$(element).parent().hide()
- 	$(element).parent().next().show()
+ 	$(element).parent().next().showi()
  	$('.userTile').each(function (i, item) {
  		tileArr.push(item);
  	});

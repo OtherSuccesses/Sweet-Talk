@@ -10,17 +10,12 @@ module.exports = function(sequelize, DataTypes) {
                 len: [8,25]
             }
         },
-        online: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-
-        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
             isAlphanumeric: true,
             validate: {
-                len: [8, 30]
+                len: [8, 1000]
             }
         },
         gender: {
