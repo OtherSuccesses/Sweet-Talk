@@ -27,7 +27,6 @@ app.set("view engine", "handlebars");
 // require('./config/passport/passport.js')(passport, db.user, db);
 
 app.use("/", routes);
-
 app.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);
 });

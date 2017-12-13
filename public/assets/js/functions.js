@@ -26,7 +26,7 @@ function loginUser() {
 		}).done((res)=>{
 			console.log(res);
 			// if (res) {
-				console.log('User logged in: ', user)
+				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
 		});
