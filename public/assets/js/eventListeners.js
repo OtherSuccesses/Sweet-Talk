@@ -38,6 +38,12 @@ $(document).ready(() => {
 		updateUser($(this));
 	});
 
+	//click event for logging user out
+	$('#sign-out').on('click', function (event) {
+		event.preventDefault();
+		signOut();
+	});
+
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();
 
