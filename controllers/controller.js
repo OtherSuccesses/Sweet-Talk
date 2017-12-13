@@ -62,6 +62,7 @@ router.post('/login', function (req, res) {
       password: req.body.password
     }
   }).then((result)=>{
+      console.log(result);
       if (result.dataValues.userName===req.body.userName && result.dataValues.password===req.body.password) {
         console.log(`${userName} successfully logged in...`);
         // console.log("line 42", JSON.stringify(result.dataValues));
@@ -73,6 +74,38 @@ router.post('/login', function (req, res) {
   });
 });
 //route to init page
+router.post('/api/create', function (req, res) {
+  console.log('New user created: ', req.body)
+  let {userName, password, gender, seeking, age, online} = req.body;
+  db.sequelize.define(userName, {
+    userName: {
+        type: db.Sequelize.STRING,
+        allowNull: false,
+        primaryKey: true,
+        validate:{
+            isAlphanumeric: true
+        }
+    },
+    swiped: {
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false
+    }
+  }, {
+    freezeTableName: true
+  });
+  db.sequelize.sync().then(() => {
+    db.User.create({
+      userName,
+      password,
+      gender,
+      seeking,
+      age,
+      online
+    }).then(function(data) {
+      res.redirect('/userView');
+    });
+  })
+});
 
 //Code that actually updates user data!
 router.post('/api/update/', (req,res) => {
@@ -102,6 +135,14 @@ router.post('/userView/swipe', (req,res) => {
     db.sequelize.query(`SELECT * FROM ${req.body.user} WHERE userName='${currentUser.userName}';`).then((data) => { 
       if (data[0][0].swiped === 1) {
         console.log("It's a match!");
+        db.VideoChat.create({
+          initiatorId: null,
+          recId: null,
+          initiatorUserName: req.body.user,
+          recUserName: currentUser.userName,
+        }).then(function(result) {
+          res.render("videoChat");
+        });
       };
     });
   };
@@ -111,14 +152,7 @@ router.post('/userView/swipe', (req,res) => {
 router.post('/video', (req, res) => {
   console.log("video post req.body", req.body);
 
-  db.VideoChat.create({
-    initiatorId: req.body,
-    recId: null,
-    initiatorUserName: currentUser.userName,
-    recUserName: null,
-  }).then(function(result) {
-    res.json(result);
-  });
+  
 });
 
 module.exports = router;

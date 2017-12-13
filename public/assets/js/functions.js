@@ -21,6 +21,7 @@ function loginUser() {
 	user.online   = 1;
 	clean = checkEmpty('#password', '#username');
 	if (clean) {
+		console.log("Getting to ajax request", user);
 		$.ajax('/login', {
 			type:'POST',
 			data: user
@@ -101,7 +102,7 @@ function userSwipe(element) {
 
  	$.ajax('/userView/swipe', {
  		type: 'POST',
- 		data: swipeData
+ 		// data: swipeData
  	}).done((result) => {
  		console.log('result from then after userview swipe:', result);
  	})
