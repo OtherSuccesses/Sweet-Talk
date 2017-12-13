@@ -58,7 +58,7 @@ function createUser() {
 				$('#sign-in-modal').show();
 				$('#username').val(user.userName);
 				$('#password').val(user.password);
-			}
+			} 
 		});
 	}
 }
@@ -119,7 +119,11 @@ function updateUser(element) {
 	updateUser.gender   = $("input[name='gender']:checked").val() || undefined;
 	updateUser.seeking  = $("input[name='seeking']:checked").val() || undefined;
 	updateUser.age      = $('#update-age').val().trim() || undefined;
-	updateUser.img      = $('#update-img').val().trim() || undefined;
+	if (user.gender==='m') {
+		updateUser.img = $('#update-img').val().trim() || '/assets/img/default_man.jpg';
+	} else {
+		updateUser.img = $('#update-img').val().trim() || '/assets/img/default_woman.jpg';
+	}
 	updateUser.bio      = $('#update-bio').val().trim() || undefined;
 
 	$.ajax('/api/update/'+userName, {
@@ -131,8 +135,17 @@ function updateUser(element) {
 				type: 'POST',
 				data: updateUser
 			}).done((result) => {
-				console.log('result from done after post to /api/update:', result)
+				console.log('result from done after post to /api/update:', result);
 			});
 		}
 	});
 }
+
+
+function signOut() {
+	$.ajax('/logout', {type: 'GET'});
+}
+// $('#sign-out').on('click', function (event) {
+	// event.preventDefault();
+// 	signOut();
+// });
