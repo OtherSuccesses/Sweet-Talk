@@ -11,6 +11,18 @@ router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
 
+
+//Get function to bring back the password
+router.get("/api/update/:username", function (req, res){
+  db.User.findOne({
+    where: {
+      username: currentUser.userName
+    }
+  }).then((results)=>{
+      res.json(results);
+    });
+});
+
 //****************************************************************************************************
 //passport get /userView needs to be integrated
 //****************************************************************************************************
@@ -22,6 +34,8 @@ router.get("/userView", function (req,res) {
       // online: true
     }
   }).then((results)=>{
+
+
     var users = [];
     for(var i = 0; i<results.length; i++) {
       if(results[i].dataValues.userName !== currentUser.userName) {
@@ -112,7 +126,8 @@ router.post('/api/create', function (req, res) {
 
 //Code that actually updates user data!
 router.post('/api/update/', (req,res) => {
-  console.log('body from post to /api/update',req.body);
+
+  console.log('body from post to /api/update', req.body);
   db.User.update(req.body, {
     where:{
       userName: currentUser.userName
