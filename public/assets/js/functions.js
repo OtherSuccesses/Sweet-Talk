@@ -53,6 +53,7 @@ function createUser() {
 		user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
 	}
 	user.online   = 0;
+	console.log("rigtAge: ", rightAge, " cleanInput: ", cleanInput, " cleanRadio: ", cleanRadio, " samePswd: ", samePswd);
 	if (rightAge && cleanInput && cleanRadio && samePswd) {
 
 		$.ajax('/api/create', {
@@ -92,7 +93,7 @@ function userSwipe(element) {
  		swipeData.user = user;
  		swipeData.swipe = swipe;
  	$(element).parent().hide()
- 	$(element).parent().next().showi()
+ 	$(element).parent().next().show()
  	$('.userTile').each(function (i, item) {
  		tileArr.push(item);
  	});

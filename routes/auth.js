@@ -2,7 +2,9 @@ var express = require('express');
 var sessions = require('express-session');
 module.exports = function(app, passport, db) {
  
-    app.get('/api/create', function() {console.log('api/create called')});
+    app.get('/api/create', function() {
+    	console.log('api/create called')
+    });
 	app.post('/api/create', passport.authenticate('local-signup', 
 		{
             successRedirect: '/api/signup/success',
@@ -15,8 +17,39 @@ module.exports = function(app, passport, db) {
 		res.status(401).send({error: "an error occured"});
     });
     app.get('/api/signup/success',function(req,res) {
-    	console.log('signup success')
-    	res.status(200).send({user: req.user, userInfo:req})
+    	console.log('signup req', req.user);
+    	console.log('New user created: ', req.user);
+  		let {userName, password, gender, seeking, age, online} = req.user;
+	    db.sequelize.define(userName, {
+	    	userName: {
+	        	type: db.Sequelize.STRING,
+		        allowNull: false,
+		        primaryKey: true,
+		        validate:{
+		            isAlphanumeric: true
+		        }
+		    },
+		    swiped: {
+		        type: db.Sequelize.BOOLEAN,
+		        allowNull: false
+		    }
+	    }, {
+	    	freezeTableName: true
+	  	});
+	  	db.sequelize.sync().then(() => {
+	    	console.log('then sync')
+	    	db.User.create({
+	        	userName,
+	      		password,
+	      		gender,
+	      		seeking,
+	      		age,
+	      		online
+	    	}).then(function(data) {
+	    		console.log('signup success');
+	      		res.redirect('/userView');
+	    	});
+	  	})
     });
 
     app.post('/login', passport.authenticate('local-signin', 

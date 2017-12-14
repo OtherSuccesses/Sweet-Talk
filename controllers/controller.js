@@ -12,14 +12,14 @@ router.get("/", (req, res) => {
 });
 
 router.get(`/:username/video/`, (req, res) => {
-  db.VideoChat.findOne({
-    where: {
-      recUserName: currentUser.userName
-    }
-  }).then((results) => {
-    let vidInfo = results.dataValues;
-    res.render("videoChat", { vidInfo });
-  })
+      db.VideoChat.findOne({
+      where: {
+        recUserName: currentUser.userName
+      }
+    }).then((results) => {
+      let vidInfo = results.dataValues;
+      res.render("videoChat", { vidInfo });
+    })
 });
 
 //Get function to bring back the password
@@ -33,89 +33,39 @@ router.get("/api/update/:username", function (req, res){
     });
 });
 
-//****************************************************************************************************
-//passport get /userView needs to be integrated
-//****************************************************************************************************
-router.get("/userView", function (req,res) {
-  db.User.findAll({
-    where: {
-      gender: currentUser.seeking,
-      seeking: currentUser.gender
-      // online: true
-    }
-  }).then((results)=>{
-
-
-    var users = [];
-    for(var i = 0; i<results.length; i++) {
-      if(results[i].dataValues.userName !== currentUser.userName) {
-        users[i] = results[i].dataValues;
-      }
-    }
-    var handlebarsObject = {
-      currentUser: currentUser,
-      users: users
-    };
-    // results.map(user => users.push(user.dataValues));
-    res.render("userview", handlebarsObject);
-      // , {users, title: 'User View', currentUser});
-  });
-
-});
-//****************************************************************************************************
-//passport post /login needs to be integrated
-//****************************************************************************************************
-router.post('/login', function (req, res) {
-  let {userName, password} = req.body;
-  db.User.findOne({
-    where: {
-      userName: req.body.userName,
-      password: req.body.password
-    }
-  }).then((result)=>{
-      console.log(result);
-      if (result.dataValues.userName===req.body.userName && result.dataValues.password===req.body.password) {
-        console.log(`${userName} successfully logged in...`);
-        // console.log("line 42", JSON.stringify(result.dataValues));
-        currentUser = result.dataValues;
-        // res.sendStatus(200);
-        res.redirect('/userView');
-    }
-  });
-});
-//route to init page
-router.post('/api/create', function (req, res) {
-  console.log('New user created: ', req.body)
-  let {userName, password, gender, seeking, age, online} = req.body;
-  db.sequelize.define(userName, {
-    userName: {
-        type: db.Sequelize.STRING,
-        allowNull: false,
-        primaryKey: true,
-        validate:{
-            isAlphanumeric: true
-        }
-    },
-    swiped: {
-        type: db.Sequelize.BOOLEAN,
-        allowNull: false
-    }
-  }, {
-    freezeTableName: true
-  });
-  db.sequelize.sync().then(() => {
-    db.User.create({
-      userName,
-      password,
-      gender,
-      seeking,
-      age,
-      online
-    }).then(function(data) {
-      res.redirect('/userView');
-    });
-  })
-});
+// router.post('/api/create', function (req, res) {
+//   console.log('New user created: ', req.body)
+//   let {userName, password, gender, seeking, age, online} = req.body;
+//   db.sequelize.define(userName, {
+//     userName: {
+//         type: db.Sequelize.STRING,
+//         allowNull: false,
+//         primaryKey: true,
+//         validate:{
+//             isAlphanumeric: true
+//         }
+//     },
+//     swiped: {
+//         type: db.Sequelize.BOOLEAN,
+//         allowNull: false
+//     }
+//   }, {
+//     freezeTableName: true
+//   });
+//   db.sequelize.sync().then(() => {
+//     console.log('then sync')
+//     db.User.create({
+//       userName,
+//       password,
+//       gender,
+//       seeking,
+//       age,
+//       online
+//     }).then(function(data) {
+//       res.redirect('/userView');
+//     });
+//   })
+// });
 
 //Code that actually updates user data!
 router.post('/api/update/', (req,res) => {
@@ -160,5 +110,16 @@ router.post('/userView/swipe', (req,res) => {
     res.end();
   }
 });
+//Video Chat Route
+// router.post('/video', (req, res) => {
+//   console.log("video post req.body", req.body);
+
+//   db.VideoChat.create({
+//     initiatorId: req.body,
+//     recId: null,
+//   }).then(function(result) {
+//     res.json(result);
+//   });
+// });
 
 module.exports = router;
