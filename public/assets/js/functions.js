@@ -237,7 +237,7 @@ function createChatWindow(user) {
 		$(accordion).accordion({
 			collapsible:true,
 			heightStyle: 'content'
-		}).draggable({grid: [20,20]});
+		});
 	}
 }
 

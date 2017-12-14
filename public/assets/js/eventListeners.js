@@ -70,7 +70,8 @@ $(document).ready(() => {
 	layerTiles();
 	$( function() {
     	$( "#chat-accordion" ).accordion({
-    		collapsible: true
+    		collapsible: true,
+    		active: false
     	});
   	});
 });//end of document ready function
