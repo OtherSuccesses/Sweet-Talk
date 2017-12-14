@@ -7,6 +7,14 @@ module.exports = function(sequelize, DataTypes) {
     recId: {
       type: DataTypes.JSON,
       allowNull: true,
+    },
+    initiatorUserName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    recUserName: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   });
   return VideoChat;

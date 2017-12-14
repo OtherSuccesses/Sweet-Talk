@@ -38,7 +38,40 @@ $(document).ready(() => {
 		updateUser($(this));
 	});
 
+	//click event for requesting video chat
+	$("#requestVideoBtn").on('click', (e) => {
+		e.preventDefault();
+		console.log("this works");
+		// location.replace('http://localhost:3000/' + initialPage);
+		requestVideo();
+	});
+
+	//click event for declining to request video chat
+
+	//click event for logging user out
+	$('#sign-out').on('click', function (event) {
+		event.preventDefault();
+		signOut();
+	});
+
+	//click event for creating a chat window
+	$(document).on('click', '.chatUser', function () {
+		let user = $(this).text();
+		createChatWindow(user);
+	});
+
+	//click event for removing a chat window
+	$(document).on('click', '.remove', function () {
+		removeChatWindow($(this));
+		reorderChatWindows();
+	})
+
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();
-
+	$( function() {
+    	$( "#chat-accordion" ).accordion({
+    		collapsible: true,
+    		active: false
+    	});
+  	});
 });//end of document ready function

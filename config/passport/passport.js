@@ -1,13 +1,20 @@
 var bCrypt = require('bcrypt-nodejs');
  
-module.exports = function(passport, user, db) { 
+module.exports = function(passport, user) {
+
     var User = user; 
     var LocalStrategy = require('passport-local').Strategy; 
     passport.serializeUser(function(user, done) {
+        // console.log('serializeUser');
         done(null, user.userName);
     });
     passport.deserializeUser(function(userName, done) {
-        User.findById(user.userName).then(function(user) {
+        // console.log('deserializeUser');
+        User.findOne({
+            where: {
+                userName: userName
+            }}).then(function(user) {
+                console.log('user',user)
             if(user){
           		done(null, user.get());
         	} else{
@@ -22,11 +29,11 @@ module.exports = function(passport, user, db) {
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function(req, userName, password, done) {
-        	console.log("passport callback called");
+        	// console.log("passport signup called");
             var generateHash = function(password) {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
             };
-            db.User.findOne({
+            User.findOne({
                 where: {
                     userName: userName
                 }
@@ -40,13 +47,14 @@ module.exports = function(passport, user, db) {
                     var data =
                         {
                             userName: userName,
-                            password: password,
+                            password: userPassword,
                             age: req.body.age,
                             seeking: req.body.seeking,
-                            img: req.body.imp,
+                            img: req.body.img,
+                            bio: req.body.bio,
                             gender: req.body.gender
                         };
-                    db.User.create(data).then(function(newUser, created) {
+                    User.create(data).then(function(newUser, created) {
                         if (!newUser) {
                             return done(null, false);
                         }
@@ -66,11 +74,12 @@ module.exports = function(passport, user, db) {
 	        passReqToCallback: true // allows us to pass back the entire request to the callback
 	    },
 	    function(req, userName, password, done) {
+            // console.log('local-signup called')
 	        var User = user;
 	        var isValidPassword = function(userpass, password) {
 	            return bCrypt.compareSync(password, userpass);
 	        }
-	        db.User.findOne({
+	        User.findOne({
 	            where: {
 	                userName: userName
 	            }
