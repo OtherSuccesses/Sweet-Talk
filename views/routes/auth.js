@@ -66,7 +66,7 @@ module.exports = function(app, passport, db) {
 	        return next();	
 
 	    }
-	    res.status(200).send({});
+	    res.send('200', {});
 	 
 	}
 }

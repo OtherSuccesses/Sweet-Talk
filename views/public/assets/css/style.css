@@ -1,0 +1,396 @@
+/*********************Global CSS**********************/
+
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:visited {
+	color: inherit;
+}
+
+
+
+/*************index.handlebars specific CSS*************/
+.landing-page-container {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-image: url('../img/background.jpg');
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.wrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+	font-family: arial;
+}
+
+#main-title {
+	color: white;
+	font-size: 70px;
+	letter-spacing: 2px;
+	text-shadow: 2px 2px 2px rgba(0,0,0, 1);
+}
+
+#sign-in {
+	border: 3px solid white;
+	padding: 20px 50px;
+	color: white;
+	border-radius: 40px;
+	font-size: 30px;
+	width: 120px;
+	margin: 20px auto;
+	cursor: pointer;
+}
+
+#create-account {
+	color: white;
+}
+
+
+/****************generic modal CSS****************/
+
+.modal {
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	display: none;
+	user-select: none;
+	font-family: arial;
+}
+
+.modal-content {
+	color: white;
+	margin: 5% auto;
+	width: 50%;
+	min-height: 70%;
+	background: black;
+	position: relative;
+	border-radius: 10px;
+	text-align: center;
+	border:10px solid white;
+}
+
+.close {
+	position: absolute;
+	right: 3%;;
+	top: 4%;
+}
+
+.close:hover {
+	cursor: pointer;
+}
+
+.submit-button {
+	border: 2px solid white;
+	color: white;
+	background: none;
+	border-radius: 20px;
+	padding: 5px 40px;
+	font-size: 20px;
+	cursor: pointer;
+	box-shadow: 0px 10px 5px -12px rgba(255,255,255,1);
+	transition: all 300ms ease;
+}
+
+.submit-button:hover {
+	transform: translate(-50%, -5px) scale(1.1);
+	box-shadow: 0px 15px 26px -14px rgba(255,255,255,0.8);
+}
+
+.modal-content input[type="radio"] {
+	background: green;
+	height: auto;
+	width: auto;
+}
+
+.centered {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+.text-input {
+	outline: white;
+	color: white;
+	border: none;
+	background: black;
+	height: 20px;
+	transition: border 500ms ease;
+	font-size: 20px;
+	border-bottom: 1px solid white;
+	width: 50%;
+}
+
+.text-input:focus {
+	border-bottom-width: 4px;
+}
+
+.text-input::-webkit-input-placeholder{
+	color:white;
+	font-size: 15px;
+}
+/*********************sign-in-modal CSS***********************/
+
+#username {
+	top: 30%;
+}
+
+#password {
+	top: 40%;
+}
+
+#login-submit {
+	top: 60%;
+}
+
+/*******************create-account-modal CSS******************/
+
+.radio-label {
+	display:inline-block;
+}
+
+#create-submit {
+	top: 90%;
+}
+
+
+textarea#create-bio {
+	top: 70%;
+	outline: white;
+	color: white;
+	border: none;
+	background: black;
+	transition: border 500ms ease;
+	font-size: 20px;
+	border-bottom: 1px solid white;
+	width: 50%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: arial;
+}
+
+#create-bio:focus {
+	border-bottom-width: 4px;
+}
+
+#create-bio::-webkit-input-placeholder{
+	color:white;
+	font-size: 15px;
+}
+
+#create-img {
+	top: 60%;
+}
+.seeking-wrapper {
+	top: 50%;
+}
+
+.gender-wrapper {
+	top: 40%;
+}
+
+#create-password2 {
+	top: 32%;
+}
+
+#create-password {
+	top: 24%;
+}
+
+#create-age {
+	top: 17%;
+}
+
+#create-username {
+	top: 10%;
+}
+
+
+/*******************update account modal*******************/
+
+#update-account-modal {
+	/*height: 100%;*/
+}
+
+#update-age {
+	top: 15%;
+}
+
+.update-gender-wrapper {
+	top: 20%;
+}
+
+.update-seeking-wrapper{
+	top: 30%;
+}
+
+#update-img {
+	top: 45%;
+}
+
+textarea#update-bio {
+	top: 55%;
+	outline: white;
+	color: white;
+	border: none;
+	background: black;
+	transition: border 500ms ease;
+	font-size: 20px;
+	border-bottom: 1px solid white;
+	width: 50%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: arial;
+}
+
+#update-bio:focus {
+	border-bottom-width: 4px;
+}
+
+#update-bio::-webkit-input-placeholder{
+	color:white;
+	font-size: 15px;
+}
+
+#update-password {
+	top: 80%;
+}
+#update-submit {
+	top: 90%;
+}
+
+/*****************userView.handlebars CSS*****************/
+
+header {
+	height: 10vh;
+	width: 100%;
+	background: orangered;
+}
+
+img.logo {
+	position: absolute;
+	left: 3vh;
+	top: 2vh;
+	height: 50px;;
+}
+
+.navItem {
+	cursor: pointer;
+}
+
+nav ul {
+	/*float:right;*/
+	list-style: none;
+	font-family: arial;
+	color: white;
+	font-size: 20px;
+	padding:0;
+	margin:0;
+	position: absolute;
+	right: 3vh;
+	top: 3vh;
+}
+
+nav ul li {
+	display: inline;
+	margin: 0 10px;
+}
+
+footer {
+	height: 10vh;
+	width: 100%;
+	background: orangered;
+	position: absolute;
+	bottom: 0;
+}
+
+/*********************image stack CSS*********************/
+
+.userTile {
+	top: 18%;
+	border: 1px solid black;
+	padding: 0 20px 20px;
+	width: 30%;
+	font-family: arial;
+}
+
+.choose {
+	height: 50px;
+	width: 50px;
+	border: none;
+	border-radius: 50%;
+	color: white;
+	outline: none;
+}
+
+[data-swipe="true"] {
+	background: green;
+	float: right;
+	margin-right: 20%;
+}
+
+[data-swipe="false"] {
+	background: red;
+	margin-left: 20%;
+}
+
+.userBio {
+	text-align: center;
+}
+
+.tileTitle {
+	text-align: center;
+}
+
+.imgContainer {
+	height: 20vw;
+	width: 20vw;
+	overflow: hidden;
+	margin: 0 auto;
+	border-radius: 10px;
+}
+.userImage {
+	display: block;
+	max-height: 300px;
+	max-width: 300px;
+	margin: 0 auto;
+	border-radius: 10px;
+}
+
+.noMore {
+	top: 18%;
+	border: 1px solid black;
+	padding: 0 20px 20px;
+	width: 30%;
+	font-family: arial;
+
+}
+
+.noMoreText {
+	text-align: center;
+}
