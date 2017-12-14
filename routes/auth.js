@@ -14,42 +14,54 @@ module.exports = function(app, passport, db) {
  
     ));
     app.get('/api/signup/failure',function(req,res) {
-		res.status(401).send({error: "an error occured"});
+		res.send({error: "There has been an error in signup."});
     });
     app.get('/api/signup/success',function(req,res) {
-    	console.log('signup req', req.user);
     	console.log('New user created: ', req.user);
   		let {userName, password, gender, seeking, age, online} = req.user;
-	    db.sequelize.define(userName, {
-	    	userName: {
-	        	type: db.Sequelize.STRING,
-		        allowNull: false,
-		        primaryKey: true,
-		        validate:{
-		            isAlphanumeric: true
-		        }
-		    },
-		    swiped: {
-		        type: db.Sequelize.BOOLEAN,
-		        allowNull: false
-		    }
-	    }, {
-	    	freezeTableName: true
-	  	});
-	  	db.sequelize.sync().then(() => {
-	    	console.log('then sync')
-	    	db.User.create({
-	        	userName,
-	      		password,
-	      		gender,
-	      		seeking,
-	      		age,
-	      		online
-	    	}).then(function(data) {
-	    		console.log('signup success');
-	      		res.redirect('/userView');
-	    	});
-	  	})
+  		db.sequelize.findOne(
+  			{
+  				where: {
+  					userName: userName
+  				}
+  			}
+  		).then(function(user) {
+  			if(user) {
+  				console.log("User by that name already exists.");
+  				res.send({error: "User by that name already exists."});
+  			} else {
+  				db.sequelize.define(userName, {
+			    	userName: {
+			        	type: db.Sequelize.STRING,
+				        allowNull: false,
+				        primaryKey: true,
+				        validate:{
+				            isAlphanumeric: true
+				        }
+				    },
+				    swiped: {
+				        type: db.Sequelize.BOOLEAN,
+				        allowNull: false
+				    }
+			    }, {
+			    	freezeTableName: true
+			  	});
+			  	db.sequelize.sync().then(() => {
+			    	console.log('then sync')
+			    	db.User.create({
+			        	userName,
+			      		password,
+			      		gender,
+			      		seeking,
+			      		age,
+			      		online
+			    	}).then(function(data) {
+			    		console.log('signup success');
+			      		res.redirect('/userView');
+			    	});
+			  	})
+			}
+		});	    
     });
 
     app.post('/login', passport.authenticate('local-signin', 
@@ -60,7 +72,7 @@ module.exports = function(app, passport, db) {
     	})
     );
     app.get('/api/login/failure',function(req,res) {
-    	res.status(401).send({error: "an error occured"});
+    	res.status(401);
     	
     });
     app.get('/api/login/success',function(req,res) {

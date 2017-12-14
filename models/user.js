@@ -50,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue: "This user hasn't entered any information"
-        },
+        }
     });
     console.log(typeof User);
     return User;

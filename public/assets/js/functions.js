@@ -54,7 +54,6 @@ function createUser() {
 		user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
 	}
 	user.online   = 0;
-	console.log("rigtAge: ", rightAge, " cleanInput: ", cleanInput, " cleanRadio: ", cleanRadio, " samePswd: ", samePswd);
 	if (rightAge && cleanInput && cleanRadio && samePswd) {
 		console.log(user)
 		$.ajax('/api/create', {
