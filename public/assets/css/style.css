@@ -412,8 +412,14 @@ footer {
 
 /*********************Chat window CSS*********************/
 
-
-#chat-accordion {
+/*#chat-accordion {
+	width: 15px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 100;
+}*/
+.chat-accordion {
 	width: 15%;
 	position: absolute;
 	bottom: 0;
@@ -421,6 +427,51 @@ footer {
 	z-index: 100;
 }
 
+.chatUser {
+	cursor: pointer;
+}
+
+.remove {
+	position: absolute;
+	right: 10px;
+
+}
+
+.chatBox {
+	height: 100%;
+	/*padding: 15px;*/
+}
+
+.msgWindow {
+	height: 200px;
+	overflow: scroll;
+	padding: 15px;
+}
 
 
 
+.chatInput {
+	width: 100%;
+	height: 25px;
+	margin:0;
+	padding:0;
+}
+
+.bubble {
+
+}
+
+.bubble-right {
+	background: gray;
+	color: white;
+	border-radius: 10px;
+	padding: 5px 10px;
+	font-size: 15px;
+}
+
+.bubble-left {
+	background: lightgray;
+	border-radius: 10px;
+	padding: 5px 10px;
+	font-size: 15px;
+}

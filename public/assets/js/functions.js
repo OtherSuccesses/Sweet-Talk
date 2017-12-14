@@ -31,12 +31,7 @@ function loginUser() {
 				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
-				layerTiles();
-				$( function() {
-			    	$( "#chat-accordion" ).accordion({
-			    		collapsible: true
-			    	});
-			  	});
+				
 			}
 		})
 	}
@@ -175,3 +170,37 @@ function signOut() {
 	$.ajax('/logout', {type: 'GET'});
 }
 
+function reorderChatWindows() {
+	let num = 0;
+	$('.chat-container .chat-accordion').each((i, item)=>{
+		num+=15;
+		console.log(item)
+		$(item).css('right', num+'%');
+	});
+}
+
+function createChatWindow(user) {	
+	if($("#" + user).length == 0) {
+		let accordion = $('<div id="'+user+'">');
+		let header = $('<h3>');
+		let remove = $('<span class="remove">');
+		let chatBox = $('<div class="chatBox">')
+		let msgWindow = $('<div class="msgWindow">');
+		let chatInput = $('<input type="text" class="chatInput">');
+		remove.append('<i class="fa fa-times" aria-hidden="true"></i>')
+		header.text(user).append(remove).appendTo(accordion);
+		chatBox.append(msgWindow, chatInput);
+		accordion.append(chatBox);
+		accordion.addClass('chat-accordion chats')
+				 .appendTo('.chat-container');
+		reorderChatWindows();
+		$(accordion).accordion({
+			collapsible:true,
+			heightStyle: 'content'
+		}).draggable({grid: [20,20]});
+	}
+}
+
+function removeChatWindow(element) {
+	element.closest('.chat-accordion').remove();
+}
