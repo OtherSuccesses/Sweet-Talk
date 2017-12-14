@@ -54,12 +54,23 @@ $(document).ready(() => {
 		signOut();
 	});
 
+	//click event for creating a chat window
+	$(document).on('click', '.chatUser', function () {
+		let user = $(this).text();
+		createChatWindow(user);
+	});
+
+	//click event for removing a chat window
+	$(document).on('click', '.remove', function () {
+		removeChatWindow($(this));
+		reorderChatWindows();
+	})
+
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();
 	$( function() {
     	$( "#chat-accordion" ).accordion({
     		collapsible: true
     	});
-  	} );
-
+  	});
 });//end of document ready function
