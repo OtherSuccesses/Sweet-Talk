@@ -21,16 +21,18 @@ function loginUser() {
 	user.online   = 1;
 	clean = checkEmpty('#password', '#username');
 	if (clean) {
+		console.log("Getting to ajax request", user);
 		$.ajax('/login', {
 			type:'POST',
 			data: user
 		}).done((res)=>{
 			console.log(res);
-			// if (res) {
+			if (res = "OK") {
 				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
-		});
+			}
+		})
 	}
 }
 
@@ -86,11 +88,11 @@ function userSwipe(element) {
  		tileArr = [],
  		layer = $(element).data('layer'),
  		swipeData ={};
-
+ 		
  		swipeData.user = user;
  		swipeData.swipe = swipe;
  	$(element).parent().hide()
- 	$(element).parent().next().show()
+ 	$(element).parent().next().showi()
  	$('.userTile').each(function (i, item) {
  		tileArr.push(item);
  	});
@@ -100,7 +102,7 @@ function userSwipe(element) {
 
  	$.ajax('/userView/swipe', {
  		type: 'POST',
- 		data: swipeData
+ 		// data: swipeData
  	}).done((result) => {
  		console.log('result from then after userview swipe:', result);
  		window.location.href = `/${result.recUserName}/video`;

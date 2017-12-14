@@ -52,7 +52,6 @@ router.get("/userView", function (req,res) {
         users[i] = results[i].dataValues;
       }
     }
-    
     var handlebarsObject = {
       currentUser: currentUser,
       users: users
@@ -63,8 +62,6 @@ router.get("/userView", function (req,res) {
   });
 
 });
-
-
 //****************************************************************************************************
 //passport post /login needs to be integrated
 //****************************************************************************************************
@@ -76,6 +73,7 @@ router.post('/login', function (req, res) {
       password: req.body.password
     }
   }).then((result)=>{
+      console.log(result);
       if (result.dataValues.userName===req.body.userName && result.dataValues.password===req.body.password) {
         console.log(`${userName} successfully logged in...`);
         // console.log("line 42", JSON.stringify(result.dataValues));
@@ -85,26 +83,11 @@ router.post('/login', function (req, res) {
     }
   });
 });
-
 //route to init page
-router.get('/#init', (req,res) => {
-	console.log('redirect to init');
-
-});
-
-//****************************************************************************************************
-//passport create and this needs to be integrated ****************************************************
-//****************************************************************************************************
-//post route for create user modal. Body is userName, password, gender(m, w), and seeking(m, w)
 router.post('/api/create', function (req, res) {
   console.log('New user created: ', req.body)
-  let {userName, password, gender, seeking, age, img, bio, online} = req.body;
+  let {userName, password, gender, seeking, age, online} = req.body;
   db.sequelize.define(userName, {
-    id: {
-        type: db.Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
     userName: {
         type: db.Sequelize.STRING,
         allowNull: false,
@@ -118,8 +101,7 @@ router.post('/api/create', function (req, res) {
         allowNull: false
     }
   }, {
-    freezeTableName: true,
-    timestamps: false
+    freezeTableName: true
   });
   db.sequelize.sync().then(() => {
     db.User.create({
@@ -128,11 +110,9 @@ router.post('/api/create', function (req, res) {
       gender,
       seeking,
       age,
-      img,
-      bio,
       online
     }).then(function(data) {
-      res.sendStatus(200);
+      res.redirect('/userView');
     });
   })
 });
