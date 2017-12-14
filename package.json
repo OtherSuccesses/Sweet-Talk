@@ -25,8 +25,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "browserify ./public/assets/js/video.js -o ./public/assets/js/bundle.js",
-    "watch": "watchify ./public/assets/js/video.js -o ./public/assets/js/bundle.js"
+    "build": "browserify ./public/assets/js/functions.js -o ./public/assets/js/bundle.js",
+    "watch": "watchify ./public/assets/js/functions.js -o ./public/assets/js/bundle.js"
   },
   "repository": {
     "type": "git",

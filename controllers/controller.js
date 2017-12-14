@@ -11,6 +11,16 @@ router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
 
+router.get(`/:username/video/`, (req, res) => {
+  db.VideoChat.findOne({
+    where: {
+      recUserName: currentUser.userName
+    }
+  }).then((results) => {
+    let vidInfo = results.dataValues;
+    res.render("videoChat", { vidInfo });
+  })
+});
 
 //Get function to bring back the password
 router.get("/api/update/:username", function (req, res){
@@ -48,7 +58,7 @@ router.get("/userView", function (req,res) {
       users: users
     };
     // results.map(user => users.push(user.dataValues));
-    res.render("userview.handlebars", handlebarsObject);
+    res.render("userview", handlebarsObject);
       // , {users, title: 'User View', currentUser});
   });
 
@@ -70,7 +80,6 @@ router.post('/login', function (req, res) {
         console.log(`${userName} successfully logged in...`);
         // console.log("line 42", JSON.stringify(result.dataValues));
         currentUser = result.dataValues;
-        console.log(currentUser);
         // res.sendStatus(200);
         res.redirect('/userView');
     }
@@ -130,8 +139,6 @@ router.post('/api/create', function (req, res) {
 
 //Code that actually updates user data!
 router.post('/api/update/', (req,res) => {
-
-  console.log('body from post to /api/update', req.body);
   db.User.update(req.body, {
     where:{
       userName: currentUser.userName
@@ -143,24 +150,35 @@ router.post('/api/update/', (req,res) => {
 
 //Route to log swipes to personal DB
 router.post('/userView/swipe', (req,res) => {
-  console.log(currentUser);
-  console.log('body from userview swipe:',req.body);
-
-  db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`).then(() => {
-      res.sendStatus(200);
+  //Update or insert into dynamic user swipe table
+  db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE userName='${req.body.user}'`).then((data) => {
+    if (data[0].length === 0) {
+      db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`);
+    } else {
+      db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`);
+    }
   });
-})
 
-//Video Chat Route
-router.post('/video', (req, res) => {
-  console.log("video post req.body", req.body);
-
-  db.VideoChat.create({
-    initiatorId: req.body,
-    recId: null,
-  }).then(function(result) {
-    res.json(result);
-  });
+  //Check for match
+  if (req.body.swipe === "true") {
+    db.sequelize.query(`SELECT * FROM ${req.body.user} WHERE userName='${currentUser.userName}';`).then((data) => { 
+      if (data[0][0].swiped === 1) {
+        console.log("It's a match!");
+        db.VideoChat.create({
+          initiatorId: null,
+          recId: null,
+          initiatorUserName: req.body.user,
+          recUserName: currentUser.userName,
+        }).then((result) => {
+          res.json(result);
+        });
+      } else {
+        res.end();
+      }
+    });
+  } else {
+    res.end();
+  }
 });
 
 module.exports = router;

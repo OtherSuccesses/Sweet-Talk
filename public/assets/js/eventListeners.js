@@ -38,6 +38,16 @@ $(document).ready(() => {
 		updateUser($(this));
 	});
 
+	//click event for requesting video chat
+	$("#requestVideoBtn").on('click', (e) => {
+		e.preventDefault();
+		console.log("this works");
+		// location.replace('http://localhost:3000/' + initialPage);
+		requestVideo();
+	});
+
+	//click event for declining to request video chat
+
 	//click event for logging user out
 	$('#sign-out').on('click', function (event) {
 		event.preventDefault();
