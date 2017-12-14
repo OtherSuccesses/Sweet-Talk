@@ -10,11 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     initiatorUserName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false
     },
     recUserName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false
     }
   });
   return VideoChat;

@@ -105,6 +105,7 @@ function userSwipe(element) {
  		// data: swipeData
  	}).done((result) => {
  		console.log('result from then after userview swipe:', result);
+ 		window.location.href = `/${result.recUserName}/video`;
  	})
 }
 
@@ -145,6 +146,24 @@ function updateUser(element) {
 		}
 	});
 }
+
+function requestVideo() {
+	console.log("Getting initiator ID...");
+    const Peer = require("simple-peer");
+
+    const peer = new Peer({
+      	initiator: location.hash === "#init",
+      	trickle: false,
+    });
+
+	peer.on('signal', (data) => {
+		let id = data;
+		console.log("Initiator ID", id);
+		$.post("/video", id);
+	});
+
+    peer.on('error', function (err) { console.error('error', err) });
+};
 
 function signOut() {
 	$.ajax('/logout', {type: 'GET'});
