@@ -86,10 +86,11 @@ function clearInputs() {
 function userSwipe(element) {
  	let swipe = $(element).attr('data-swipe'),
  		user  = $(element).data('user'),
+ 		userName = $(element).data('login'),
  		tileArr = [],
  		layer = $(element).data('layer'),
- 		swipeData ={};
- 		
+ 		swipeData ={}; 
+
  		swipeData.user = user;
  		swipeData.swipe = swipe;
  	$(element).parent().hide()
@@ -100,6 +101,28 @@ function userSwipe(element) {
  	if ($(element).parent()==tileArr[tileArr.length-1]){
  		$('.noMore').show();
  	}
+ 	$.ajax('/userView/swipe/'+userName, {
+ 		type: 'GET'
+ 	}).done(function (res) {
+ 		var test = false;
+ 		for(var i = 0; i < res.result.length; i++) {
+ 			if(user === res.result[i].userName) {
+ 				test = true;
+ 				return test;
+ 			}
+ 		}
+ 		if(!test) {
+	 		console.log("done response: ", res.result[0].userName);
+		 	$.ajax('/userView/swipe', {
+		 		type: 'POST',
+		 		data: swipeData
+		 	}).done( function (result) {
+		 		console.log(result);
+		 		// console.log('result from then after userview swipe:', result);
+		 	});
+		}
+	}); 	
+
 
  	$.ajax('/userView/swipe', {
  		type: 'POST',
@@ -109,46 +132,7 @@ function userSwipe(element) {
  		window.location.href = `/${result.recUserName}/video`;
  	})
 }
-// Vytas's swipe function
-// function userSwipe(element) {
-//  	let swipe = $(element).attr('data-swipe'),
-//  		user  = $(element).data('user'),
-//  		userName = $(element).data('login'),
-//  		tileArr = [],
-//  		layer = $(element).data('layer'),
-//  		swipeData ={}; 
-//  		swipeData.user = user;
-//  		swipeData.swipe = swipe;
-//  	$(element).parent().hide()
-//  	$(element).parent().next().show()
-//  	$('.userTile').each(function (i, item) {
-//  		tileArr.push(item);
-//  	});
-//  	if ($(element).parent()==tileArr[tileArr.length-1]){
-//  		$('.noMore').show();
-//  	}
-//  	$.ajax('/userView/swipe/'+userName, {
-//  		type: 'GET'
-//  	}).done(function (res) {
-//  		var test = false;
-//  		for(var i = 0; i < res.result.length; i++) {
-//  			if(user === res.result[i].userName) {
-//  				test = true;
-//  				return test;
-//  			}
-//  		}
-//  		if(!test) {
-// 	 		console.log("done response: ", res.result[0].userName);
-// 		 	$.ajax('/userView/swipe', {
-// 		 		type: 'POST',
-// 		 		data: swipeData
-// 		 	}).done( function (result) {
-// 		 		console.log(result);
-// 		 		// console.log('result from then after userview swipe:', result);
-// 		 	});
-// 		}
-// 	}); 	
-// }
+
 function layerTiles() {
  	$('.userTile').each(function (i, item) {
  		$('.noMore').hide();

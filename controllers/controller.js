@@ -24,6 +24,7 @@ router.get(`/:username/video/`, (req, res) => {
 
 //Get function to bring back the password
 router.get("/api/update/:username", function (req, res){
+  console.log("update req.body ", req.body);
   db.User.findOne({
     where: {
       username: currentUser.userName
@@ -42,22 +43,28 @@ router.post('/api/update/', (req,res) => {
   }).then(function () {
     res.sendStatus(200).end(); 
   });
-});
-//Vytas's route
+
+
 //Route to check the swipe database for duplicates 
-// router.get('/userView/swipe/:username', (req, res)=>{
-//   db.sequelize.query(`SELECT * FROM ${currentUser.userName};`, (err, res)=> {
-//     if (err){
-//       console.log(err);
-//     }
-//   }).then(function(result){
-//     console.log("req console ", req);
-//     console.log("Then result ", result[0]);
-//     //console.log("legible result", res.json({result:result[0]}));
-//     res.json({result:result[0]});
-//   });
-// });
-//Route to log swipes to personal DB
+router.get('/userView/swipe/:username', (req, res)=>{
+  db.sequelize.query(`SELECT * FROM ${currentUser.userName};`, (err, res)=> {
+    if (err){
+      console.log(err);
+    }
+
+  }).then(function(result){
+    if (Object.keys(result.includes(${userName}))){
+      console.log("Swiped Person ", ${userName});
+    }
+    console.log("Then result ", result[0]);
+    //console.log("legible result", res.json({result:result[0]}));
+    res.json({result:result[0]});
+  });
+});
+
+
+});
+
 router.post('/userView/swipe', (req,res) => {
   //Update or insert into dynamic user swipe table
   db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE userName='${req.body.user}'`).then((data) => {
@@ -66,6 +73,7 @@ router.post('/userView/swipe', (req,res) => {
     } else {
       db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`);
     }
+
   });
 
   //Check for match
