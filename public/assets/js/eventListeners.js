@@ -56,5 +56,10 @@ $(document).ready(() => {
 
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();
+	$( function() {
+    	$( "#chat-accordion" ).accordion({
+    		collapsible: true
+    	});
+  	} );
 
 });//end of document ready function

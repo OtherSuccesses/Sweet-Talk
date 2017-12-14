@@ -31,6 +31,12 @@ function loginUser() {
 				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
+				layerTiles();
+				$( function() {
+			    	$( "#chat-accordion" ).accordion({
+			    		collapsible: true
+			    	});
+			  	});
 			}
 		})
 	}
@@ -54,7 +60,7 @@ function createUser() {
 	}
 	user.online   = 0;
 	if (rightAge && cleanInput && cleanRadio && samePswd) {
-
+		console.log(user)
 		$.ajax('/api/create', {
 			type:'POST',
 			data: user
@@ -92,7 +98,7 @@ function userSwipe(element) {
  		swipeData.user = user;
  		swipeData.swipe = swipe;
  	$(element).parent().hide()
- 	$(element).parent().next().showi()
+ 	$(element).parent().next().show()
  	$('.userTile').each(function (i, item) {
  		tileArr.push(item);
  	});
@@ -112,7 +118,7 @@ function userSwipe(element) {
 function layerTiles() {
  	$('.userTile').each(function (i, item) {
  		$('.noMore').hide();
- 		if ($(this).data('layer')===0) {
+ 		if ($(this).data('layer')===1) {
  			$(this).show();
  		} else {
  			$(this).hide();
