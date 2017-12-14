@@ -33,40 +33,6 @@ router.get("/api/update/:username", function (req, res){
     });
 });
 
-// router.post('/api/create', function (req, res) {
-//   console.log('New user created: ', req.body)
-//   let {userName, password, gender, seeking, age, online} = req.body;
-//   db.sequelize.define(userName, {
-//     userName: {
-//         type: db.Sequelize.STRING,
-//         allowNull: false,
-//         primaryKey: true,
-//         validate:{
-//             isAlphanumeric: true
-//         }
-//     },
-//     swiped: {
-//         type: db.Sequelize.BOOLEAN,
-//         allowNull: false
-//     }
-//   }, {
-//     freezeTableName: true
-//   });
-//   db.sequelize.sync().then(() => {
-//     console.log('then sync')
-//     db.User.create({
-//       userName,
-//       password,
-//       gender,
-//       seeking,
-//       age,
-//       online
-//     }).then(function(data) {
-//       res.redirect('/userView');
-//     });
-//   })
-// });
-
 //Code that actually updates user data!
 router.post('/api/update/', (req,res) => {
   db.User.update(req.body, {
@@ -77,7 +43,20 @@ router.post('/api/update/', (req,res) => {
     res.sendStatus(200).end(); 
   });
 });
-
+//Vytas's route
+//Route to check the swipe database for duplicates 
+// router.get('/userView/swipe/:username', (req, res)=>{
+//   db.sequelize.query(`SELECT * FROM ${currentUser.userName};`, (err, res)=> {
+//     if (err){
+//       console.log(err);
+//     }
+//   }).then(function(result){
+//     console.log("req console ", req);
+//     console.log("Then result ", result[0]);
+//     //console.log("legible result", res.json({result:result[0]}));
+//     res.json({result:result[0]});
+//   });
+// });
 //Route to log swipes to personal DB
 router.post('/userView/swipe', (req,res) => {
   //Update or insert into dynamic user swipe table
