@@ -148,7 +148,9 @@ router.get('/userView/swipe/:username', (req, res)=>{
     }
 
   }).then(function(result){
-    console.log("req console ", req);
+    if (Object.keys(result.includes(${userName}))){
+      console.log("Swiped Person ", ${userName});
+    }
     console.log("Then result ", result[0]);
     //console.log("legible result", res.json({result:result[0]}));
     res.json({result:result[0]});
