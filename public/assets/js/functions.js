@@ -51,12 +51,15 @@ function createUser() {
 	user.gender   = $("input[name='gender']:checked").val();
 	user.seeking  = $("input[name='seeking']:checked").val();
 	user.age      = $('#create-age').val().trim();
+	user.bio      = $('#create-bio').val().trim();
+
 	if (user.gender==='m') {
 		user.img =  $('#create-img').val()==='' ? '/assets/img/default_man.jpg':$('#create-img').val().trim();
 	} else {
 		user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
 	}
 	user.online   = 0;
+	console.log('user object as it exists on creation' + user);
 	if (rightAge && cleanInput && cleanRadio && samePswd) {
 		console.log(user)
 		$.ajax('/api/create', {
@@ -84,6 +87,7 @@ function clearInputs() {
 			$(item).val('').css('border-color', 'white');
 		}
 	});
+	$('#create-bio').val('');
 }
 
 function userSwipe(element) {
