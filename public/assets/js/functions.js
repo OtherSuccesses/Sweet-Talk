@@ -112,6 +112,7 @@ function userSwipe(element) {
 
  	$.post('/userView/swipe', swipeData).done((res) => {
  		if (res) {
+ 			console.log('res from /userview/swipe', res);
  			window.location.href = `/${res.userName}/video`
  		}
  	});
@@ -214,15 +215,15 @@ function createChatWindow(user) {
 	}
 }
 
-function addBackUser(element) {
-	let userName = $(element).attr('data-username');
-	let img = $(element).attr('data-img');
-	$('.modal-body .userTile').show();
-	$('#viewAgain-userName').text(`Meet ${userName}!`)
-	$('#viewAgain-img').attr('src', img);
-	$('#left').attr('data-user', userName);
-	$('#right').attr('data-user', userName);
-}
+// function addBackUser(element) {
+// 	let userName = $(element).attr('data-username');
+// 	let img = $(element).attr('data-img');
+// 	$('.modal-body .userTile').show();
+// 	$('#viewAgain-userName').text(`Meet ${userName}!`)
+// 	$('#viewAgain-img').attr('src', img);
+// 	$('#left').attr('data-user', userName);
+// 	$('#right').attr('data-user', userName);
+// }
 
 function removeChatWindow(element) {
 	element.closest('.chat-accordion').remove();
