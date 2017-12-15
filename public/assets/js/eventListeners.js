@@ -82,10 +82,12 @@ $(document).ready(() => {
 	});
 
 	//click event for populating modal of user you would like a second chance at
-	$(document).on('click', '.modal-close', function (event) {
-		event.preventDefault();
-		$('#viewAgain-modal').fadeOut();
-	})
+
+	//commented out in case we want to utilize in the future
+	// $(document).on('click', '.modal-close', function (event) {
+	// 	event.preventDefault();
+	// 	$('#viewAgain-modal').fadeOut();
+	// })
 
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();
