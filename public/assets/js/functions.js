@@ -114,21 +114,21 @@ function userSwipe(element) {
  				return test;
  			}
  		}
- 		if(!test) {
-	 		console.log("done response: ", res.result[0].userName);
-		 	$.ajax('/userView/swipe', {
-		 		type: 'POST',
-		 		data: swipeData
-		 	}).done( function (result) {
-		 		// console.log('result from then after userview swipe:', result);
-		 	});
-		}
+ 	// 	if(!test) {
+	 // 		console.log("done response: ", res.result[0].userName);
+		//  	$.ajax('/userView/swipe', {
+		//  		type: 'POST',
+		//  		data: swipeData
+		//  	}).done( function (result) {
+		//  		// console.log('result from then after userview swipe:', result);
+		//  	});
+		// }
 	}); 	
 
 
  	$.ajax('/userView/swipe', {
  		type: 'POST',
- 		// data: swipeData
+ 		data: swipeData
  	}).done((result) => {
  		console.log('result from then after userview swipe:', result);
  		window.location.href = `/${result.recUserName}/video`;
