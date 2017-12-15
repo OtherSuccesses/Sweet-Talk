@@ -545,6 +545,7 @@ footer {
 	height: 100vh;
 	width: 20%;
 	border-right: 1px solid black;
+	box-sizing: border-box;
 }
 
 .swiped-user {
@@ -552,6 +553,8 @@ footer {
 	height: 50px;
 	border: 1px solid black;
 	position: relative;
+	box-sizing: border-box;
+	border-right: none;
 }
 
 .swiped-user img {
