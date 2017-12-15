@@ -124,4 +124,9 @@ router.post('/userView/swipe', (req,res) => {
   }
 });
 
+router.post('/chatInput', (req,res) =>{
+  console.log(req.body);
+  res.sendStatus(200).end();
+});
+
 module.exports = router;
