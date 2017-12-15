@@ -21,7 +21,9 @@ a:visited {
 }
 
 
-
+video {
+	position: absolute;
+}
 /*************index.handlebars specific CSS*************/
 .landing-page-container {
 	height: 100%;
@@ -44,10 +46,10 @@ a:visited {
 }
 
 #main-title {
-	color: rgb(255,105,180);
+	color: rgba(255,105,180, 1);
 	font-size: 120px;
 	letter-spacing: 5px;
-	text-shadow: 2px 2px 2px rgba(0,0,0, 1);
+	text-shadow: 2px 2px 2px rgba(0,0,200, 0.3);
 	font-family: 'Leckerli One', cursive;
 	margin-bottom: 20px;;
 }
@@ -61,10 +63,12 @@ a:visited {
 	width: 120px;
 	margin: 20px auto;
 	cursor: pointer;
+	font-weight: bold;;
 }
 
 #create-account {
 	color: white;
+	font-size: 18px;;
 }
 
 
@@ -484,3 +488,63 @@ footer {
 	padding: 5px 10px;
 	font-size: 15px;
 }
+
+
+/******************Swiped-container CSS******************/
+
+#swiped-container {
+	height: 100vh;
+	width: 20%;
+	border-right: 1px solid black;
+	/*background: white;*/
+	/*opacity: 0.4;*/
+}
+
+.swiped-user {
+	width: 100%;
+	height: 50px;
+	border: 1px solid black;
+	position: relative;
+}
+
+.thumbnail-container {
+	/*display: inline;*/
+}
+
+.swiped-user img {
+	height: 50px;
+	vertical-align:middle
+	 /*line-height:  50px;*/
+}
+
+.swiped-userName {
+	line-height:  50px;
+	vertical-align:middle;
+	display: inline;
+	margin-left: 25px;
+}
+
+.viewAgain {
+	height: 100%;
+	float: right;
+	background-color: orangered;
+	border: none;
+	color: white;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+.modal-body .userTile {
+	width: 50%;
+	top: 5%;
+}
+
+#left {
+	float: left;
+	margin-left: 10%;
+}
+
+#right {
+margin-right: 10%;
+}
+

@@ -9,7 +9,7 @@ var currentUser = {},
 
 router.get("/", (req, res) => {
   let currentUser = req.user;
-  res.render("index", {title: 'Clever Title'});
+  res.render("index", {title: 'Sweet Talk'});
 });
 
 router.get(`/:username/video/`, (req, res) => {
