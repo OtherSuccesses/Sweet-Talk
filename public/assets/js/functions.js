@@ -26,7 +26,6 @@ function loginUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-			console.log(res);
 			if (res = "OK") {
 				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
@@ -60,7 +59,6 @@ function createUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-			console.log(res)
 			if (res==='OK') {
 				console.log('User created: ', user)
 				$('#create-account-modal').hide();
@@ -117,7 +115,6 @@ function userSwipe(element) {
 		 		type: 'POST',
 		 		data: swipeData
 		 	}).done( function (result) {
-		 		console.log(result);
 		 		// console.log('result from then after userview swipe:', result);
 		 	});
 		}
@@ -158,7 +155,7 @@ function updateUser(element) {
 	$.ajax('/api/update/'+userName, {
 		type:'GET'
 	}).done((res)=>{
-		console.log('currentUser object: ', res)
+		//console.log('currentUser object: ', res)
 		if (res.password === password) {
 			$.ajax('/api/update', {
 				type: 'POST',

@@ -24,7 +24,6 @@ router.get(`/:username/video/`, (req, res) => {
 
 //Get function to bring back the password
 router.get("/api/update/:username", function (req, res){
-  console.log("update req.body ", req.body);
   db.User.findOne({
     where: {
       username: currentUser.userName
@@ -49,14 +48,13 @@ router.post('/api/update/', (req,res) => {
 router.get('/userView/swipe/:username', (req, res)=>{
   db.sequelize.query(`SELECT * FROM ${currentUser.userName};`, (err, res)=> {
     if (err){
-      console.log(err);
+      throw(err);
     }
 
   }).then(function(result){
     if (Object.keys(result.includes(${userName}))){
       console.log("Swiped Person ", ${userName});
-    }
-    console.log("Then result ", result[0]);
+    };
     //console.log("legible result", res.json({result:result[0]}));
     res.json({result:result[0]});
   });

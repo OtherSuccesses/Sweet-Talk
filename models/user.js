@@ -52,6 +52,5 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: "This user hasn't entered any information"
         }
     });
-    console.log(typeof User);
     return User;
 };
