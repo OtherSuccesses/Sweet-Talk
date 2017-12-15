@@ -24,9 +24,9 @@ module.exports = function(app, passport, db) {
 	        	type: db.Sequelize.STRING,
 		        allowNull: false,
 		        primaryKey: true,
-		        // validate:{
-		        //     isAlphanumeric: true
-		        // }
+		        validate:{
+		            isAlphanumeric: true
+		        }
 		    },
 		    swiped: {
 		        type: db.Sequelize.BOOLEAN,
@@ -35,7 +35,13 @@ module.exports = function(app, passport, db) {
 	    }, {
 	    	freezeTableName: true
 	  	});
+		db.User.update({online: 1}, {
+			where: {
+				userName
+			}
+		}).then(()=>{
 
+		});
 	  	db.sequelize.sync().then(() => {
 	    	res.json(req.user);
 	  	})   
@@ -59,6 +65,11 @@ module.exports = function(app, passport, db) {
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
 	    	console.log(req)
+    	db.User.update({online:0}, {
+    		where: {
+    			userName: req.user.userName
+    		}
+    	})
 	        res.redirect('/'); 
 	    });
 	});
@@ -67,7 +78,8 @@ module.exports = function(app, passport, db) {
     	db.User.findAll({
 		    where: {
 		      gender: currentUser.seeking,
-		      seeking: currentUser.gender
+		      seeking: currentUser.gender,
+		      online: 1
 		    }
 		}).then((results)=>{
 		    var users = [];

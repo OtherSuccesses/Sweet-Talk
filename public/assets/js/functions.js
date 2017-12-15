@@ -1,5 +1,5 @@
 function openModal(triggerId, modalId) {
-	$('#' + triggerId).on('click', (event)=>{
+	$(document).on('click','#' + triggerId, (event)=>{
 		event.preventDefault();
 		$('#' + modalId).fadeIn();
 	});
@@ -151,7 +151,6 @@ function layerTiles() {
 
 function updateUser(element) {
 	let userName = $(element).data('user'),
-		password = $('#update-password').val().trim(),
 		updateUser = {};
 	updateUser.gender   = $("input[name='gender']:checked").val() || undefined;
 	updateUser.seeking  = $("input[name='seeking']:checked").val() || undefined;
@@ -163,14 +162,13 @@ function updateUser(element) {
 	$.ajax('/api/update/'+userName, {
 		type:'GET'
 	}).done((res)=>{
-		console.log('currentUser object: ', res)
 
 		$.ajax('/api/update', {
 			type: 'POST',
 			data: updateUser
 		}).done((result) => {
 			$('#update-account-modal').hide();
-			console.log('result from done after post to /api/update:', result);
+			location.reload();
 		});
 	});
 }
@@ -195,7 +193,7 @@ function requestVideo() {
 
 function signOut() {
 	$.ajax('/logout', {type: 'GET'}).done( function(results) {
-		console.log('logged out');
+		console.log('logged out', results);
  		window.location.href = `/`;
 
 	});
@@ -205,12 +203,11 @@ function reorderChatWindows() {
 	let num = 0;
 	$('.chat-container .chat-accordion').each((i, item)=>{
 		num+=15;
-		console.log(item)
 		$(item).css('right', num+'%');
 	});
 }
 
-function createChatWindow(user) {	
+function createChatWindow(user) {
 	if($("#" + user).length == 0) {
 		let accordion = $('<div id="'+user+'">');
 		let header = $('<h3>');
@@ -230,6 +227,14 @@ function createChatWindow(user) {
 			heightStyle: 'content'
 		});
 	}
+}
+
+function addBackUser(userName, img) {
+	$('.modal-body .userTile').show();
+	$('#viewAgain-userName').text(`Meet ${userName}!`)
+	$('#viewAgain-img').attr('src', img);
+	$('#left').attr('data-user', userName);
+	$('#right').attr('data-user', userName);
 }
 
 function removeChatWindow(element) {

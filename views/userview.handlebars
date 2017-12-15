@@ -6,7 +6,7 @@
 			<ul>
 				<li id="update-account" class="navItem">Profile</li>
 				<li>|</li>
-				<li class="navItem">Inbox</li>
+				<li class="navItem" id="inbox">Inbox</li>
 				<li>|</li>
 				{{!-- <li class="navItem">Conversations</li>
 				<li>|</li> --}}
@@ -17,7 +17,7 @@
 	<video src="" id="userVideo"></video>
 
 	{{#each users}}
-		<div class="userTile centered" id="{{userName}}" data-layer="{{@index}}">
+		<div class="userTile centered" data-layer="{{@index}}">
 			<h2 class="tileTitle">Meet {{userName}}!</h2>
 			<div class="imgContainer">
 				<img src="{{img}}" alt="image of {{userName}}" class="userImage">
@@ -34,13 +34,28 @@
 
 	</div>
 
+	<div id="swiped-container">
+		<div class="swiped-user">
+			<img src="https://www.fillmurray.com/300/300" alt="">
+			<h3 class="swiped-userName">Bill Murray</h3>
+			<button class="viewAgain" data-userName="Bill Murray" data-img="https://www.fillmurray.com/300/300">View Again</button>
+		</div>
+		{{#each swiped}}
+			<div class="swiped-user">
+				<img src="{{img}}" alt="image of {{userName}}">
+				<h3 class="swiped-userName">{{userName}}</h3>
+				<button class="viewAgain" data-userName="{{userName}}" data-img="{{img}}">View Again</button>
+			</div>
+		{{/each}}
+	</div>
+
 
 	<div id="chat-accordion" class="chat-accordion chats">
 		<h3>Chat</h3>
 		  <div>
-			<p class="chatUser" id="">user1</p>
-			<p class="chatUser" id="">user2</p>
-			<p class="chatUser" id="">user3</p>
+		  	{{#each users}}
+				<p class="chatUser">{{userName}}</p>
+		  	{{/each}}
 		  </div>
 	</div>
 	<div class="chat-container">
@@ -77,13 +92,45 @@
 			  				<label for="seeking-f">Women</label>
 						</div>
 						<input name="update-img" id="update-img" type="text" placeholder="Enter image url" class="centered text-input" value="{{currentUser.img}}">
-						<textarea name="bio" id="update-bio" cols="60" rows="4" class="bio"placeholder="Input user Bio" class="centered text-input" value="{{currentUser.bio}}"></textarea>
-						<input name="update-password" type="password" id="update-password" placeholder="Enter password to submit changes" class="centered text-input">
+						<textarea name="bio" id="update-bio" cols="60" rows="4" class="bio"placeholder="Input user Bio" class="centered text-input" >{{currentUser.bio}}</textarea>
+						{{!-- <input name="update-password" type="password" id="update-password" placeholder="Enter password to submit changes" class="centered text-input"> --}}
 						<input type="button" value="Update Account!" id="update-submit" class="submit-button centered" data-user="{{currentUser.userName}}">
 					</form>
 				</div>
 			</div>
-		</div>{{!-- end of #create-account-modal --}}
+		</div>{{!-- end of #update-account-modal --}}
+
+		<div class="modal" id="inbox-modal">
+			<div class="modal-content">
+				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+				<div class="modal-header">
+					<h2>Hello {{currentUser.userName}}, here are the people you have contacted</h2>
+				</div>
+				<div class="modal-body">
+					
+				</div>
+			</div>
+		</div>{{!-- end of #update-account-modal --}}
+
+		<div class="modal" id="viewAgain-modal">
+			<div class="modal-content">
+				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+				<div class="modal-header">
+					
+				</div>
+				<div class="modal-body">
+					<div class="centered">
+						<h2 class="tileTitle" id="viewAgain-userName"></h2>
+						<div class="imgContainer">
+							<img src="" alt="" class="userImage" id="viewAgain-img">
+						</div>
+						<p class="userBio"></p>
+						<button class="choose modal-close" data-swipe="false" data-user="" id="left"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
+						<button class="choose modal-close" data-swipe="true" data-user="" id="right"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>{{!-- end of #viewAgain-modal --}}
 
 		<div id="match-modal" class="modal">
 			<div class="modal-content">
@@ -96,3 +143,7 @@
 		</div>
 	<footer></footer>
 </div>
+
+<script>
+
+</script>
