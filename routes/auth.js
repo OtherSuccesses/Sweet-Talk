@@ -34,17 +34,12 @@ module.exports = function(app, passport, db) {
 		    }
 	    }, {
 	    	freezeTableName: true
-	  	})
-	  	res.json(req.user);
-	  	// .then(function(data) {
-	   //  		console.log('signup success');
-	   //  		res.json(data);
-	   //    		// res.redirect('/userView');
-	   //  	}).catch(function(error){
-	   //  		console.log(error)
-	   //  	});
+	  	});
+
+	  	db.sequelize.sync().then(() => {
+	    	res.json(req.user);
 	  	})   
-    // };
+    });
 
     app.post('/login', passport.authenticate('local-signin', 
     	{
