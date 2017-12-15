@@ -6,7 +6,7 @@ INSERT INTO users (online, img, userName, password, gender, seeking, age, create
 INSERT INTO users (online, img, userName, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES (1, 'http://d3trabu2dfbdfb.cloudfront.net/2/2/2217301_300x300_1.jpeg','Jimbo', 'password','m','m',42,curdate(),curdate(),'This is the best dating app ever');
 INSERT INTO users (online, img, userName, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES (1, 'https://www.famousbirthdays.com/headshots/butch-patric-2.jpg','Butch', 'password','m','m',56,curdate(),curdate(),'This is the best dating app ever');
 INSERT INTO users (online, img, userName, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES (1, 'https://pbs.twimg.com/profile_images/625725471871864832/HDGuGk6K_400x400.jpg','Bearman69', 'password','m','m',27,curdate(),curdate(),'This is the best dating app ever');
-INSERT INTO users (online, img, userName, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES (1, 'https://www.colorado.edu/law/sites/default/files/styles/small/public/attached-files/jensen-roxanne-thumbnail.jpg','Roxanne', false, 'password','f','m',46,curdate(),curdate(),'This is the best dating app ever');
+INSERT INTO users (online, img, userName, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES (1, 'https://www.colorado.edu/law/sites/default/files/styles/small/public/attached-files/jensen-roxanne-thumbnail.jpg','Roxanne', 'password','f','m',46,curdate(),curdate(),'This is the best dating app ever');
 INSERT INTO users (online, img, userName, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES (1, 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_80%2Cw_300/MTE1ODA0OTcxOTA3Mzg0ODQ1/tiffany-16549793-1-402.jpg','Tiffany', 'password','f','m',36,curdate(),curdate(),'This is the best dating app ever');
 INSERT INTO users (online, img, userName, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES (1, 'https://i.mydramalist.com/V4QKOm.jpg','MarySue', 'password','f','m',25,curdate(),curdate(),'This is the best dating app ever');
 INSERT INTO users (online, img, userName, password, gender, seeking, age, createdAt, updatedAt, bio) VALUES (1, 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_80%2Cw_300/MTE5NTU2MzE2NDM2NTMwNjk5/martha-stewart-9542234-1-402.jpg','Martha', 'password','f','f',41,curdate(),curdate(),'This is the best dating app ever');
@@ -15,52 +15,76 @@ INSERT INTO users (online, img, userName, password, gender, seeking, age, create
 
 
 CREATE TABLE WalterWhite (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE BillyBob (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE GeraldoRivera (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE Jimbo (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE Butch (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE Bearman69(
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE Roxanne (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE Tiffany (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE MarySue (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE Martha (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE Abby (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 CREATE TABLE Bebe (
+	id INT AUTO_INCREMENT,
 	userName VARCHAR(255),
-	swiped BOOLEAN
+	swiped BOOLEAN,
+	PRIMARY KEY (id)
 );
 INSERT INTO WalterWhite (userName, swiped) VALUES ('Roxanne', true);
 INSERT INTO WalterWhite (userName, swiped) VALUES ('Tiffany', true);

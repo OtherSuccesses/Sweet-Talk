@@ -27,15 +27,11 @@ function loginUser() {
 			data: user
 		}).done((res)=>{
 
-			if (res = "OK") {
-				console.log('User logged in: ', user);
+			// if (res = "OK") {
+				console.log('User logged in: ', user, " res: ", res);
 				$('#sign-in-modal').fadeOut();
-				$.ajax('/userInfo', {
-					type: 'POST',
-					data: res
-				});
 				window.location.href="/userView";
-			}
+			// }
 		})
 	}
 }
@@ -108,49 +104,6 @@ function userSwipe(element) {
  	if ($(element).parent()==tileArr[tileArr.length-1]){
  		$('.noMore').show();
  	}
- // 	$.ajax('/userView/swipe/'+userName, {
- // 		type: 'GET'
- // 	}).done(function (res) {
- // 		var test = false;
- // 		for(var i = 0; i < res.result.length; i++) {
- // 			if(user === res.result[i].userName) {
- // 				test = true;
- // 				return test;
- // 			}
- // 		}
- // 		if(!test) {
-	//  		console.log("done response: ", res.result[0].userName);
-	// 	 	$.ajax('/userView/swipe', {
-	// 	 		type: 'POST',
-	// 	 		data: swipeData
-	// 	 	}).done( function (result) {
-	// 	 		// console.log('result from then after userview swipe:', result);
-	// 	 	});
-	// 	}
-	// }); 	
-
- 	$.ajax('/userView/swipe/'+userName, {
- 		type: 'GET'
- 	}).done(function (res) {
- 		var test = false;
- 		for(var i = 0; i < res.result.length; i++) {
- 			if(user === res.result[i].userName) {
- 				test = true;
- 				return test;
- 			}
- 		}
- 	// 	if(!test) {
-	 // 		console.log("done response: ", res.result[0].userName);
-		//  	$.ajax('/userView/swipe', {
-		//  		type: 'POST',
-		//  		data: swipeData
-		//  	}).done( function (result) {
-		//  		// console.log('result from then after userview swipe:', result);
-		//  	});
-		// }
-	}); 	
-
-
  	$.ajax('/userView/swipe', {
  		type: 'POST',
  		data: swipeData
