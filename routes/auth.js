@@ -19,6 +19,7 @@ module.exports = function(app, passport, db) {
     app.get('/api/signup/success',function(req,res) {
     	console.log(req.user);
   		let {userName, password, gender, seeking, age, bio, img} = req.user;
+
 		db.sequelize.define(userName, {
 	    	id: {
 	    		type: db.Sequelize.INTEGER,
@@ -47,10 +48,11 @@ module.exports = function(app, passport, db) {
 			}
 		}).then(()=>{
 
+		// });
+		  	db.sequelize.sync().then(() => {
+		    	res.json(req.user);
+		  	})   
 		});
-	  	db.sequelize.sync().then(() => {
-	    	res.json(req.user);
-	  	})   
     });
 
     app.post('/login', passport.authenticate('local-signin', 

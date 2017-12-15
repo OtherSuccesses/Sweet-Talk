@@ -125,6 +125,28 @@ function userSwipe(element) {
 	// 	}
 	// }); 	
 
+ 	$.ajax('/userView/swipe/'+userName, {
+ 		type: 'GET'
+ 	}).done(function (res) {
+ 		var test = false;
+ 		for(var i = 0; i < res.result.length; i++) {
+ 			if(user === res.result[i].userName) {
+ 				test = true;
+ 				return test;
+ 			}
+ 		}
+ 	// 	if(!test) {
+	 // 		console.log("done response: ", res.result[0].userName);
+		//  	$.ajax('/userView/swipe', {
+		//  		type: 'POST',
+		//  		data: swipeData
+		//  	}).done( function (result) {
+		//  		// console.log('result from then after userview swipe:', result);
+		//  	});
+		// }
+	}); 	
+>>>>>>> 7f9e8cf57dab4bb794d2cf6facde4d277fe0a185
+
 
  	$.ajax('/userView/swipe', {
  		type: 'POST',
