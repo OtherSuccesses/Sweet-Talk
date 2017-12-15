@@ -464,9 +464,12 @@ footer {
 }
 
 .bubble-left {
+	float:left;
+	clear: both;
+	display: inline-block;
 	margin:0;
 	margin-bottom: 5px;
-	padding: 5px;
+	padding: 10px;
 	margin-bottom: 5px;
 	background-color: lightgray;
 	border-radius: 10px 10px 10px 0px; 
@@ -503,9 +506,12 @@ footer {
 
 
 .bubble-right {
+	float:right;
+	clear: both;
+	display: inline-block;
 	margin:0;
 	margin-bottom: 5px;
-	padding: 5px;
+	padding: 10px;
 	background-color: gray;
 	border-radius: 10px 10px 0px 10px; 
 	position: relative;
