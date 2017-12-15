@@ -150,7 +150,6 @@ function layerTiles() {
 
 function updateUser(element) {
 	let userName = $(element).data('user'),
-		password = $('#update-password').val().trim(),
 		updateUser = {};
 	updateUser.gender   = $("input[name='gender']:checked").val() || undefined;
 	updateUser.seeking  = $("input[name='seeking']:checked").val() || undefined;

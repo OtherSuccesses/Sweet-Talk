@@ -65,6 +65,11 @@ module.exports = function(app, passport, db) {
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
 	    	console.log(req)
+    	db.User.update({online:0}, {
+    		where: {
+    			userName: req.user.userName
+    		}
+    	})
 	        res.redirect('/'); 
 	    });
 	});
