@@ -50,6 +50,7 @@ router.post('/api/update/', (req,res) => {
   }).then(function () {
     res.sendStatus(200).end(); 
   });
+<<<<<<< HEAD
 });
 
 //Vytas's route
@@ -69,6 +70,29 @@ router.post('/api/update/', (req,res) => {
 
 
 //Route to log swipes to personal DB
+=======
+
+
+//Route to check the swipe database for duplicates 
+router.get('/userView/swipe/:username', (req, res)=>{
+  db.sequelize.query(`SELECT * FROM ${currentUser.userName};`, (err, res)=> {
+    if (err){
+      throw(err);
+    }
+
+  }).then(function(result){
+    if (Object.keys(result.includes($(userName)))){
+      console.log("Swiped Person ", $(userName));
+    };
+    //console.log("legible result", res.json({result:result[0]}));
+    res.json({result:result[0]});
+  });
+});
+
+
+});
+
+>>>>>>> 7d5ecefd2167a10b2573fb2bbcfae5752a0deb0a
 router.post('/userView/swipe', (req,res) => {
   let currentUser = req.user;
   //Update or insert into dynamic user swipe table
@@ -78,6 +102,7 @@ router.post('/userView/swipe', (req,res) => {
     } else {
       db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`);
     }
+
   });
 
   //Check for match
