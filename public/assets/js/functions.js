@@ -136,10 +136,12 @@ function userSwipe(element) {
 }
 
 function layerTiles() {
+	let first = true;
  	$('.userTile').each(function (i, item) {
  		$('.noMore').hide();
- 		if ($(this).data('layer')===1 || $(this).data('layer')===0) {
+ 		if (first) {
  			$(this).show();
+ 			first = false;
  		} else {
  			$(this).hide();
  		}
