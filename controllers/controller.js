@@ -68,20 +68,20 @@ router.post('/api/update/', (req,res) => {
 
 
 //Route to check the swipe database for duplicates 
-router.get('/userView/swipe/:username', (req, res)=>{
-  db.sequelize.query(`SELECT * FROM ${currentUser.userName};`, (err, res)=> {
-    if (err){
-      throw(err);
-    }
+// router.get('/userView/swipe/:username', (req, res)=>{
+//   db.sequelize.query(`SELECT * FROM ${currentUser.userName};`, (err, res)=> {
+//     if (err){
+//       throw(err);
+//     }
 
-  }).then(function(result){
-    if (Object.keys(result.includes($(userName)))){
-      console.log("Swiped Person ", $(userName));
-    };
-    //console.log("legible result", res.json({result:result[0]}));
-    res.json({result:result[0]});
-  });
-});
+//   }).then(function(result){
+//     if (Object.keys(result.includes($(userName)))){
+//       console.log("Swiped Person ", $(userName));
+//     };
+//     //console.log("legible result", res.json({result:result[0]}));
+//     res.json({result:result[0]});
+//   });
+// });
 
 router.post('/userView/swipe', (req,res) => {
   let currentUser = req.user;
@@ -117,6 +117,7 @@ router.post('/userView/swipe', (req,res) => {
     res.end();
   }
 });
+
 //Video Chat Route
 // router.post('/video', (req, res) => {
 //   console.log("video post req.body", req.body);

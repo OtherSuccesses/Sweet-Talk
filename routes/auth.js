@@ -20,10 +20,15 @@ module.exports = function(app, passport, db) {
     	console.log(req.user);
   		let {userName, password, gender, seeking, age, bio, img} = req.user;
 		db.sequelize.define(userName, {
+	    	id: {
+	    		type: db.Sequelize.INTEGER,
+	    		allowNull: false,
+	    		primaryKey: true,
+	    		autoIncrement: true
+	    	},
 	    	userName: {
 	        	type: db.Sequelize.STRING,
 		        allowNull: false,
-		        primaryKey: true,
 		        validate:{
 		            isAlphanumeric: true
 		        }
@@ -33,7 +38,8 @@ module.exports = function(app, passport, db) {
 		        allowNull: false
 		    }
 	    }, {
-	    	freezeTableName: true
+	    	freezeTableName: true,
+	    	timestamps: false,
 	  	});
 		db.User.update({online: 1}, {
 			where: {
