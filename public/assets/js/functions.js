@@ -197,12 +197,13 @@ function createChatWindow(user) {
 <div class="bubble-right">That's Awesome! Ok man, I have to run, but it's been great talking to you.  Say hello to my wife for me.</div>`
 		let accordion = $('<div id="'+user+'">');
 		let header = $('<h3>');
+		let chatUser = $('<span class="chatUserName">').text(user)
 		let remove = $('<span class="remove">');
 		let chatBox = $('<div class="chatBox">')
 		let msgWindow = $('<div class="msgWindow">').html(mockText);
 		let chatInput = $('<input type="text" class="chatInput">');
 		remove.append('<i class="fa fa-times" aria-hidden="true"></i>')
-		header.text(user).append(remove).appendTo(accordion);
+		header.append(chatUser, remove).appendTo(accordion);
 		chatBox.append(msgWindow, chatInput);
 		accordion.append(chatBox);
 		accordion.addClass('chat-accordion chats')

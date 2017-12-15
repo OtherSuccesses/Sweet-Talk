@@ -3,9 +3,9 @@ $(document).ready(() => {
 	openModal('sign-in', 'sign-in-modal');
 	openModal('create-account', 'create-account-modal');
 	openModal('update-account', 'update-account-modal');
-	// openModal('inbox', 'inbox-modal');
-	openModal('viewAgain', 'viewAgain-modal');
-	closeModal('viewAgain-modal');
+	openModal('inbox', 'inbox-modal');
+	// openModal('viewAgain', 'viewAgain-modal');
+	// closeModal('viewAgain-modal');
 	closeModal('sign-in-modal');
 	closeModal('create-account-modal');
 	closeModal('update-account-modal');
@@ -79,6 +79,22 @@ $(document).ready(() => {
 		event.preventDefault();		
 		$('#viewAgain-modal').fadeIn();
 		addBackUser($(this));
+	});
+
+	//"click" event for enter key on chat inputs
+	$(document).keypress(function (event) {
+		let user = {};
+		user.chatPartner = $('.chatInput:focus').parent().siblings('h3').find('.chatUserName').text()
+		user.input = $('.chatInput:focus').val().trim();
+		  if(event.keyCode == 13){
+		  	console.log(user)
+		  	$.ajax('/chatInput', {
+		  		type:'POST',
+		  		data: user
+		  	}).then((res)=>{
+		  		$('.chatInput:focus').val('');
+		  	});
+		  }
 	});
 
 	//click event for populating modal of user you would like a second chance at

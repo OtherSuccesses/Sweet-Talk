@@ -437,7 +437,25 @@ footer {
 
 .chatUser {
 	cursor: pointer;
+	margin-left: 15px;
+
 }
+.chatUser:after {
+	content: '';
+	width: 0%;
+	height: 20px;
+	position: absolute;
+	left:0%;
+	border-bottom: 3px solid lightblue;
+	transition: width 300ms ease;
+	margin: 0 auto;
+	display: inline;
+}
+
+.chatUser:hover:after{
+	width: 100%;
+}
+
 
 .remove {
 	position: absolute;
@@ -446,6 +464,7 @@ footer {
 
 .chatBox {
 	height: 100%;
+	overflow-x: hidden;;;;
 }
 
 .msgWindow {
@@ -458,9 +477,14 @@ footer {
 
 .chatInput {
 	width: 100%;
-	height: 25px;
+	height: 30px;
 	margin:0;
+	margin-bottom: 10px;
 	padding:0;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	outline: none;
 }
 
 .bubble-left {
@@ -525,7 +549,7 @@ footer {
 	border-radius: 50%;
 	background: white;
 	right: 0;
-	bottom: 0;
+	top: 0;
 	transform: translateX(100%);
 }
 
@@ -535,13 +559,13 @@ footer {
 	height: 0px;
 	width: 0px;
 	border: 10px solid black;
-	border-top-color: transparent;
+	border-top-color: gray;
 	border-right-color: transparent;
-	border-bottom-color: gray;
+	border-bottom-color: transparent;
 	border-left-color: transparent;
 	right: 0;
 	transform: translateX(50%);
-	bottom:0;
+	top:0;
 }
 
 
