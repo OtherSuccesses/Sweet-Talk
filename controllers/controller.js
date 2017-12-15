@@ -92,7 +92,6 @@ router.post('/userView/swipe', (req,res) => {
     } else {
       db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`);
     }
-
   });
 
   //Check for match
@@ -113,23 +112,12 @@ router.post('/userView/swipe', (req,res) => {
         } else {
           res.end();
         }
+
       }
     });
   } else {
     res.end();
   }
 });
-
-//Video Chat Route
-// router.post('/video', (req, res) => {
-//   console.log("video post req.body", req.body);
-
-//   db.VideoChat.create({
-//     initiatorId: req.body,
-//     recId: null,
-//   }).then(function(result) {
-//     res.json(result);
-//   });
-// });
 
 module.exports = router;
