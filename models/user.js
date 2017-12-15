@@ -50,12 +50,12 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue: "This user hasn't entered any information"
-        },
-        online: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-            defaultValue: 0
-        }
+        }//,
+        // online: {
+        //     type: DataTypes.BOOLEAN,
+        //     allowNull: true,
+        //     defaultValue: 0
+        // }
     });
     return User;
 };
