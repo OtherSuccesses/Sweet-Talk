@@ -3,9 +3,15 @@ $(document).ready(() => {
 	openModal('sign-in', 'sign-in-modal');
 	openModal('create-account', 'create-account-modal');
 	openModal('update-account', 'update-account-modal');
-	closeModal('sign-in-modal')
-	closeModal('create-account-modal')
-	closeModal('update-account-modal')
+	openModal('inbox', 'inbox-modal');
+	openModal('viewAgain', 'viewAgain-modal');
+	closeModal('viewAgain-modal');
+	closeModal('sign-in-modal');
+	closeModal('create-account-modal');
+	closeModal('update-account-modal');
+	closeModal('inbox-modal');
+
+	
 
 	//click event for submitting login
 	$('#login-submit').on('click', (event) =>{
@@ -66,6 +72,22 @@ $(document).ready(() => {
 		let user = $(this).text();
 		createChatWindow(user);
 	});
+
+	//event listener for 
+	$(document).on('click','.viewAgain', function (event) {
+		event.preventDefault();
+		console.log($(this))
+		let userName = $(this).attr('data-username');
+		let img = $(this).attr('data-img');
+		console.log(userName, img)
+		$('#viewAgain-modal').fadeIn();
+		addBackUser(userName,img)
+	});
+
+	$(document).on('click', '.modal-close', function (event) {
+		event.preventDefault();
+		$('#viewAgain-modal').fadeOut();
+	})
 
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();

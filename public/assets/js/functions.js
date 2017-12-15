@@ -1,5 +1,5 @@
 function openModal(triggerId, modalId) {
-	$('#' + triggerId).on('click', (event)=>{
+	$(document).on('click','#' + triggerId, (event)=>{
 		event.preventDefault();
 		$('#' + modalId).fadeIn();
 	});
@@ -226,6 +226,14 @@ function createChatWindow(user) {
 			heightStyle: 'content'
 		});
 	}
+}
+
+function addBackUser(userName, img) {
+	$('.modal-body .userTile').show();
+	$('#viewAgain-userName').text(`Meet ${userName}!`)
+	$('#viewAgain-img').attr('src', img);
+	$('#left').attr('data-user', userName);
+	$('#right').attr('data-user', userName);
 }
 
 function removeChatWindow(element) {
