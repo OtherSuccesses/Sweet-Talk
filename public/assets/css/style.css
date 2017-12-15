@@ -6,6 +6,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	overflow: hidden;
 }
 
 a {
@@ -49,9 +50,10 @@ video {
 	color: rgba(255,105,180, 1);
 	font-size: 120px;
 	letter-spacing: 5px;
-	text-shadow: 2px 2px 2px rgba(0,0,200, 0.3);
+	text-shadow: 2px 2px 2px rgba(100,150,250, 0.8);
 	font-family: 'Leckerli One', cursive;
-	margin-bottom: 20px;;
+	margin-bottom: 20px;
+	transform: rotate(-5deg);
 }
 
 #sign-in {
@@ -63,12 +65,12 @@ video {
 	width: 120px;
 	margin: 20px auto;
 	cursor: pointer;
-	font-weight: bold;;
+	font-weight: bold;
 }
 
 #create-account {
 	color: white;
-	font-size: 18px;;
+	font-size: 18px;
 }
 
 
@@ -101,7 +103,7 @@ video {
 
 .close {
 	position: absolute;
-	right: 3%;;
+	right: 3%;
 	top: 4%;
 }
 
@@ -420,17 +422,11 @@ footer {
 
 /*********************Chat window CSS*********************/
 
-/*#chat-accordion {
-	width: 15px;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	z-index: 100;
-}*/
 
 .ui-accordion .ui-accordion-content {
 	padding: 0;
 }
+
 .chat-accordion {
 	width: 15%;
 	position: absolute;
@@ -446,12 +442,10 @@ footer {
 .remove {
 	position: absolute;
 	right: 10px;
-
 }
 
 .chatBox {
 	height: 100%;
-	/*padding: 15px;*/
 }
 
 .msgWindow {
@@ -459,9 +453,8 @@ footer {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 15px;
+	color: white;
 }
-
-
 
 .chatInput {
 	width: 100%;
@@ -470,23 +463,79 @@ footer {
 	padding:0;
 }
 
-.bubble {
-
+.bubble-left {
+	margin:0;
+	margin-bottom: 5px;
+	padding: 5px;
+	margin-bottom: 5px;
+	background-color: lightgray;
+	border-radius: 10px 10px 10px 0px; 
+	position: relative;  
+	color: #777777;
 }
+
+.bubble-left:after {
+  content: '';
+  position: absolute;
+  height:20px;
+  width: 20px;
+  border-radius: 50%;
+  background: white;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-100%);
+}
+
+.bubble-left:before {
+	content: '';
+	position: absolute;
+	height: 0px;
+	width: 0px;
+	border: 10px solid black;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: lightgray;
+	border-left-color: transparent;
+	left: 0;
+	transform: translateX(-50%);
+	bottom:0;
+}
+
 
 .bubble-right {
-	background: gray;
-	color: white;
-	border-radius: 10px;
-	padding: 5px 10px;
-	font-size: 15px;
+	margin:0;
+	margin-bottom: 5px;
+	padding: 5px;
+	background-color: gray;
+	border-radius: 10px 10px 0px 10px; 
+	position: relative;
 }
 
-.bubble-left {
-	background: lightgray;
-	border-radius: 10px;
-	padding: 5px 10px;
-	font-size: 15px;
+.bubble-right:after {
+	content: '';
+	position: absolute;
+	height:20px;
+	width: 20px;
+	border-radius: 50%;
+	background: white;
+	right: 0;
+	bottom: 0;
+	transform: translateX(100%);
+}
+
+.bubble-right:before {
+	content: '';
+	position: absolute;
+	height: 0px;
+	width: 0px;
+	border: 10px solid black;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: gray;
+	border-left-color: transparent;
+	right: 0;
+	transform: translateX(50%);
+	bottom:0;
 }
 
 
@@ -496,8 +545,6 @@ footer {
 	height: 100vh;
 	width: 20%;
 	border-right: 1px solid black;
-	/*background: white;*/
-	/*opacity: 0.4;*/
 }
 
 .swiped-user {
@@ -507,14 +554,9 @@ footer {
 	position: relative;
 }
 
-.thumbnail-container {
-	/*display: inline;*/
-}
-
 .swiped-user img {
 	height: 50px;
-	vertical-align:middle
-	 /*line-height:  50px;*/
+	vertical-align:middle;
 }
 
 .swiped-userName {

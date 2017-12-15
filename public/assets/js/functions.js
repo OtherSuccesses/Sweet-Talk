@@ -190,11 +190,15 @@ function reorderChatWindows() {
 
 function createChatWindow(user) {
 	if($("#" + user).length == 0) {
+		let mockText = `<div class="bubble-left">Hey man, what's going on? Long time no see!</div>
+<div class="bubble-right">I know right?  It's been ages...How's the family?</div>
+<div class="bubble-left">Everyone is doing great.  No teen pregnancies, Timmy just graduated from space architect surgeon school.</div>
+<div class="bubble-right">That's Awesome! Ok man, I have to run, but it's been great talking to you.  Say hello to my wife for me.</div>`
 		let accordion = $('<div id="'+user+'">');
 		let header = $('<h3>');
 		let remove = $('<span class="remove">');
 		let chatBox = $('<div class="chatBox">')
-		let msgWindow = $('<div class="msgWindow">');
+		let msgWindow = $('<div class="msgWindow">').html(mockText);
 		let chatInput = $('<input type="text" class="chatInput">');
 		remove.append('<i class="fa fa-times" aria-hidden="true"></i>')
 		header.text(user).append(remove).appendTo(accordion);
@@ -210,7 +214,9 @@ function createChatWindow(user) {
 	}
 }
 
-function addBackUser(userName, img) {
+function addBackUser(element) {
+	let userName = $(element).attr('data-username');
+	let img = $(element).attr('data-img');
 	$('.modal-body .userTile').show();
 	$('#viewAgain-userName').text(`Meet ${userName}!`)
 	$('#viewAgain-img').attr('src', img);

@@ -76,15 +76,12 @@ $(document).ready(() => {
 
 	//event listener for 
 	$(document).on('click','.viewAgain', function (event) {
-		event.preventDefault();
-		console.log($(this))
-		let userName = $(this).attr('data-username');
-		let img = $(this).attr('data-img');
-		console.log(userName, img)
+		event.preventDefault();		
 		$('#viewAgain-modal').fadeIn();
-		addBackUser(userName,img)
+		addBackUser($(this));
 	});
 
+	//click event for populating modal of user you would like a second chance at
 	$(document).on('click', '.modal-close', function (event) {
 		event.preventDefault();
 		$('#viewAgain-modal').fadeOut();
