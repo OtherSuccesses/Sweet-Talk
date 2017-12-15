@@ -51,7 +51,8 @@ module.exports = function(passport, user) {
                             seeking: req.body.seeking,
                             img: req.body.img,
                             bio: req.body.bio,
-                            gender: req.body.gender
+                            gender: req.body.gender,
+                            online: req.body.online
                         };
                     User.create(data).then(function(newUser, created) {
                         if (!newUser) {
