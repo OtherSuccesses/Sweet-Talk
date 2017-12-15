@@ -107,57 +107,13 @@ function userSwipe(element) {
  	});
  	if ($(element).parent()==tileArr[tileArr.length-1]){
  		$('.noMore').show();
- 	}
- // 	$.ajax('/userView/swipe/'+userName, {
- // 		type: 'GET'
- // 	}).done(function (res) {
- // 		var test = false;
- // 		for(var i = 0; i < res.result.length; i++) {
- // 			if(user === res.result[i].userName) {
- // 				test = true;
- // 				return test;
- // 			}
- // 		}
- // 		if(!test) {
-	//  		console.log("done response: ", res.result[0].userName);
-	// 	 	$.ajax('/userView/swipe', {
-	// 	 		type: 'POST',
-	// 	 		data: swipeData
-	// 	 	}).done( function (result) {
-	// 	 		// console.log('result from then after userview swipe:', result);
-	// 	 	});
-	// 	}
-	// }); 	
+ 	}		
 
- 	$.ajax('/userView/swipe/'+userName, {
- 		type: 'GET'
- 	}).done(function (res) {
- 		var test = false;
- 		for(var i = 0; i < res.result.length; i++) {
- 			if(user === res.result[i].userName) {
- 				test = true;
- 				return test;
- 			}
+ 	$.post('/userView/swipe', swipeData).done((res) => {
+ 		if (res) {
+ 			window.location.href = `/${res.userName}/video`
  		}
- 	// 	if(!test) {
-	 // 		console.log("done response: ", res.result[0].userName);
-		//  	$.ajax('/userView/swipe', {
-		//  		type: 'POST',
-		//  		data: swipeData
-		//  	}).done( function (result) {
-		//  		// console.log('result from then after userview swipe:', result);
-		//  	});
-		// }
-	}); 	
-
-
- 	$.ajax('/userView/swipe', {
- 		type: 'POST',
- 		data: swipeData
- 	}).done((result) => {
- 		console.log('result from then after userview swipe:', result);
- 		window.location.href = `/${result.recUserName}/video`;
- 	})
+ 	});
 }
 
 function layerTiles() {

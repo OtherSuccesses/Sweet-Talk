@@ -3,7 +3,7 @@ $(document).ready(() => {
 	openModal('sign-in', 'sign-in-modal');
 	openModal('create-account', 'create-account-modal');
 	openModal('update-account', 'update-account-modal');
-	openModal('inbox', 'inbox-modal');
+	// openModal('inbox', 'inbox-modal');
 	openModal('viewAgain', 'viewAgain-modal');
 	closeModal('viewAgain-modal');
 	closeModal('sign-in-modal');
@@ -35,6 +35,7 @@ $(document).ready(() => {
 	//click event listener for "swiping" on users
 	$(document).on('click','.choose', function (event) {
 		event.preventDefault();
+		console.log($(this));
 		userSwipe($(this));
 	});
 
