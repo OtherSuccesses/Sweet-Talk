@@ -84,6 +84,7 @@ function clearInputs() {
 			$(item).val('').css('border-color', 'white');
 		}
 	});
+	$('#create-bio').val('');
 }
 
 function userSwipe(element) {
