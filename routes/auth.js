@@ -17,51 +17,34 @@ module.exports = function(app, passport, db) {
 		res.send({error: "There has been an error in signup."});
     });
     app.get('/api/signup/success',function(req,res) {
-  		let {userName, password, gender, seeking, age, online} = req.user;
-  		db.sequelize.findOne(
-  			{
-  				where: {
-  					userName: userName
-  				}
-  			}
-  		).then(function(user) {
-  			if(user) {
-  				console.log("User by that name already exists.");
-  				res.send({error: "User by that name already exists."});
-  			} else {
-  				db.sequelize.define(userName, {
-			    	userName: {
-			        	type: db.Sequelize.STRING,
-				        allowNull: false,
-				        primaryKey: true,
-				        validate:{
-				            isAlphanumeric: true
-				        }
-				    },
-				    swiped: {
-				        type: db.Sequelize.BOOLEAN,
-				        allowNull: false
-				    }
-			    }, {
-			    	freezeTableName: true
-			  	});
-			  	db.sequelize.sync().then(() => {
-			    	console.log('then sync')
-			    	db.User.create({
-			        	userName,
-			      		password,
-			      		gender,
-			      		seeking,
-			      		age,
-			      		online
-			    	}).then(function(data) {
-			    		console.log('signup success');
-			      		res.redirect('/userView');
-			    	});
-			  	})
-			}
-		});	    
-    });
+    	console.log(req.user);
+  		let {userName, password, gender, seeking, age, bio, img} = req.user;
+		db.sequelize.define(userName, {
+	    	userName: {
+	        	type: db.Sequelize.STRING,
+		        allowNull: false,
+		        primaryKey: true,
+		        // validate:{
+		        //     isAlphanumeric: true
+		        // }
+		    },
+		    swiped: {
+		        type: db.Sequelize.BOOLEAN,
+		        allowNull: false
+		    }
+	    }, {
+	    	freezeTableName: true
+	  	})
+	  	res.json(req.user);
+	  	// .then(function(data) {
+	   //  		console.log('signup success');
+	   //  		res.json(data);
+	   //    		// res.redirect('/userView');
+	   //  	}).catch(function(error){
+	   //  		console.log(error)
+	   //  	});
+	  	})   
+    // };
 
     app.post('/login', passport.authenticate('local-signin', 
     	{

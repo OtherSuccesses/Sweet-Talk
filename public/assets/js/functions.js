@@ -26,6 +26,7 @@ function loginUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
+
 			if (res = "OK") {
 				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
@@ -62,13 +63,14 @@ function createUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-			if (res==='OK') {
+			// console.log(res);
+			// if (res==='OK') {
 				console.log('User created: ', user)
 				$('#create-account-modal').hide();
 				$('#sign-in-modal').show();
 				$('#username').val(user.userName);
 				$('#password').val(user.password);
-			} 
+			// } 
 		});
 	}
 }

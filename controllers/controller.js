@@ -12,10 +12,6 @@ router.get("/", (req, res) => {
   res.render("index", {title: 'Clever Title'});
 });
 
-router.get('/api/login/success', function (req,res) {
-  let currentUser = req.user;
-});
-
 router.get(`/:username/video/`, (req, res) => {
   let currentUser = req.user;
       db.VideoChat.findOne({
@@ -50,7 +46,6 @@ router.post('/api/update/', (req,res) => {
   }).then(function () {
     res.sendStatus(200).end(); 
   });
-<<<<<<< HEAD
 });
 
 //Vytas's route
@@ -70,7 +65,6 @@ router.post('/api/update/', (req,res) => {
 
 
 //Route to log swipes to personal DB
-=======
 
 
 //Route to check the swipe database for duplicates 
@@ -89,10 +83,6 @@ router.get('/userView/swipe/:username', (req, res)=>{
   });
 });
 
-
-});
-
->>>>>>> 7d5ecefd2167a10b2573fb2bbcfae5752a0deb0a
 router.post('/userView/swipe', (req,res) => {
   let currentUser = req.user;
   //Update or insert into dynamic user swipe table
