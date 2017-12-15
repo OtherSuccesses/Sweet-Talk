@@ -145,7 +145,6 @@ function userSwipe(element) {
 		//  	});
 		// }
 	}); 	
->>>>>>> 7f9e8cf57dab4bb794d2cf6facde4d277fe0a185
 
 
  	$.ajax('/userView/swipe', {
