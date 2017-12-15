@@ -54,17 +54,18 @@ $(document).ready(() => {
 		signOut();
 	});
 
-	//click event for creating a chat window
-	$(document).on('click', '.chatUser', function () {
-		let user = $(this).text();
-		createChatWindow(user);
-	});
-
 	//click event for removing a chat window
 	$(document).on('click', '.remove', function () {
 		removeChatWindow($(this));
 		reorderChatWindows();
-	})
+	});
+
+	//click event for creating a chat window
+	$(document).on('click', '.chatUser', function (event) {
+		event.preventDefault();
+		let user = $(this).text();
+		createChatWindow(user);
+	});
 
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();

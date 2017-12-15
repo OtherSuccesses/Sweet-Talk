@@ -17,7 +17,7 @@
 	<video src="" id="userVideo"></video>
 
 	{{#each users}}
-		<div class="userTile centered" id="{{userName}}" data-layer="{{@index}}">
+		<div class="userTile centered" data-layer="{{@index}}">
 			<h2 class="tileTitle">Meet {{userName}}!</h2>
 			<div class="imgContainer">
 				<img src="{{img}}" alt="image of {{userName}}" class="userImage">
@@ -38,9 +38,15 @@
 	<div id="chat-accordion" class="chat-accordion chats">
 		<h3>Chat</h3>
 		  <div>
-			<p class="chatUser" id="">user1</p>
-			<p class="chatUser" id="">user2</p>
-			<p class="chatUser" id="">user3</p>
+			<p class="chatUser">user1</p>
+			<p class="chatUser">user2</p>
+			<p class="chatUser">user3</p>
+
+
+		  	{{#each users}}
+				<p class="chatUser">{{userName}}</p>
+		  	{{/each}}
+
 		  </div>
 	</div>
 	<div class="chat-container">
@@ -96,3 +102,7 @@
 		</div>
 	<footer></footer>
 </div>
+
+<script>
+
+</script>
