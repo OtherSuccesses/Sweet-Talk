@@ -63,7 +63,7 @@ function createUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-			// console.log(res);
+			console.log(res);
 			// if (res==='OK') {
 				console.log('User created: ', user)
 				$('#create-account-modal').hide();
@@ -191,7 +191,11 @@ function requestVideo() {
 };
 
 function signOut() {
-	$.ajax('/logout', {type: 'GET'});
+	$.ajax('/logout', {type: 'GET'}).done( function(results) {
+		console.log('logged out');
+ 		window.location.href = `/`;
+
+	});
 }
 
 function reorderChatWindows() {
