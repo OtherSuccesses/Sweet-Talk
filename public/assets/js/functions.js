@@ -63,7 +63,7 @@ function createUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-			// console.log(res);
+			console.log(res);
 			// if (res==='OK') {
 				console.log('User created: ', user)
 				$('#create-account-modal').hide();
@@ -137,10 +137,12 @@ function userSwipe(element) {
 }
 
 function layerTiles() {
+	let first = true;
  	$('.userTile').each(function (i, item) {
  		$('.noMore').hide();
- 		if ($(this).data('layer')===1) {
+ 		if (first) {
  			$(this).show();
+ 			first = false;
  		} else {
  			$(this).hide();
  		}
@@ -167,7 +169,7 @@ function updateUser(element) {
 			type: 'POST',
 			data: updateUser
 		}).done((result) => {
-			
+			$('#update-account-modal').hide();
 			console.log('result from done after post to /api/update:', result);
 		});
 	});
@@ -192,7 +194,11 @@ function requestVideo() {
 };
 
 function signOut() {
-	$.ajax('/logout', {type: 'GET'});
+	$.ajax('/logout', {type: 'GET'}).done( function(results) {
+		console.log('logged out');
+ 		window.location.href = `/`;
+
+	});
 }
 
 function reorderChatWindows() {
