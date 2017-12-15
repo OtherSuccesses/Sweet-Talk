@@ -38,15 +38,9 @@
 	<div id="chat-accordion" class="chat-accordion chats">
 		<h3>Chat</h3>
 		  <div>
-			<p class="chatUser">user1</p>
-			<p class="chatUser">user2</p>
-			<p class="chatUser">user3</p>
-
-
 		  	{{#each users}}
 				<p class="chatUser">{{userName}}</p>
 		  	{{/each}}
-
 		  </div>
 	</div>
 	<div class="chat-container">
@@ -83,8 +77,8 @@
 			  				<label for="seeking-f">Women</label>
 						</div>
 						<input name="update-img" id="update-img" type="text" placeholder="Enter image url" class="centered text-input" value="{{currentUser.img}}">
-						<textarea name="bio" id="update-bio" cols="60" rows="4" class="bio"placeholder="Input user Bio" class="centered text-input" value="{{currentUser.bio}}"></textarea>
-						<input name="update-password" type="password" id="update-password" placeholder="Enter password to submit changes" class="centered text-input">
+						<textarea name="bio" id="update-bio" cols="60" rows="4" class="bio"placeholder="Input user Bio" class="centered text-input" >{{currentUser.bio}}</textarea>
+						{{!-- <input name="update-password" type="password" id="update-password" placeholder="Enter password to submit changes" class="centered text-input"> --}}
 						<input type="button" value="Update Account!" id="update-submit" class="submit-button centered" data-user="{{currentUser.userName}}">
 					</form>
 				</div>
