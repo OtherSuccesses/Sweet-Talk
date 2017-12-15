@@ -30,8 +30,11 @@ function loginUser() {
 			if (res = "OK") {
 				console.log('User logged in: ', user);
 				$('#sign-in-modal').fadeOut();
+				$.ajax('/userInfo', {
+					type: 'POST',
+					data: res
+				});
 				window.location.href="/userView";
-				
 			}
 		})
 	}
@@ -175,7 +178,7 @@ function updateUser(element) {
 		type:'GET'
 	}).done((res)=>{
 		console.log('currentUser object: ', res)
-		if (res.password === password) {
+		// if (res.password === password) {
 			$.ajax('/api/update', {
 				type: 'POST',
 				data: updateUser
@@ -183,7 +186,7 @@ function updateUser(element) {
 				
 				console.log('result from done after post to /api/update:', result);
 			});
-		}
+		// }
 	});
 }
 

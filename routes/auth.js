@@ -17,7 +17,6 @@ module.exports = function(app, passport, db) {
 		res.send({error: "There has been an error in signup."});
     });
     app.get('/api/signup/success',function(req,res) {
-    	console.log('New user created: ', req.user);
   		let {userName, password, gender, seeking, age, online} = req.user;
   		db.sequelize.findOne(
   			{
@@ -86,7 +85,6 @@ module.exports = function(app, passport, db) {
 	});
     app.get('/userView', isLoggedIn, function(req,res) {
     	currentUser = req.user;
-    	console.log("currentUser", currentUser);
     	db.User.findAll({
 		    where: {
 		      gender: currentUser.seeking,

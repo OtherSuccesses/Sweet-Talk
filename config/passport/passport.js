@@ -14,7 +14,6 @@ module.exports = function(passport, user) {
             where: {
                 userName: userName
             }}).then(function(user) {
-                console.log('user',user)
             if(user){
           		done(null, user.get());
         	} else{
@@ -97,7 +96,6 @@ module.exports = function(passport, user) {
 	            var userinfo = user.get();
 	            return done(null, userinfo);
 	        }).catch(function(err) {
-	            console.log("Error:", err);
 	            return done(null, false, {
 	                message: 'Something went wrong with your Signin'
 	            });

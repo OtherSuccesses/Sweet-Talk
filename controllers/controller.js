@@ -8,10 +8,16 @@ var currentUser = {},
     users = [];
 
 router.get("/", (req, res) => {
+  let currentUser = req.user;
   res.render("index", {title: 'Clever Title'});
 });
 
+router.get('/api/login/success', function (req,res) {
+  let currentUser = req.user;
+});
+
 router.get(`/:username/video/`, (req, res) => {
+  let currentUser = req.user;
       db.VideoChat.findOne({
       where: {
         recUserName: currentUser.userName
@@ -24,6 +30,7 @@ router.get(`/:username/video/`, (req, res) => {
 
 //Get function to bring back the password
 router.get("/api/update/:username", function (req, res){
+  let currentUser = req.user;
   db.User.findOne({
     where: {
       username: currentUser.userName
@@ -35,6 +42,7 @@ router.get("/api/update/:username", function (req, res){
 
 //Code that actually updates user data!
 router.post('/api/update/', (req,res) => {
+  let currentUser = req.user;
   db.User.update(req.body, {
     where:{
       userName: currentUser.userName
@@ -43,6 +51,7 @@ router.post('/api/update/', (req,res) => {
     res.sendStatus(200).end(); 
   });
 });
+
 //Vytas's route
 //Route to check the swipe database for duplicates 
 // router.get('/userView/swipe/:username', (req, res)=>{
@@ -57,8 +66,11 @@ router.post('/api/update/', (req,res) => {
 //     res.json({result:result[0]});
 //   });
 // });
+
+
 //Route to log swipes to personal DB
 router.post('/userView/swipe', (req,res) => {
+  let currentUser = req.user;
   //Update or insert into dynamic user swipe table
   db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE userName='${req.body.user}'`).then((data) => {
     if (data[0].length === 0) {
@@ -70,6 +82,7 @@ router.post('/userView/swipe', (req,res) => {
 
   //Check for match
   if (req.body.swipe === "true") {
+    let currentUser = req.user;
     db.sequelize.query(`SELECT * FROM ${req.body.user} WHERE userName='${currentUser.userName}';`).then((data) => { 
       if (data[0][0].swiped === 1) {
         console.log("It's a match!");
