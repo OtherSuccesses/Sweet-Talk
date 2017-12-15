@@ -86,8 +86,9 @@ function clearInputs() {
 		} else if(type==='text' || type === 'password') {
 			$(item).val('').css('border-color', 'white');
 		}
+		$('#create-bio').val('');
 	});
-	$('#create-bio').val('');
+	
 }
 
 function userSwipe(element) {
