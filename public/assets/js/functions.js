@@ -30,9 +30,9 @@ function loginUser() {
 			// if (res = "OK") {
 				console.log('User logged in: ', user, " res: ", res);
 				$('#sign-in-modal').fadeOut();
-				window.location.href="/userView";
-				var socket = io.connect('http://localhost');
 				console.log("socket", socket);
+				window.location.href="/userView";
+				var socket = io.connect('http://localhost:3000/userView');
 			// }
 		})
 	}

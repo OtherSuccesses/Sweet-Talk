@@ -1,6 +1,7 @@
 var express = require('express');
 var sessions = require('express-session');
 var io = require('socket.io');
+const socketConnection = require('../controllers/socketConnection.js')
 module.exports = function(app, passport, db, io) {
  
     app.get('/api/create', function() {
@@ -69,8 +70,9 @@ module.exports = function(app, passport, db, io) {
     });
     app.get('/api/login/success',function(req,res) {
     	console.log(`SUCCESSFULLY LOGGED IN...`);
-    	io.on("connection", (socket) => {
-    		console.log("socket", socket);
+    	io.sockets.on("connection", (socket) => {
+    		socketConnection.addSocket(req.user.userName, socket);
+    		// console.log("socket", socket);
     		console.log("You have connected");
     	});
     	res.send(req.user);

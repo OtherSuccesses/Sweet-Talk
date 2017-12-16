@@ -11,7 +11,7 @@ const env = require('dotenv').load();
 const bCrypt = require('bcrypt-nodejs');
 
 const app = express();
-const server = require('http').Server(app);
+const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const PORT = process.env.PORT || 3000;
 
@@ -36,7 +36,7 @@ require('./config/passport/passport.js')(passport, db.User);
 // db.sequelize.sync();
 app.use("/", routes);
 db.sequelize.sync().then(()=>{
-	app.listen(PORT, () => {
+	server.listen(PORT, () => {
 	  console.log(`Listening on PORT ${PORT}`);
 	});
 });
