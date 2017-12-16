@@ -14,7 +14,8 @@ module.exports = function(app, passport, db) {
  
     ));
     app.get('/api/signup/failure',function(req,res) {
-		res.send({error: "There has been an error in signup."});
+		var error = new Error(["There was something wrong with your input. Please try again."]);
+    	res.send(error);
     });
     app.get('/api/signup/success',function(req,res) {
     	console.log(req.user);
@@ -63,7 +64,8 @@ module.exports = function(app, passport, db) {
     	})
     );
     app.get('/api/login/failure',function(req,res) {
-    	res.status(401);
+    	var error = new Error(["user name or password not found"]);
+    	res.send(error);
     	
     });
     app.get('/api/login/success',function(req,res) {

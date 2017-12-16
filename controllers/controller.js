@@ -116,10 +116,10 @@ router.post('/userView/swipe', (req,res) => {
       }
     });
   } else {
-    db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE swiped='0';`).then((data)=>{
-      console.log(data)
-      res.json(data);
-    });
+    // db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE swiped='0';`).then((data)=>{
+    //   console.log(data)
+    //   res.json(data);
+    // });
     
   }
 });

@@ -7,7 +7,11 @@ function showError(element, bool) {
 		$(element).css('border-color', color);
 	}
 }
-
+function replacePlaceHolders () {
+	$('#create-username').attr('placeholder', "Enter Your User Name");
+	$('#create-password').attr('placeholder', "Enter Password");
+	$('#create-password2').attr('placeholder', "Re-enter Password");
+}
 function checkEmpty(element) {
 	let empty;
 	empty = $(element).val()!=='' ? false:true;
@@ -42,7 +46,7 @@ function checkAlphaNumeric(element) {
 	} else {
 		showError(element, true)
 		$(element).val('').attr('placeholder', 'Can only contain letters and numbers');
-		setTimeout(()=>{$(element).attr('placeholder', placeholder)}, 1000 * 3);
+		setTimeout(replacePlaceHolders, 1000 * 3);
 		return 0;
 	}
 }
@@ -57,7 +61,7 @@ function checkLength(element) {
 	} else {
 		showError(element, true)
 		$(element).val('').attr('placeholder', 'Must be at least 8 characters');
-		setTimeout(()=>{$(element).attr('placeholder', placeholder)}, 1000 * 3);
+		setTimeout(replacePlaceHolders, 1000 * 3);
 		return 0;
 	}
 }

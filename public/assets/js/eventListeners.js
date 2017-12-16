@@ -86,6 +86,7 @@ $(document).ready(() => {
 		let user = {};
 		user.chatPartner = $('.chatInput:focus').parent().siblings('h3').find('.chatUserName').text()
 		user.input = $('.chatInput:focus').val().trim();
+		//has error on trim
 		  if(event.keyCode == 13){
 		  	console.log(user)
 		  	$.ajax('/chatInput', {

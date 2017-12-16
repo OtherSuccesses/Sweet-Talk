@@ -13,7 +13,7 @@ function closeModal(modalId) {
 }
 
 function loginUser() {
-	console.log('loginUser called')
+	// console.log('loginUser called')
 	let clean = false;
 	let user = {}
 	user.userName = $('#username').val().trim();
@@ -21,17 +21,20 @@ function loginUser() {
 	user.online   = 1;
 	clean = checkEmpty('#password', '#username');
 	if (clean) {
-		console.log("Getting to ajax request", user);
+		// console.log("Getting to ajax request", user);
 		$.ajax('/login', {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-
-			// if (res = "OK") {
-				console.log('User logged in: ', user, " res: ", res);
+			if (res = "error") {
+				clearInputs();
+				$('#username').attr('placeholder', 'Username or password is incorrect.');
+				$('#password').attr('placeholder', 'Username or password is incorrect.');
+			} else {
+				console.log('sign in sucessful')
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
-			// }
+			}
 		})
 	}
 }
@@ -63,13 +66,21 @@ function createUser() {
 			data: user
 		}).done((res)=>{
 			console.log(res);
-			// if (res==='OK') {
+			if (res==='error') {
+				clearInputs();
+				$('#create-username').attr('placeholder', 'There was a problem with signup.  Please try again.');
+				$('#create-password').attr('placeholder', 'There was a problem with signup.  Please try again.');
+				$('#create-password2').attr('placeholder', 'There was a problem with signup.  Please try again.');
+				$('#create-age').attr('placeholder', 'There was a problem with signup.  Please try again.');
+				$('#create-img').attr('placeholder', 'There was a problem with signup.  Please try again.');
+				$('#create-bio').attr('placeholder', 'There was a problem with signup.  Please try again.');
+			} else {
 				console.log('User created: ', user)
 				$('#create-account-modal').hide();
 				$('#sign-in-modal').show();
 				$('#username').val(user.userName);
 				$('#password').val(user.password);
-			// } 
+			} 
 		});
 	}
 }
