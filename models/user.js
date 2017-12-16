@@ -1,6 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define('User', {
-        //We don't need a timestamp as sequelize will start with one
         userName: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -23,7 +22,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull:false,
             validate: {
                 len: [1, 1]
-                //Will come from a radio or dropdown list, whatevs example outcome: M, F
             }
         },
         seeking: {
@@ -31,7 +29,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull:false,
             validate: {
                 len: [1, 1]
-                //Will come from a radio or dropdown list, whatevs example outcome: M, F, or B
             }
         },
         age: {

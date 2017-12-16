@@ -118,6 +118,7 @@ function userSwipe(element) {
 
  	$.post('/userView/swipe', swipeData).done((res) => {
  		if (res) {
+ 			console.log('res from /userview/swipe', res);
  			window.location.href = `/${res.userName}/video`
  		}
  	});
@@ -197,14 +198,19 @@ function reorderChatWindows() {
 
 function createChatWindow(user) {
 	if($("#" + user).length == 0) {
+		let mockText = `<div class="bubble-left">Hey man, what's going on? Long time no see!</div>
+<div class="bubble-right">I know right?  It's been ages...How's the family?</div>
+<div class="bubble-left">Everyone is doing great.  No teen pregnancies, Timmy just graduated from space architect surgeon school.</div>
+<div class="bubble-right">That's Awesome! Ok man, I have to run, but it's been great talking to you.  Say hello to my wife for me.</div>`
 		let accordion = $('<div id="'+user+'">');
 		let header = $('<h3>');
+		let chatUser = $('<span class="chatUserName">').text(user)
 		let remove = $('<span class="remove">');
 		let chatBox = $('<div class="chatBox">')
-		let msgWindow = $('<div class="msgWindow">');
+		let msgWindow = $('<div class="msgWindow">').html(mockText);
 		let chatInput = $('<input type="text" class="chatInput">');
 		remove.append('<i class="fa fa-times" aria-hidden="true"></i>')
-		header.text(user).append(remove).appendTo(accordion);
+		header.append(chatUser, remove).appendTo(accordion);
 		chatBox.append(msgWindow, chatInput);
 		accordion.append(chatBox);
 		accordion.addClass('chat-accordion chats')
@@ -217,13 +223,15 @@ function createChatWindow(user) {
 	}
 }
 
-function addBackUser(userName, img) {
-	$('.modal-body .userTile').show();
-	$('#viewAgain-userName').text(`Meet ${userName}!`)
-	$('#viewAgain-img').attr('src', img);
-	$('#left').attr('data-user', userName);
-	$('#right').attr('data-user', userName);
-}
+// function addBackUser(element) {
+// 	let userName = $(element).attr('data-username');
+// 	let img = $(element).attr('data-img');
+// 	$('.modal-body .userTile').show();
+// 	$('#viewAgain-userName').text(`Meet ${userName}!`)
+// 	$('#viewAgain-img').attr('src', img);
+// 	$('#left').attr('data-user', userName);
+// 	$('#right').attr('data-user', userName);
+// }
 
 function removeChatWindow(element) {
 	element.closest('.chat-accordion').remove();

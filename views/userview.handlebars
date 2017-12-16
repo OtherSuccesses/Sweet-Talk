@@ -34,6 +34,9 @@
 
 	</div>
 
+{{!-- commented out in case we want to utilize in the future --}}
+
+{{!-- 
 	<div id="swiped-container">
 		<div class="swiped-user">
 			<img src="https://www.fillmurray.com/300/300" alt="">
@@ -47,7 +50,7 @@
 				<button class="viewAgain" data-userName="{{userName}}" data-img="{{img}}">View Again</button>
 			</div>
 		{{/each}}
-	</div>
+	</div> --}}
 
 
 	<div id="chat-accordion" class="chat-accordion chats">
@@ -70,11 +73,6 @@
 				</div>
 				<div class="modal-body">
 					<form id="update-account-form">
-						{{!-- <input name="update-username" type="text" id="update-username" placeholder="Enter User Name" class="centered text-input"  value="{{currentUser.userName}}" autofocus> --}}
-					{{!-- 	<input name="update-password" type="password" id="update-password" placeholder="Enter Password" class="centered text-input">
-						<input name="update-password" type="password" id="update-password2" placeholder="Re-enter Password" class="centered text-input"> --}}
-
-
 						<input name="update-age" type="text" id="update-age" placeholder="Age" class="centered text-input" value="{{currentUser.age}}">
 						<div class="update-gender-wrapper centered">
 							<h3 class="radio-label">I am a:</h3>
@@ -93,7 +91,7 @@
 						</div>
 						<input name="update-img" id="update-img" type="text" placeholder="Enter image url" class="centered text-input" value="{{currentUser.img}}">
 						<textarea name="bio" id="update-bio" cols="60" rows="4" class="bio"placeholder="Input user Bio" class="centered text-input" >{{currentUser.bio}}</textarea>
-						{{!-- <input name="update-password" type="password" id="update-password" placeholder="Enter password to submit changes" class="centered text-input"> --}}
+
 						<input type="button" value="Update Account!" id="update-submit" class="submit-button centered" data-user="{{currentUser.userName}}">
 					</form>
 				</div>
@@ -110,9 +108,13 @@
 					
 				</div>
 			</div>
-		</div>{{!-- end of #update-account-modal --}}
+		</div>{{!-- end of #inbox-modal --}}
 
-		<div class="modal" id="viewAgain-modal">
+
+
+	{{!-- commented out in case we want to utilize in the future --}}
+
+	{{!-- 	<div class="modal" id="viewAgain-modal">
 			<div class="modal-content">
 				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
 				<div class="modal-header">
@@ -130,7 +132,7 @@
 					</div>
 				</div>
 			</div>
-		</div>{{!-- end of #viewAgain-modal --}}
+		</div> --}}
 
 		<div id="match-modal" class="modal">
 			<div class="modal-content">

@@ -6,6 +6,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	overflow: hidden;
 }
 
 a {
@@ -20,10 +21,11 @@ a:visited {
 	color: inherit;
 }
 
-
 video {
 	position: absolute;
 }
+
+
 /*************index.handlebars specific CSS*************/
 .landing-page-container {
 	height: 100%;
@@ -46,12 +48,83 @@ video {
 }
 
 #main-title {
-	color: rgba(255,105,180, 1);
+	/*color: rgba(255,20,147, 1);*/
 	font-size: 120px;
 	letter-spacing: 5px;
-	text-shadow: 2px 2px 2px rgba(0,0,200, 0.3);
+
+
+	/*style one*/
+	-webkit-text-fill-color: rgba(255,20,147, 1);
+	-webkit-text-stroke-width: 0.5px;
+	-webkit-text-stroke-color: rgba(0,0,0,0.2);
+	text-shadow: 1px 1px 20px rgba(0,0,0, 0.5),
+				 2px 2px 0px rgba(100,250,250, 0.9), 
+				 3px 3px 0px rgba(100,250,250, 0.9), 
+				 4px 4px 0px rgba(100,250,250, 0.9), 
+				 5px 5px 0px rgba(100,250,250, 0.9),
+				 6px 6px 0px rgba(100,250,250, 0.9), 
+				 7px 7px 0px rgba(100,250,250, 0.9), 
+				 8px 8px 0px rgba(100,250,250, 0.9), 
+				 9px 9px 0px rgba(100,250,250, 0.9),  
+				 10px 10px 10px rgba(0,0,0, 0.9);
+
+
+	
+	/*style two*/
+/*	-webkit-text-fill-color: rgba(255,255,255, 1);
+	-webkit-text-stroke-width: 0.5px;
+	-webkit-text-stroke-color: rgba(0,0,0,0.2);
+	text-shadow: 1px 1px 20px rgba(0,0,0, 0.5),
+				 2px 2px 0px rgba(100,250,250, 0.9), 
+				 3px 3px 0px rgba(100,250,250, 0.9), 
+				 4px 4px 0px rgba(100,250,250, 0.9), 
+				 5px 5px 0px rgba(100,250,250, 0.9),
+				 6px 6px 0px rgba(100,250,250, 0.9), 
+				 7px 7px 0px rgba(100,250,250, 0.9), 
+				 8px 8px 0px rgba(100,250,250, 0.9), 
+				 9px 9px 0px rgba(100,250,250, 0.9),  
+				 10px 10px 10px rgba(0,0,0, 0.9);*/
+
+
+
+	/*style three*/
+/*	-webkit-text-fill-color: rgba(100,250,250, 0.9);
+	-webkit-text-stroke-width: 0.5px;
+	-webkit-text-stroke-color: rgba(255,255,255,0.8);
+	text-shadow: 1px 1px 20px rgba(0,0,0, 0.5),
+				 2px 2px 0px rgba(255,20,147, 0.9), 
+				 3px 3px 0px rgba(255,20,147, 0.9), 
+				 4px 4px 0px rgba(255,20,147, 0.9), 
+				 5px 5px 0px rgba(255,20,147, 0.9),
+				 6px 6px 0px rgba(255,20,147, 0.9), 
+				 7px 7px 0px rgba(255,20,147, 0.9), 
+				 8px 8px 0px rgba(255,20,147, 0.9), 
+				 9px 9px 0px rgba(255,20,147, 0.9),  
+				 10px 10px 10px rgba(0,0,0, 0.9);*/
+
+
+
+	/*style four*/
+/*	-webkit-text-fill-color: rgba(255,255,255,1);
+	-webkit-text-stroke-width: 0.5px;
+	-webkit-text-stroke-color: rgba(100,250,250, 0.8);
+	text-shadow: 1px 1px 20px rgba(0,0,0, 0.5),
+				 2px 2px 0px rgba(255,20,147, 0.9), 
+				 3px 3px 0px rgba(255,20,147, 0.9), 
+				 4px 4px 0px rgba(255,20,147, 0.9), 
+				 5px 5px 0px rgba(255,20,147, 0.9),
+				 6px 6px 0px rgba(255,20,147, 0.9), 
+				 7px 7px 0px rgba(255,20,147, 0.9), 
+				 8px 8px 0px rgba(255,20,147, 0.9), 
+				 9px 9px 0px rgba(255,20,147, 0.9),  
+				 10px 10px 10px rgba(0,0,0, 0.9);*/
+
+
+
 	font-family: 'Leckerli One', cursive;
-	margin-bottom: 20px;;
+	margin-bottom: 20px;
+	transform: rotate(-5deg);
+	font-style: italic;;
 }
 
 #sign-in {
@@ -63,12 +136,12 @@ video {
 	width: 120px;
 	margin: 20px auto;
 	cursor: pointer;
-	font-weight: bold;;
+	font-weight: bold;
 }
 
 #create-account {
 	color: white;
-	font-size: 18px;;
+	font-size: 18px;
 }
 
 
@@ -101,7 +174,7 @@ video {
 
 .close {
 	position: absolute;
-	right: 3%;;
+	right: 3%;
 	top: 4%;
 }
 
@@ -158,6 +231,8 @@ video {
 	color:white;
 	font-size: 15px;
 }
+
+
 /*********************sign-in-modal CSS***********************/
 
 #username {
@@ -181,7 +256,6 @@ video {
 #create-submit {
 	top: 90%;
 }
-
 
 textarea#create-bio {
 	top: 70%;
@@ -286,6 +360,7 @@ textarea#update-bio {
 #update-password {
 	top: 80%;
 }
+
 #update-submit {
 	top: 90%;
 }
@@ -397,6 +472,7 @@ footer {
 	margin: 0 auto;
 	border-radius: 10px;
 }
+
 .userImage {
 	display: block;
 	max-height: 300px;
@@ -420,17 +496,11 @@ footer {
 
 /*********************Chat window CSS*********************/
 
-/*#chat-accordion {
-	width: 15px;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	z-index: 100;
-}*/
 
 .ui-accordion .ui-accordion-content {
 	padding: 0;
 }
+
 .chat-accordion {
 	width: 15%;
 	position: absolute;
@@ -441,17 +511,35 @@ footer {
 
 .chatUser {
 	cursor: pointer;
+	margin-left: 15px;
+
 }
+
+.chatUser:after {
+	content: '';
+	width: 0%;
+	height: 20px;
+	position: absolute;
+	left:0%;
+	border-bottom: 3px solid lightblue;
+	transition: width 300ms ease;
+	margin: 0 auto;
+	display: inline;
+}
+
+.chatUser:hover:after{
+	width: 100%;
+}
+
 
 .remove {
 	position: absolute;
 	right: 10px;
-
 }
 
 .chatBox {
 	height: 100%;
-	/*padding: 15px;*/
+	overflow-x: hidden;;;;
 }
 
 .msgWindow {
@@ -459,45 +547,111 @@ footer {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 15px;
+	color: white;
 }
-
-
 
 .chatInput {
 	width: 100%;
-	height: 25px;
+	height: 30px;
 	margin:0;
+	margin-bottom: 10px;
 	padding:0;
-}
-
-.bubble {
-
-}
-
-.bubble-right {
-	background: gray;
-	color: white;
-	border-radius: 10px;
-	padding: 5px 10px;
-	font-size: 15px;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	outline: none;
 }
 
 .bubble-left {
-	background: lightgray;
-	border-radius: 10px;
-	padding: 5px 10px;
-	font-size: 15px;
+	float:left;
+	clear: both;
+	display: inline-block;
+	margin:0;
+	margin-bottom: 5px;
+	padding: 10px;
+	margin-bottom: 5px;
+	background-color: lightgray;
+	border-radius: 10px 10px 10px 0px; 
+	position: relative;  
+	color: #777777;
+}
+
+.bubble-left:after {
+  content: '';
+  position: absolute;
+  height:20px;
+  width: 20px;
+  border-radius: 50%;
+  background: white;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-100%);
+}
+
+.bubble-left:before {
+	content: '';
+	position: absolute;
+	height: 0px;
+	width: 0px;
+	border: 10px solid black;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: lightgray;
+	border-left-color: transparent;
+	left: 0;
+	transform: translateX(-50%);
+	bottom:0;
+}
+
+.bubble-right {
+	float:right;
+	clear: both;
+	display: inline-block;
+	margin:0;
+	margin-bottom: 5px;
+	padding: 10px;
+	background-color: gray;
+	border-radius: 10px 10px 0px 10px; 
+	position: relative;
+}
+
+.bubble-right:after {
+	content: '';
+	position: absolute;
+	height:20px;
+	width: 20px;
+	border-radius: 50%;
+	background: white;
+	right: 0;
+	top: 0;
+	transform: translateX(100%);
+}
+
+.bubble-right:before {
+	content: '';
+	position: absolute;
+	height: 0px;
+	width: 0px;
+	border: 10px solid black;
+	border-top-color: gray;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	border-left-color: transparent;
+	right: 0;
+	transform: translateX(50%);
+	top:0;
 }
 
 
 /******************Swiped-container CSS******************/
 
+/*commented out in case we want to utilize in the future*/
+/*
 #swiped-container {
 	height: 100vh;
 	width: 20%;
 	border-right: 1px solid black;
-	/*background: white;*/
-	/*opacity: 0.4;*/
+	box-sizing: border-box;
 }
 
 .swiped-user {
@@ -505,16 +659,13 @@ footer {
 	height: 50px;
 	border: 1px solid black;
 	position: relative;
-}
-
-.thumbnail-container {
-	/*display: inline;*/
+	box-sizing: border-box;
+	border-right: none;
 }
 
 .swiped-user img {
 	height: 50px;
-	vertical-align:middle
-	 /*line-height:  50px;*/
+	vertical-align:middle;
 }
 
 .swiped-userName {
@@ -548,3 +699,4 @@ footer {
 margin-right: 10%;
 }
 
+*/

@@ -21,7 +21,7 @@ router.get(`/:username/video/`, (req, res) => {
     }).then((results) => {
       let vidInfo = results.dataValues;
       res.render("videoChat", { vidInfo });
-    })
+    });
 });
 
 //Get function to bring back the password
@@ -98,23 +98,35 @@ router.post('/userView/swipe', (req,res) => {
   if (req.body.swipe === "true") {
     let currentUser = req.user;
     db.sequelize.query(`SELECT * FROM ${req.body.user} WHERE userName='${currentUser.userName}';`).then((data) => { 
-      if (data[0][0].swiped === 1) {
-        console.log("It's a match!");
-        db.VideoChat.create({
-          initiatorId: null,
-          recId: null,
-          initiatorUserName: req.body.user,
-          recUserName: currentUser.userName,
-        }).then(() => {
-          res.send(currentUser);
-        });
-      } else {
-        res.end();
+      if (typeof data[0][0] !== 'undefined') {
+        if (data[0][0].swiped === 1) {
+          console.log("It's a match!");
+          db.VideoChat.create({
+            initiatorId: null,
+            recId: null,
+            initiatorUserName: req.body.user,
+            recUserName: currentUser.userName,
+          }).then((result) => {
+            res.json(result);
+          });
+        } else {
+          res.end();
+        }
+
       }
     });
   } else {
-    res.end();
+    db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE swiped='0';`).then((data)=>{
+      console.log(data)
+      res.json(data);
+    });
+    
   }
+});
+
+router.post('/chatInput', (req,res) =>{
+  console.log(req.body);
+  res.sendStatus(200).end();
 });
 
 module.exports = router;

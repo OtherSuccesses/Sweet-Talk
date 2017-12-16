@@ -3,9 +3,9 @@ $(document).ready(() => {
 	openModal('sign-in', 'sign-in-modal');
 	openModal('create-account', 'create-account-modal');
 	openModal('update-account', 'update-account-modal');
-	// openModal('inbox', 'inbox-modal');
-	openModal('viewAgain', 'viewAgain-modal');
-	closeModal('viewAgain-modal');
+	openModal('inbox', 'inbox-modal');
+	// openModal('viewAgain', 'viewAgain-modal');
+	// closeModal('viewAgain-modal');
 	closeModal('sign-in-modal');
 	closeModal('create-account-modal');
 	closeModal('update-account-modal');
@@ -76,19 +76,34 @@ $(document).ready(() => {
 
 	//event listener for 
 	$(document).on('click','.viewAgain', function (event) {
-		event.preventDefault();
-		console.log($(this))
-		let userName = $(this).attr('data-username');
-		let img = $(this).attr('data-img');
-		console.log(userName, img)
+		event.preventDefault();		
 		$('#viewAgain-modal').fadeIn();
-		addBackUser(userName,img)
+		addBackUser($(this));
 	});
 
-	$(document).on('click', '.modal-close', function (event) {
-		event.preventDefault();
-		$('#viewAgain-modal').fadeOut();
-	})
+	//"click" event for enter key on chat inputs
+	$(document).keypress(function (event) {
+		let user = {};
+		user.chatPartner = $('.chatInput:focus').parent().siblings('h3').find('.chatUserName').text()
+		user.input = $('.chatInput:focus').val().trim();
+		  if(event.keyCode == 13){
+		  	console.log(user)
+		  	$.ajax('/chatInput', {
+		  		type:'POST',
+		  		data: user
+		  	}).then((res)=>{
+		  		$('.chatInput:focus').val('');
+		  	});
+		  }
+	});
+
+	//click event for populating modal of user you would like a second chance at
+
+	//commented out in case we want to utilize in the future
+	// $(document).on('click', '.modal-close', function (event) {
+	// 	event.preventDefault();
+	// 	$('#viewAgain-modal').fadeOut();
+	// })
 
 	//layers user-tiles in the z-axis when userView loads
 	layerTiles();
