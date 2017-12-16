@@ -1,6 +1,7 @@
 var express = require('express');
 var sessions = require('express-session');
-module.exports = function(app, passport, db) {
+var io = require('socket.io');
+module.exports = function(app, passport, db, io) {
  
     app.get('/api/create', function() {
     	console.log('api/create called')
@@ -69,7 +70,11 @@ module.exports = function(app, passport, db) {
     	
     });
     app.get('/api/login/success',function(req,res) {
-    	console.log(`successfully logged in...`);
+    	console.log(`SUCCESSFULLY LOGGED IN...`);
+    	io.on("connection", (socket) => {
+    		console.log("socket", socket);
+    		console.log("You have connected");
+    	});
     	res.send(req.user);
     });
     app.get('/logout', function(req, res) { 

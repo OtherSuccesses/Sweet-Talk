@@ -34,7 +34,9 @@ function loginUser() {
 				console.log('sign in sucessful')
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
-			}
+				var socket = io.connect('http://localhost');
+				console.log("socket", socket);
+			// }
 		})
 	}
 }

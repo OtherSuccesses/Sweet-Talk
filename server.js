@@ -11,6 +11,8 @@ const env = require('dotenv').load();
 const bCrypt = require('bcrypt-nodejs');
 
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
@@ -29,7 +31,7 @@ app.use(passport.session()); //persistent login sessions
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-require('./routes/auth.js')(app, passport, db);
+require('./routes/auth.js')(app, passport, db, io);
 require('./config/passport/passport.js')(passport, db.User);
 // db.sequelize.sync();
 app.use("/", routes);

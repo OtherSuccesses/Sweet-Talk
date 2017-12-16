@@ -17,7 +17,8 @@
     "sequelize": "^4.27.0",
     "sequelize-cli": "^3.2.0",
     "serve-favicon": "^2.4.5",
-    "simple-peer": "^8.2.0"
+    "simple-peer": "^8.2.0",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "watchify": "^3.9.0",
