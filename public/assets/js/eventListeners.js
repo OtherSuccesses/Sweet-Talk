@@ -35,7 +35,6 @@ $(document).ready(() => {
 	//click event listener for "swiping" on users
 	$(document).on('click','.choose', function (event) {
 		event.preventDefault();
-		console.log($(this));
 		userSwipe($(this));
 	});
 
@@ -61,29 +60,19 @@ $(document).ready(() => {
 		signOut();
 	});
 
+	//click event for creating a chat window
+	$(document).on('click', '.chatUser', function (event) {
+		event.preventDefault();
+		showChatBubble($(this));
+	});
+
 	//click event for removing a chat window
 	$(document).on('click', '.remove', function () {
 		removeChatWindow($(this));
 		reorderChatWindows();
 	});
 
-	//click event for creating a chat window
-	$(document).on('click', '.chatUser', function (event) {
-		event.preventDefault();
-		console.log($(this).offset())
-		let x = $(this).offset();
-		let height = parseInt($(this).css('height'));
-		// let offset = parseInt(height)/2
-		let pos = x.top - 100 + (height/2);
-		console.log(pos);
-		let user = $(this).text();
-
-		$('#connectBubble').css({
-			'top': pos,			
-		}).fadeIn().attr('data-username', user);
-		
-	});
-
+	//click event for starting a text chat with a user
 	$('#connect-chat').on('click', function (event) {
 		event.preventDefault();
 		let user = $(this).parent().attr('data-username');
@@ -91,6 +80,7 @@ $(document).ready(() => {
 		createChatWindow(user);
 	});
 
+	//click event for starting a video chat with a user
 	$('#connect-video').on('click', function (event) {
 		event.preventDefault();
 		let user = $(this).parent().attr('data-username');
@@ -109,19 +99,18 @@ $(document).ready(() => {
 
 	//"click" event for enter key on chat inputs
 	$(document).keypress(function (event) {
-		let user = {};
-		user.chatPartner = $('.chatInput:focus').parent().siblings('h3').find('.chatUserName').text()
-		user.input = $('.chatInput:focus').val().trim();
-		  if(event.keyCode == 13){
-		  	console.log(user)
-		  	$.ajax('/chatInput', {
-		  		type:'POST',
-		  		data: user
-		  	}).then((res)=>{
-		  		$('.chatInput:focus').val('');
-		  	});
-		  }
+		enterMessage(event);
 	});
+
+	//click event that hides chat bubble when 
+	
+	// $(document).on('click', function (event) {
+	// 	if($('#connectBubble').css('display') !== 'none') {
+	// 		console.log('firing inside where function is called')
+	// 		hideChatBubble(event);
+	// 	}
+	// });
+	
 
 	//click event for populating modal of user you would like a second chance at
 

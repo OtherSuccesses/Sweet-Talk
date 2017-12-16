@@ -72,8 +72,13 @@ module.exports = function(app, passport, db, io) {
     	console.log(`SUCCESSFULLY LOGGED IN...`);
     	io.sockets.on("connection", (socket) => {
     		socketConnection.addSocket(req.user.userName, socket);
-    		// console.log("socket", socket);
+    		socketConnection.checkConnected();
     		console.log("You have connected");
+
+		 	socket.on('disconnect', function (data) {
+		 		socketConnection.removeSocket(req.user.userName, socket);
+		 	});
+
     	});
     	res.send(req.user);
     });
@@ -84,8 +89,11 @@ module.exports = function(app, passport, db, io) {
     		where: {
     			userName: req.user.userName
     		}
-    	})
-	        res.redirect('/'); 
+    	});
+
+    	
+        
+        res.redirect('/'); 
 	    });
 	});
     app.get('/userView', isLoggedIn, function(req,res) {

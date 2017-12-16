@@ -214,6 +214,8 @@ function createChatWindow(user) {
 	}
 }
 
+
+
 // function addBackUser(element) {
 // 	let userName = $(element).attr('data-username');
 // 	let img = $(element).attr('data-img');
@@ -227,3 +229,57 @@ function createChatWindow(user) {
 function removeChatWindow(element) {
 	element.closest('.chat-accordion').remove();
 }
+
+function enterMessage(event) {
+	let user = {};
+	if (typeof $('.chatInput:focus').val() !== 'undefined') {
+		user.input = $('.chatInput:focus').val().trim();
+	  if(event.keyCode == 13){
+	  	$.ajax('/chatInput', {
+	  		type:'POST',
+	  		data: user
+	  	}).then((res)=>{
+	  		$('.chatInput:focus').val('');
+	  	});
+	  }
+	}
+}
+
+function showChatBubble(element) {
+	let x = $(element).offset();
+	let height = parseInt($(element).css('height'));
+	let pos = x.top - 100 + (height/2);
+	let user = $(element).text();
+
+	$('#connectBubble').css({
+		'top': pos,			
+	}).fadeIn().attr('data-username', user);
+}
+
+function hideChatBubble(event) {
+// 	let e = event.originalEvent,
+// 		elem = $('#connectBubble'),
+// 		height = elem.height(),
+// 		width = elem.width(),
+// 		position = elem.position(),
+// 		top = elem.position().top,
+// 		bottom = elem.position().top - height,
+// 		left = elem.position().left,
+// 		right = elem.position().left - width;
+// 		console.log('params:',top,right, bottom, left);
+// 		console.log(elem);
+// 		console.log(position);
+// 	if (e.x < left || e.x > right) {
+// 		console.log('firing inside x')
+// 		if (e.y < top || e.y > bottom) {
+// 			console.log('firing inside y')
+// 			$('#connectBubble').fadeOut();
+// 		}	
+// 	}
+	console.log(!$(event.target).closest('#bubble-container').length)
+   if(!$(event.target).closest('#bubble-container').length) {
+   	console.log('firing inside where fadeout is called')
+        $('#connectBubble').fadeOut();
+    }  
+}
+

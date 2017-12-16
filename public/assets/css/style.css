@@ -100,8 +100,8 @@ video {
 				 7px 7px 0px rgba(255,20,147, 0.9), 
 				 8px 8px 0px rgba(255,20,147, 0.9), 
 				 9px 9px 0px rgba(255,20,147, 0.9),  
-				 10px 10px 10px rgba(0,0,0, 0.9);*/
-
+				 10px 10px 10px rgba(0,0,0, 0.9);
+*/
 
 
 	/*style four*/
@@ -117,8 +117,8 @@ video {
 				 7px 7px 0px rgba(255,20,147, 0.9), 
 				 8px 8px 0px rgba(255,20,147, 0.9), 
 				 9px 9px 0px rgba(255,20,147, 0.9),  
-				 10px 10px 10px rgba(0,0,0, 0.9);*/
-
+				 10px 10px 10px rgba(0,0,0, 0.9);
+*/
 
 
 	font-family: 'Leckerli One', cursive;
@@ -514,6 +514,10 @@ footer {
 	margin-left: 15px;
 
 }
+/*
+.chatUser:after:hover {
+
+}*/
 
 .chatUser:after {
 	content: '';
