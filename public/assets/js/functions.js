@@ -27,15 +27,11 @@ function loginUser() {
 			data: user
 		}).done((res)=>{
 
-			if (res = "OK") {
-				console.log('User logged in: ', user);
+			// if (res = "OK") {
+				console.log('User logged in: ', user, " res: ", res);
 				$('#sign-in-modal').fadeOut();
-				$.ajax('/userInfo', {
-					type: 'POST',
-					data: res
-				});
 				window.location.href="/userView";
-			}
+			// }
 		})
 	}
 }
