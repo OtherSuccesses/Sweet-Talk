@@ -104,16 +104,6 @@ function userSwipe(element) {
  	});
  	if ($(element).parent()==tileArr[tileArr.length-1]){
  		$('.noMore').show();
-<<<<<<< HEAD
- 	}
- 	$.ajax('/userView/swipe', {
- 		type: 'POST',
- 		data: swipeData
- 	}).done((result) => {
- 		console.log('result from then after userview swipe:', result);
- 		window.location.href = `/${result.recUserName}/video`;
- 	})
-=======
  	}		
 
  	$.post('/userView/swipe', swipeData).done((res) => {
@@ -122,7 +112,6 @@ function userSwipe(element) {
  			window.location.href = `/${res.userName}/video`
  		}
  	});
->>>>>>> b05af9b56a4139cb3bbef461039a537f52d2c6f3
 }
 
 function layerTiles() {
