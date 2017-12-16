@@ -82,8 +82,9 @@ function clearInputs() {
 		} else if(type==='text' || type === 'password') {
 			$(item).val('').css('border-color', 'white');
 		}
+		$('#create-bio').val('');
 	});
-	$('#create-bio').val('');
+	
 }
 
 function userSwipe(element) {
@@ -103,6 +104,7 @@ function userSwipe(element) {
  	});
  	if ($(element).parent()==tileArr[tileArr.length-1]){
  		$('.noMore').show();
+<<<<<<< HEAD
  	}
  	$.ajax('/userView/swipe', {
  		type: 'POST',
@@ -111,6 +113,15 @@ function userSwipe(element) {
  		console.log('result from then after userview swipe:', result);
  		window.location.href = `/${result.recUserName}/video`;
  	})
+=======
+ 	}		
+
+ 	$.post('/userView/swipe', swipeData).done((res) => {
+ 		if (res) {
+ 			window.location.href = `/${res.userName}/video`
+ 		}
+ 	});
+>>>>>>> b05af9b56a4139cb3bbef461039a537f52d2c6f3
 }
 
 function layerTiles() {
