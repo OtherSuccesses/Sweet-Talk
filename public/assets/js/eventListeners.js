@@ -70,8 +70,34 @@ $(document).ready(() => {
 	//click event for creating a chat window
 	$(document).on('click', '.chatUser', function (event) {
 		event.preventDefault();
+		console.log($(this).offset())
+		let x = $(this).offset();
+		let height = parseInt($(this).css('height'));
+		// let offset = parseInt(height)/2
+		let pos = x.top - 100 + (height/2);
+		console.log(pos);
 		let user = $(this).text();
+
+		$('#connectBubble').css({
+			'top': pos,			
+		}).fadeIn().attr('data-username', user);
+		
+	});
+
+	$('#connect-chat').on('click', function (event) {
+		event.preventDefault();
+		let user = $(this).parent().attr('data-username');
+		$(this).parent().fadeOut();
 		createChatWindow(user);
+	});
+
+	$('#connect-video').on('click', function (event) {
+		event.preventDefault();
+		let user = $(this).parent().attr('data-username');
+		$(this).parent().fadeOut();
+		//
+		//Enter video click event code here
+		//
 	});
 
 	//event listener for 

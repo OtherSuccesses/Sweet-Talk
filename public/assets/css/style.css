@@ -1,4 +1,4 @@
-/*********************Global CSS**********************/
+/********************Global CSS**********************/
 
 html, body {
 	height: 100%;
@@ -642,6 +642,46 @@ footer {
 	top:0;
 }
 
+/*******************connect bubble CSS*******************/
+
+
+#connectBubble{
+	height: 100px;
+	width: 300px;
+	background: #777;
+	text-align: center;
+	line-height: 100px;
+	position: absolute;
+	border-radius: 10px;
+	z-index: 200;
+	right: 15%;
+	display: none;
+}
+
+#connectBubble:after {
+	content: "";
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 0;
+	width: 0;
+	border: 10px solid transparent;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: #777;
+	border-left-color: transparent;
+	transform: translateX(50%);
+}
+
+
+.chat-button {
+	background: lightblue;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	display: inline;
+	
+}
 
 /******************Swiped-container CSS******************/
 
@@ -699,4 +739,3 @@ footer {
 margin-right: 10%;
 }
 
-*/
