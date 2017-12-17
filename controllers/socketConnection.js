@@ -18,4 +18,8 @@ module.exports = {
 		console.log('Disconnected: %s sockets connected', Object.keys(socketConnection).length)
 		console.log('connected users:', Object.keys(socketConnection))
 	},
+
+	getObj: function() {
+		return socketConnection;
+	}
 }

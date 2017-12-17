@@ -154,7 +154,10 @@
 
 	<footer></footer>
 </div>
-
 <script>
-
+var socket;
+	$(document).ready(function () {
+		socket = io.connect();
+		console.log('socket',socket)
+	})
 </script>
