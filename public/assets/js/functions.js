@@ -1,3 +1,5 @@
+// var pizza;
+
 function openModal(triggerId, modalId) {
 	$(document).on('click','#' + triggerId, (event)=>{
 		event.preventDefault();
@@ -30,9 +32,10 @@ function loginUser() {
 			// if (res = "OK") {
 				console.log('User logged in: ', user, " res: ", res);
 				$('#sign-in-modal').fadeOut();
-				console.log("socket", socket);
 				window.location.href="/userView";
-				var socket = io.connect('http://localhost:3000/userView');
+				// var socket = io.connect();
+				// pizza = socket
+				// console.log("socket", socket);
 			// }
 		})
 	}
@@ -198,7 +201,7 @@ function createChatWindow(user) {
 		let chatUser = $('<span class="chatUserName">').text(user)
 		let remove = $('<span class="remove">');
 		let chatBox = $('<div class="chatBox">')
-		let msgWindow = $('<div class="msgWindow">').html(mockText);
+		let msgWindow = $('<div class="msgWindow">');
 		let chatInput = $('<input type="text" class="chatInput">');
 		remove.append('<i class="fa fa-times" aria-hidden="true"></i>')
 		header.append(chatUser, remove).appendTo(accordion);
@@ -235,6 +238,8 @@ function enterMessage(event) {
 	if (typeof $('.chatInput:focus').val() !== 'undefined') {
 		user.input = $('.chatInput:focus').val().trim();
 	  if(event.keyCode == 13){
+	  	socket.emit('send message', user.input)
+	  	console.log('socket in chat:', socket)
 	  	$.ajax('/chatInput', {
 	  		type:'POST',
 	  		data: user
@@ -282,4 +287,7 @@ function hideChatBubble(event) {
         $('#connectBubble').fadeOut();
     }  
 }
-
+// console.log(pizza)
+// socket.on('new message', function (data) {
+// 	alert(data)
+// });

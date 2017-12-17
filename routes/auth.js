@@ -71,9 +71,27 @@ module.exports = function(app, passport, db, io) {
     app.get('/api/login/success',function(req,res) {
     	console.log(`SUCCESSFULLY LOGGED IN...`);
     	io.sockets.on("connection", (socket) => {
+    		var user = '';
     		socketConnection.addSocket(req.user.userName, socket);
     		socketConnection.checkConnected();
     		console.log("You have connected");
+    		let connected = socketConnection.getObj();
+
+    		socket.on('get user', function (data) {
+    			console.log('username:',data)
+				user = data;
+				console.log('user from right after data:', user)
+    		});
+    		console.log('user from before send message:', user)
+    		socket.on('send message', function (data) {
+    			console.log('user from inside send message:', user)
+    			let message = {
+    				from: req.user.userName,
+    				text: data
+    			}
+    			connected[user].emit('private message', message);
+    		});
+    		console.log('user from after send message:', user)
 
 		 	socket.on('disconnect', function (data) {
 		 		socketConnection.removeSocket(req.user.userName, socket);
