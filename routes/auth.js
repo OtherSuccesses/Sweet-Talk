@@ -44,24 +44,17 @@ module.exports = function(app, passport, db, io) {
 	    }, {
 	    	freezeTableName: true,
 	    	timestamps: false,
-	  	}).catch((err) => {
-    		console.error("auth.js line 48 err", err);
- 		 });
+	  	});
+
 		db.User.update({online: 1}, {
 			where: {
 				userName
 			}
 		}).then(()=>{
-
-		// });
 		  	db.sequelize.sync().then(() => {
 		    	res.json(req.user);
-		  	}).catch((err) => {
-    			console.error("err", err);
-  			});   
-		}).catch((err) => {
-    		console.error("auth.js line 63 err", err);
-  		});
+		  	}) ;
+		});
     });
 
     app.post('/login', passport.authenticate('local-signin', 
@@ -69,12 +62,14 @@ module.exports = function(app, passport, db, io) {
 	    	successRedirect: '/api/login/success',
 	    	failureRedirect: '/api/login/failure',
 	    	failureFlash: true
-    	})
+    	});
     );
+
     app.get('/api/login/failure',function(req,res) {
     	res.status(401);
     	
     });
+
     app.get('/api/login/success',function(req,res) {
     	currentUser = req.user
     	res.send(req.user);
@@ -95,15 +90,13 @@ module.exports = function(app, passport, db, io) {
     		where: {
     			userName: req.user.userName
     		}
-    	}).catch((err) => {
-    		console.error("auth.js line 133 err", err);
-  		});
+    	});
 
-    	
-        
         res.redirect('/'); 
+
 	    });
 	});
+
     app.get('/userView', isLoggedIn, function(req,res) {
     	currentUser = req.user;
     	db.User.findAll({
@@ -125,10 +118,9 @@ module.exports = function(app, passport, db, io) {
 		      title: req.user.userName
 		    };
 		    res.render("userview.handlebars", handlebarsObject);
-    	}).catch((err) => {
-    		console.error("auth.js line 163 err", err);
-  		});
+    	})
     });
+
  	function isLoggedIn(req, res, next) {
 	    if (req.isAuthenticated()) {
 	        return next();	
@@ -139,12 +131,6 @@ module.exports = function(app, passport, db, io) {
 	}
 
 	io.sockets.on("connection", (socket) => {
-    		// socketConnection.addSocket(req.user.userName, socket);
-
-    		// socketConnection.checkConnected();
-
-    		// let connected = socketConnection.getObj();
-
     		console.log('req.user.userName from before query:',currentUser.userName)
 			
 			db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
@@ -166,5 +152,4 @@ module.exports = function(app, passport, db, io) {
   			});
 
     	});
-
 }

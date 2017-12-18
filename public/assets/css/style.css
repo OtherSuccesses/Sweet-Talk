@@ -23,6 +23,9 @@ a:visited {
 
 video {
 	position: absolute;
+	left: 50%;
+	top:50%;
+	transform: translate(-50%, -50%);
 }
 
 
@@ -633,7 +636,7 @@ a.ui-button:active,
 	margin-bottom: 5px;
 	padding: 10px;
 	background-color: gray;
-	border-radius: 10px 10px 0px 10px; 
+	border-radius: 10px 0px 10px 10px; 
 	position: relative;
 }
 

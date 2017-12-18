@@ -33,7 +33,7 @@ app.set("view engine", "handlebars");
 
 require('./routes/auth.js')(app, passport, db, io);
 require('./config/passport/passport.js')(passport, db.User);
-// db.sequelize.sync();
+
 app.use("/", routes);
 db.sequelize.sync().then(()=>{
 	server.listen(PORT, () => {

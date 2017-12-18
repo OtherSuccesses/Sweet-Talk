@@ -100,11 +100,10 @@ $(document).ready(() => {
 
 	//"click" event for enter key on chat inputs
 	$(document).keypress(function (event) {
-
 		enterMessage(event);
 	});
 
-	//click event that hides chat bubble when 
+	//click event that hides chat bubble when nothing is selected
 	
 	// $(document).on('click', function (event) {
 	// 	if($('#connectBubble').css('display') !== 'none') {
@@ -131,21 +130,16 @@ $(document).ready(() => {
     	});
   	});
 
-	 	socket.on('private message', function (data) {	
-			console.log('data from message:',data)
-			console.log(thisUser)
-			console.log(data.to==thisUser)
+	//socket message listener
+ 	socket.on('private message', function (data) {	
+		console.log('data from message:',data)
+		console.log(thisUser)
+		console.log(data.to==thisUser)
 
-				createChatWindow(data.from);
-				let message = $('<div class="bubble-left">').text(data.text);
-				console.log('msgWindow Im trying to append to eventlisteners:', $('.msgWindow'))
-				$('.msgWindow').append(message);
-						
-		});	
-
-		// socket.on('your message', function (data) {
-		// 	let message = $('<div class="bubble-right">').text(data.text);
-		// 	$('.msgWindow').append(message);
-		// })
-
+			createChatWindow(data.from);
+			let message = $('<div class="bubble-left">').text(data.text);
+			console.log('msgWindow Im trying to append to eventlisteners:', $('.msgWindow'))
+			$('.msgWindow').append(message);
+			$('body, html').css("scrollTop", $(message).offset().top);			
+	});
 });//end of document ready function

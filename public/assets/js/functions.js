@@ -1,5 +1,3 @@
-// var pizza;
-
 function openModal(triggerId, modalId) {
 	$(document).on('click','#' + triggerId, (event)=>{
 		event.preventDefault();
@@ -28,14 +26,10 @@ function loginUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-
-				console.log('User logged in: ', user, " res: ", res);
-				$('#sign-in-modal').fadeOut();
-				window.location.href="/userView";
-				// var socket = io.connect();
-				// console.log('socket:',socket)
-
-		})
+			console.log('User logged in: ', user, " res: ", res);
+			$('#sign-in-modal').fadeOut();
+			window.location.href="/userView";
+		});
 	}
 }
 
@@ -66,13 +60,11 @@ function createUser() {
 			data: user
 		}).done((res)=>{
 			console.log(res);
-			// if (res==='OK') {
-				console.log('User created: ', user)
-				$('#create-account-modal').hide();
-				$('#sign-in-modal').show();
-				$('#username').val(user.userName);
-				$('#password').val(user.password);
-			// } 
+			console.log('User created: ', user)
+			$('#create-account-modal').hide();
+			$('#sign-in-modal').show();
+			$('#username').val(user.userName);
+			$('#password').val(user.password);
 		});
 	}
 }
@@ -87,7 +79,6 @@ function clearInputs() {
 		}
 		$('#create-bio').val('');
 	});
-	
 }
 
 function userSwipe(element) {
@@ -97,7 +88,6 @@ function userSwipe(element) {
  		tileArr = [],
  		layer = $(element).data('layer'),
  		swipeData ={}; 
-
  		swipeData.user = user;
  		swipeData.swipe = swipe;
  	$(element).parent().hide()
@@ -157,7 +147,6 @@ function updateUser(element) {
 function requestVideo() {
 	console.log("Getting initiator ID...");
     const Peer = require("simple-peer");
-
     const peer = new Peer({
       	initiator: location.hash === "#init",
       	trickle: false,
@@ -176,9 +165,12 @@ function signOut() {
 	$.ajax('/logout', {type: 'GET'}).done( function(results) {
 		console.log('logged out', results);
  		window.location.href = `/`;
-
 	});
 }
+
+window.onbeforeunload = function() {
+    $.get('/logout')    
+};
 
 function reorderChatWindows() {
 	let num = 0;
@@ -190,10 +182,6 @@ function reorderChatWindows() {
 
 function createChatWindow(user) {
 	if($("#" + user).length == 0) {
-		let mockText = `<div class="bubble-left">Hey man, what's going on? Long time no see!</div>
-<div class="bubble-right">I know right?  It's been ages...How's the family?</div>
-<div class="bubble-left">Everyone is doing great.  No teen pregnancies, Timmy just graduated from space architect surgeon school.</div>
-<div class="bubble-right">That's Awesome! Ok man, I have to run, but it's been great talking to you.  Say hello to my wife for me.</div>`
 		let accordion = $('<div id="'+user+'">');
 		let header = $('<h3>');
 		let chatUser = $('<span class="chatUserName">').text(user)
@@ -214,8 +202,6 @@ function createChatWindow(user) {
 		});
 	}
 }
-
-
 
 // function addBackUser(element) {
 // 	let userName = $(element).attr('data-username');
@@ -241,16 +227,8 @@ function enterMessage(event) {
 	  	socket.emit('send message', user)
   		let myMessage = $('<div class="bubble-right">').text(user.text);
 		$('.msgWindow').append(myMessage);
+		$('body, html').css("scrollTop", $(myMessage).offset().top);
   		$('.chatInput:focus').val('');
-	  	
-	 
-	  	// $.ajax('/getSocket/'+user.to, {
-	  	// 	type:'GET'
-	  	// }).then((res)=>{
-	  	// 	console.log(res);
-	  	// 	let toSocket = JSON.parse(res);
-	  		
-	  	// });
 	  }
 	}
 }
@@ -267,32 +245,9 @@ function showChatBubble(element) {
 }
 
 function hideChatBubble(event) {
-// 	let e = event.originalEvent,
-// 		elem = $('#connectBubble'),
-// 		height = elem.height(),
-// 		width = elem.width(),
-// 		position = elem.position(),
-// 		top = elem.position().top,
-// 		bottom = elem.position().top - height,
-// 		left = elem.position().left,
-// 		right = elem.position().left - width;
-// 		console.log('params:',top,right, bottom, left);
-// 		console.log(elem);
-// 		console.log(position);
-// 	if (e.x < left || e.x > right) {
-// 		console.log('firing inside x')
-// 		if (e.y < top || e.y > bottom) {
-// 			console.log('firing inside y')
-// 			$('#connectBubble').fadeOut();
-// 		}	
-// 	}
 	console.log(!$(event.target).closest('#bubble-container').length)
-   if(!$(event.target).closest('#bubble-container').length) {
-   	console.log('firing inside where fadeout is called')
+	if(!$(event.target).closest('#bubble-container').length) {
+   		console.log('firing inside where fadeout is called')
         $('#connectBubble').fadeOut();
     }  
 }
-// console.log(pizza)
-// socket.on('new message', function (data) {
-// 	alert(data)
-// });
