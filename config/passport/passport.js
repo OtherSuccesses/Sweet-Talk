@@ -25,7 +25,7 @@ module.exports = function(passport, user) {
         { 
             usernameField: 'userName',
             passwordField: 'password',
-            passReqToCallback: true // allows us to pass back the entire request to the callback
+            passReqToCallback: true 
         },
         function(req, userName, password, done) {
         	// console.log("passport signup called");

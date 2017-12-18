@@ -83,26 +83,27 @@ module.exports = function(app, passport, db) {
 	});
     app.get('/userView', isLoggedIn, function(req,res) {
     	currentUser = req.user;
-    	db.User.findAll({
-		    where: {
-		      gender: currentUser.seeking,
-		      seeking: currentUser.gender,
-		      online: 1
-		    }
-		}).then((results)=>{
-		    var users = [];
-		    for(var i = 0; i<results.length; i++) {
-		      if(results[i].dataValues.userName !== currentUser.userName) {
-		        users[i] = results[i].dataValues;
-		      }
-		    }
-		    var handlebarsObject = {
-		      currentUser: currentUser,
-		      users: users
-		    };
-		    res.render("userview.handlebars", handlebarsObject);
-    	});
-    });
+	    	db.User.findAll({
+			    where: {
+			      gender: currentUser.seeking,
+			      seeking: currentUser.gender,
+			      online: 1
+			    }
+			}).then((results)=>{
+			    var users = [];
+			    for(var i = 0; i<results.length; i++) {
+			      if(results[i].dataValues.userName !== currentUser.userName) {
+			        users[i] = results[i].dataValues;
+			      }
+			    }
+			    var handlebarsObject = {
+			      currentUser: currentUser,
+			      users: users
+			    };
+			    res.render("userview.handlebars", handlebarsObject);
+	    	});
+
+    })
  	function isLoggedIn(req, res, next) {
 	    if (req.isAuthenticated()) {
 	        return next();	

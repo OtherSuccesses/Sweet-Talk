@@ -30,7 +30,6 @@ function checkRadioEmpty(element) {
 		return 0;
 	}
 }
-
 function checkAlphaNumeric(element) {
 	let input = $(element).val(),
 		regex = /^[a-z0-9]+$/i;

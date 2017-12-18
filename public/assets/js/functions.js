@@ -238,8 +238,6 @@ function createChatWindow(user) {
 	}
 }
 
-
-
 // function addBackUser(element) {
 // 	let userName = $(element).attr('data-username');
 // 	let img = $(element).attr('data-img');
