@@ -87,12 +87,12 @@ module.exports = function(app, passport, db, io) {
 
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
-	    	socketCon.on('disconnect', function(){
-				console.log('user disconnected');
-				db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res)=> {
-					console.log('delete firing', res);
-				});
-			});  	
+	  //   	socketCon.on('disconnect', function(){
+			// 	console.log('user disconnected');
+			// 	db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res)=> {
+			// 		console.log('delete firing', res);
+			// 	});
+			// });  	
 	        res.redirect('/'); 
 
 	    });
@@ -113,14 +113,6 @@ module.exports = function(app, passport, db, io) {
 					users.push(results[0][i]);
 				}
 			}
-		    // for(var i = 0; i<results.length; i++) {
-		    //     if(results[i].dataValues.userName !== currentUser.userName) {
-		    //   		//compare sessions ids 
-		    //     	users[i] = results[i].dataValues;
-		    //     }
-		    // }
-			
-			console.log(res);
 		    var handlebarsObject = {
 		      currentUser: currentUser,
 		      users: users,
@@ -140,32 +132,30 @@ module.exports = function(app, passport, db, io) {
 	}
 
 	io.sockets.on("connection", (socket) => {
-    		// socketConnection.addSocket(req.user.userName, socket);
 
-    		// socketConnection.checkConnected();
+		console.log('req.user.userName from before query:',currentUser.userName)
+		
+		db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
 
-    		// let connected = socketConnection.getObj();
-
-    		console.log('req.user.userName from before query:',currentUser.userName)
+		socket.on('send message', function (message) {
+			console.log('message from send message',message)
+	    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)		
+			.done((res) =>{
+				console.log('res from query:',res)
+				socket.to(res[0][0].socketId).emit('private message',message);
+			});
 			
-			db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
+		});
 
-    		socket.on('send message', function (message) {
-				console.log('message from send message',message)
-		    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)		
-				.done((res) =>{
-					console.log('res from query:',res)
-					socket.to(res[0][0].socketId).emit('private message',message);
-				});
-    			
-    		});
+			socket.on('disconnect', function(){
+			console.log('user disconnected: ', currentUser.userName);
+			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res) =>{
+				console.log('Delete from sockets', res)
+			})
+		})
+			
+	});
 
-  			socket.on('disconnect', function(){
-    			console.log('user disconnected');
-    			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`)
-    			
-  			});
-
-    	});
+	
 
 }
