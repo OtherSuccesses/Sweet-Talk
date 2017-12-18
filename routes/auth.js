@@ -44,7 +44,9 @@ module.exports = function(app, passport, db, io) {
 	    }, {
 	    	freezeTableName: true,
 	    	timestamps: false,
-	  	});
+	  	}).catch((err) => {
+    		console.error("auth.js line 48 err", err);
+ 		 });
 		db.User.update({online: 1}, {
 			where: {
 				userName
@@ -54,8 +56,12 @@ module.exports = function(app, passport, db, io) {
 		// });
 		  	db.sequelize.sync().then(() => {
 		    	res.json(req.user);
-		  	})   
-		});
+		  	}).catch((err) => {
+    			console.error("err", err);
+  			});   
+		}).catch((err) => {
+    		console.error("auth.js line 63 err", err);
+  		});
     });
 
     app.post('/login', passport.authenticate('local-signin', 
@@ -78,22 +84,30 @@ module.exports = function(app, passport, db, io) {
     		// let connected = socketConnection.getObj();
 
     		console.log('req.user.userName from before query:',req.user.userName)
-		db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${req.user.userName}', '${socket.id}');`);
-    		socket.on('send message', function (message) {
+			
+			db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${req.user.userName}', '${socket.id}');`)
+			.catch((err) => {
+	    		console.error("auth.js line 90 err", err);
+	 		});
 
-    			
-    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)
-    			
-    			.done((res) =>{
-    				console.log('res from query:',res)
-    				socket.to(res.socketId).emit('private message',message.text);
-    			});
+    		socket.on('send message', function (message) {
+	
+		    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)		
+				.done((res) =>{
+					console.log('res from query:',res)
+					socket.to(res.socketId).emit('private message',message.text);
+				}).catch((err) => {
+		    		console.error("auth.js line 100 err", err);
+		  		});
     			
     		});
 
   			socket.on('disconnect', function(){
     			console.log('user disconnected');
-    			db.sequelize.query(`DELETE FROM sockets WHERE user='${req.user.userName}';`);
+    			db.sequelize.query(`DELETE FROM sockets WHERE user='${req.user.userName}';`)
+    			.catch((err) => {
+    				console.error("auth.js line 109 err", err);
+    			});
   			});
 
     	});
@@ -115,7 +129,9 @@ module.exports = function(app, passport, db, io) {
     		where: {
     			userName: req.user.userName
     		}
-    	});
+    	}).catch((err) => {
+    		console.error("auth.js line 133 err", err);
+  		});
 
     	
         
@@ -143,7 +159,9 @@ module.exports = function(app, passport, db, io) {
 		      title: req.user.userName
 		    };
 		    res.render("userview.handlebars", handlebarsObject);
-    	});
+    	}).catch((err) => {
+    		console.error("auth.js line 163 err", err);
+  		});
     });
  	function isLoggedIn(req, res, next) {
 	    if (req.isAuthenticated()) {
