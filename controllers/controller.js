@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 
 router.get(`/:username/video/`, (req, res) => {
   let currentUser = req.user;
-      db.VideoChat.findOne({
+    db.VideoChat.findOne({
       where: {
         recUserName: currentUser.userName
       }
@@ -33,7 +33,7 @@ router.get("/api/update/:username", function (req, res){
     }
   }).then((results)=>{
       res.json(results);
-    });
+  });
 });
 
 //Code that actually updates user data!
@@ -88,11 +88,14 @@ router.post('/userView/swipe', (req,res) => {
   //Update or insert into dynamic user swipe table
   db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE userName='${req.body.user}'`).then((data) => {
     if (data[0].length === 0) {
-      db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`);
+      db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`)
+      .catch((err) => {
+        console.error("console.log line 97 err", err);
+      });
     } else {
-      db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`);
+      db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`)
     }
-  });
+  })
 
   //Check for match
   if (req.body.swipe === "true") {
@@ -108,19 +111,23 @@ router.post('/userView/swipe', (req,res) => {
             recUserName: currentUser.userName,
           }).then((result) => {
             res.json(result);
-          });
+          })
         } else {
           res.end();
         }
       }
-    });
+    })
   };
 });
     
 
-router.post('/chatInput', (req,res) =>{
-  console.log(req.body);
-  res.sendStatus(200).end();
-});
+// router.post('/chatInput', (req,res) =>{
+//   console.log(req.body);
+//   res.sendStatus(200).end();
+// });
+
+router.get('/getUser', (req,res) =>{
+  res.json(req.user.userName);
+})
 
 module.exports = router;
