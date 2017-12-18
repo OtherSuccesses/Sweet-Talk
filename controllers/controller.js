@@ -21,8 +21,6 @@ router.get(`/:username/video/`, (req, res) => {
     }).then((results) => {
       let vidInfo = results.dataValues;
       res.render("videoChat", { vidInfo });
-    }).catch((err) => {
-      console.error("controller.js line 25 err", err);
     });
 });
 
@@ -35,8 +33,6 @@ router.get("/api/update/:username", function (req, res){
     }
   }).then((results)=>{
       res.json(results);
-  }).catch((err) => {
-    console.error("controller.js line 37 err", err);
   });
 });
 
@@ -49,8 +45,6 @@ router.post('/api/update/', (req,res) => {
     }
   }).then(function () {
     res.sendStatus(200).end(); 
-  }).catch((err) => {
-    console.error("controller.js line 51 err", err);
   });
 });
 
@@ -100,13 +94,8 @@ router.post('/userView/swipe', (req,res) => {
       });
     } else {
       db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`)
-      .catch((err) => {
-        console.error("controller.js line 102 err", err);
-      });
     }
-  }).catch((err) => {
-    console.error("controller.js line 106 err", err);
-  });
+  })
 
   //Check for match
   if (req.body.swipe === "true") {
@@ -122,16 +111,12 @@ router.post('/userView/swipe', (req,res) => {
             recUserName: currentUser.userName,
           }).then((result) => {
             res.json(result);
-          }).catch((err) => {
-            console.error("controller.js line 122 err", err);
-          });
+          })
         } else {
           res.end();
         }
       }
-    }).catch((err) => {
-      console.error("controller.js line 129 err", err);
-    });
+    })
   };
 });
     
