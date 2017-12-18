@@ -202,7 +202,7 @@ function createChatWindow(user) {
 		let remove = $('<span class="remove">');
 		let chatBox = $('<div class="chatBox">')
 		let msgWindow = $('<div class="msgWindow">');
-		let chatInput = $('<input type="text" class="chatInput">');
+		let chatInput = $('<input type="text" class="chatInput" data-username="'+user+'" >');
 		remove.append('<i class="fa fa-times" aria-hidden="true"></i>')
 		header.append(chatUser, remove).appendTo(accordion);
 		chatBox.append(msgWindow, chatInput);
@@ -236,16 +236,21 @@ function removeChatWindow(element) {
 function enterMessage(event) {
 	let user = {};
 	if (typeof $('.chatInput:focus').val() !== 'undefined') {
-		user.input = $('.chatInput:focus').val().trim();
+		user.to = $('.chatInput:focus').data('username');
+		user.from = thisUser;
+		user.text = $('.chatInput:focus').val().trim();
 	  if(event.keyCode == 13){
-	  	socket.emit('send message', user.input)
-	  	console.log('socket in chat:', socket)
-	  	$.ajax('/chatInput', {
-	  		type:'POST',
-	  		data: user
-	  	}).then((res)=>{
-	  		$('.chatInput:focus').val('');
-	  	});
+	  	socket.emit('send message', user)
+	  	let myMessage = $('<div class="bubble-right">').text(user.text);
+	  	console.log('msgWindow Im trying to append to:', $('.msgWindow'))
+		$('.msgWindow').append(myMessage);
+	 
+	  	// $.ajax('/chatInput', {
+	  	// 	type:'POST',
+	  	// 	data: user
+	  	// }).then((res)=>{
+  		$('.chatInput:focus').val('');
+	  	// });
 	  }
 	}
 }

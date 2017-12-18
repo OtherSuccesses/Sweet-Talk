@@ -2,6 +2,7 @@ var express = require('express');
 var sessions = require('express-session');
 var io = require('socket.io');
 const socketConnection = require('../controllers/socketConnection.js')
+let user = '';
 module.exports = function(app, passport, db, io) {
  
     app.get('/api/create', function() {
@@ -69,29 +70,25 @@ module.exports = function(app, passport, db, io) {
     	
     });
     app.get('/api/login/success',function(req,res) {
-    	console.log(`SUCCESSFULLY LOGGED IN...`);
     	io.sockets.on("connection", (socket) => {
-    		var user = '';
     		socketConnection.addSocket(req.user.userName, socket);
     		socketConnection.checkConnected();
-    		console.log("You have connected");
+
     		let connected = socketConnection.getObj();
 
-    		socket.on('get user', function (data) {
-    			console.log('username:',data)
-				user = data;
-				console.log('user from right after data:', user)
-    		});
-    		console.log('user from before send message:', user)
+    		
+
     		socket.on('send message', function (data) {
-    			console.log('user from inside send message:', user)
     			let message = {
-    				from: req.user.userName,
-    				text: data
+    				to: data.to,
+    				from: data.from,
+    				text: data.text
     			}
-    			connected[user].emit('private message', message);
+
+    			console.log('message that was sent:', message)
+    			socket.broadcast.emit('private message', message);
+    			// connected[data.from].emit('your message', message);
     		});
-    		console.log('user from after send message:', user)
 
 		 	socket.on('disconnect', function (data) {
 		 		socketConnection.removeSocket(req.user.userName, socket);
@@ -102,7 +99,6 @@ module.exports = function(app, passport, db, io) {
     });
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
-	    	console.log(req)
     	db.User.update({online:0}, {
     		where: {
     			userName: req.user.userName
