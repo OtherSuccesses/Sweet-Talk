@@ -42,7 +42,7 @@ function checkAlphaNumeric(element) {
 	} else {
 		showError(element, true)
 		$(element).val('').attr('placeholder', 'Can only contain letters and numbers');
-		setTimeout(()=>{$(element).attr('placeholder', placeholder)}, 1000 * 3);
+		setTimeout(replacePlaceHolders, 1000 * 3);
 		return 0;
 	}
 }
@@ -57,7 +57,7 @@ function checkLength(element) {
 	} else {
 		showError(element, true)
 		$(element).val('').attr('placeholder', 'Must be at least 8 characters');
-		setTimeout(()=>{$(element).attr('placeholder', placeholder)}, 1000 * 3);
+		setTimeout(replacePlaceHolders, 1000 * 3);
 		return 0;
 	}
 }

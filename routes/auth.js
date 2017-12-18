@@ -1,8 +1,6 @@
 var express = require('express');
 var sessions = require('express-session');
-var io = require('socket.io');
-const socketConnection = require('../controllers/socketConnection.js')
-module.exports = function(app, passport, db, io) {
+module.exports = function(app, passport, db) {
  
     app.get('/api/create', function() {
     	console.log('api/create called')
@@ -16,7 +14,7 @@ module.exports = function(app, passport, db, io) {
  
     ));
     app.get('/api/signup/failure',function(req,res) {
-		res.send({error: "There has been an error in signup."});
+    	res.status(401).send("There was something wrong with your input. Please try again.");
     });
     app.get('/api/signup/success',function(req,res) {
     	console.log(req.user);
@@ -65,39 +63,11 @@ module.exports = function(app, passport, db, io) {
     	})
     );
     app.get('/api/login/failure',function(req,res) {
-    	res.status(401);
+    	res.status(401).send("User name or password incorrect");
     	
     });
     app.get('/api/login/success',function(req,res) {
-    	console.log(`SUCCESSFULLY LOGGED IN...`);
-    	io.sockets.on("connection", (socket) => {
-    		var user = '';
-    		socketConnection.addSocket(req.user.userName, socket);
-    		socketConnection.checkConnected();
-    		console.log("You have connected");
-    		let connected = socketConnection.getObj();
-
-    		socket.on('get user', function (data) {
-    			console.log('username:',data)
-				user = data;
-				console.log('user from right after data:', user)
-    		});
-    		console.log('user from before send message:', user)
-    		socket.on('send message', function (data) {
-    			console.log('user from inside send message:', user)
-    			let message = {
-    				from: req.user.userName,
-    				text: data
-    			}
-    			connected[user].emit('private message', message);
-    		});
-    		console.log('user from after send message:', user)
-
-		 	socket.on('disconnect', function (data) {
-		 		socketConnection.removeSocket(req.user.userName, socket);
-		 	});
-
-    	});
+    	console.log(`successfully logged in...`);
     	res.send(req.user);
     });
     app.get('/logout', function(req, res) { 
@@ -107,11 +77,8 @@ module.exports = function(app, passport, db, io) {
     		where: {
     			userName: req.user.userName
     		}
-    	});
-
-    	
-        
-        res.redirect('/'); 
+    	})
+	        res.redirect('/'); 
 	    });
 	});
     app.get('/userView', isLoggedIn, function(req,res) {
