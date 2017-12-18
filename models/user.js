@@ -48,11 +48,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: true,
             defaultValue: "This user hasn't entered any information"
         },
-        online: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-            defaultValue: 0
-        }
     });
     return User;
 };
