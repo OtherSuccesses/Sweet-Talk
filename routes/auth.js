@@ -2,6 +2,7 @@ var express = require('express');
 var sessions = require('express-session');
 var io = require('socket.io');
 const socketConnection = require('../controllers/socketConnection.js')
+let currentUser = '';
 module.exports = function(app, passport, db, io) {
  
     app.get('/api/create', function() {
@@ -43,7 +44,9 @@ module.exports = function(app, passport, db, io) {
 	    }, {
 	    	freezeTableName: true,
 	    	timestamps: false,
-	  	});
+	  	}).catch((err) => {
+    		console.error("auth.js line 48 err", err);
+ 		 });
 		db.User.update({online: 1}, {
 			where: {
 				userName
@@ -53,8 +56,12 @@ module.exports = function(app, passport, db, io) {
 		// });
 		  	db.sequelize.sync().then(() => {
 		    	res.json(req.user);
-		  	})   
-		});
+		  	}).catch((err) => {
+    			console.error("err", err);
+  			});   
+		}).catch((err) => {
+    		console.error("auth.js line 63 err", err);
+  		});
     });
 
     app.post('/login', passport.authenticate('local-signin', 
@@ -69,45 +76,28 @@ module.exports = function(app, passport, db, io) {
     	
     });
     app.get('/api/login/success',function(req,res) {
-    	console.log(`SUCCESSFULLY LOGGED IN...`);
-    	io.sockets.on("connection", (socket) => {
-    		var user = '';
-    		socketConnection.addSocket(req.user.userName, socket);
-    		socketConnection.checkConnected();
-    		console.log("You have connected");
-    		let connected = socketConnection.getObj();
-
-    		socket.on('get user', function (data) {
-    			console.log('username:',data)
-				user = data;
-				console.log('user from right after data:', user)
-    		});
-    		console.log('user from before send message:', user)
-    		socket.on('send message', function (data) {
-    			console.log('user from inside send message:', user)
-    			let message = {
-    				from: req.user.userName,
-    				text: data
-    			}
-    			connected[user].emit('private message', message);
-    		});
-    		console.log('user from after send message:', user)
-
-		 	socket.on('disconnect', function (data) {
-		 		socketConnection.removeSocket(req.user.userName, socket);
-		 	});
-
-    	});
+    	currentUser = req.user
     	res.send(req.user);
     });
+
+    app.get('/getSocket/:userName', function (req,res) {
+    	let connected = socketConnection.getObj();
+    	console.log('Firing after getObj:', req.params.userName)
+    	let userSocket = connected[req.params.userName];
+    	console.log('connected obj:', connected);
+    	console.log('userSocket from backend:', userSocket);
+    	res.send(userSocket)
+    });
+
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
-	    	console.log(req)
     	db.User.update({online:0}, {
     		where: {
     			userName: req.user.userName
     		}
-    	});
+    	}).catch((err) => {
+    		console.error("auth.js line 133 err", err);
+  		});
 
     	
         
@@ -131,10 +121,13 @@ module.exports = function(app, passport, db, io) {
 		    }
 		    var handlebarsObject = {
 		      currentUser: currentUser,
-		      users: users
+		      users: users,
+		      title: req.user.userName
 		    };
 		    res.render("userview.handlebars", handlebarsObject);
-    	});
+    	}).catch((err) => {
+    		console.error("auth.js line 163 err", err);
+  		});
     });
  	function isLoggedIn(req, res, next) {
 	    if (req.isAuthenticated()) {
@@ -144,4 +137,34 @@ module.exports = function(app, passport, db, io) {
 	    res.status(200).send({});
 	 
 	}
+
+	io.sockets.on("connection", (socket) => {
+    		// socketConnection.addSocket(req.user.userName, socket);
+
+    		// socketConnection.checkConnected();
+
+    		// let connected = socketConnection.getObj();
+
+    		console.log('req.user.userName from before query:',currentUser.userName)
+			
+			db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
+
+    		socket.on('send message', function (message) {
+				console.log('message from send message',message)
+		    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)		
+				.done((res) =>{
+					console.log('res from query:',res)
+					socket.to(res[0][0].socketId).emit('private message',message);
+				});
+    			
+    		});
+
+  			socket.on('disconnect', function(){
+    			console.log('user disconnected');
+    			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`)
+    			
+  			});
+
+    	});
+
 }

@@ -77,7 +77,6 @@ $(document).ready(() => {
 		event.preventDefault();
 		let user = $(this).parent().attr('data-username');
 		console.log('user from front end:',user)
-		socket.emit('get user', user)
 		$(this).parent().fadeOut();
 		createChatWindow(user);
 	});
@@ -101,6 +100,7 @@ $(document).ready(() => {
 
 	//"click" event for enter key on chat inputs
 	$(document).keypress(function (event) {
+
 		enterMessage(event);
 	});
 
@@ -130,14 +130,22 @@ $(document).ready(() => {
     		active: false
     	});
   	});
-	socket.on('new message', function (data) {
-		console.log('message from eventListener:', data);
-	});
 
-	socket.on('private message', function (data) {
-		console.log('data from message:',data)
-		createChatWindow(data.from);
-		$('.msgWindow').append(data.text);
-	})
+	 	socket.on('private message', function (data) {	
+			console.log('data from message:',data)
+			console.log(thisUser)
+			console.log(data.to==thisUser)
+
+				createChatWindow(data.from);
+				let message = $('<div class="bubble-left">').text(data.text);
+				console.log('msgWindow Im trying to append to eventlisteners:', $('.msgWindow'))
+				$('.msgWindow').append(message);
+						
+		});	
+
+		// socket.on('your message', function (data) {
+		// 	let message = $('<div class="bubble-right">').text(data.text);
+		// 	$('.msgWindow').append(message);
+		// })
 
 });//end of document ready function
