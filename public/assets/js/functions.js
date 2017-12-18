@@ -241,15 +241,17 @@ function enterMessage(event) {
 		user.text = $('.chatInput:focus').val().trim();
 	  if(event.keyCode == 13){
 	  	socket.emit('send message', user)
-	  	let myMessage = $('<div class="bubble-right">').text(user.text);
-	  	console.log('msgWindow Im trying to append to:', $('.msgWindow'))
+  		let myMessage = $('<div class="bubble-right">').text(user.text);
 		$('.msgWindow').append(myMessage);
-	 
-	  	// $.ajax('/chatInput', {
-	  	// 	type:'POST',
-	  	// 	data: user
-	  	// }).then((res)=>{
   		$('.chatInput:focus').val('');
+	  	
+	 
+	  	// $.ajax('/getSocket/'+user.to, {
+	  	// 	type:'GET'
+	  	// }).then((res)=>{
+	  	// 	console.log(res);
+	  	// 	let toSocket = JSON.parse(res);
+	  		
 	  	// });
 	  }
 	}

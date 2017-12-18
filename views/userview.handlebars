@@ -158,7 +158,7 @@
 var socket;
 let thisUser = '';
 	$(document).ready(function () {
-		socket = io.connect('http://localhost:3000');
+		socket = io.connect();
 		console.log('socket',socket)
 		$.ajax('/getUser',{type:'GET'}).done(function (res) {
 			console.log('response of hopefully username',res)

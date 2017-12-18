@@ -9,6 +9,7 @@ module.exports = {
 		socketConnection[userName] = socket;
 		console.log('================================================================')
 		console.log('connected: ', userName);
+		console.log('Connected ID:', socket.id);
 		console.log('connected users:', Object.keys(socketConnection))
 		console.log('================================================================')
 	},

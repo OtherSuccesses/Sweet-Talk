@@ -71,32 +71,44 @@ module.exports = function(app, passport, db, io) {
     });
     app.get('/api/login/success',function(req,res) {
     	io.sockets.on("connection", (socket) => {
-    		socketConnection.addSocket(req.user.userName, socket);
-    		socketConnection.checkConnected();
+    		// socketConnection.addSocket(req.user.userName, socket);
 
-    		let connected = socketConnection.getObj();
+    		// socketConnection.checkConnected();
 
-    		
+    		// let connected = socketConnection.getObj();
 
-    		socket.on('send message', function (data) {
-    			let message = {
-    				to: data.to,
-    				from: data.from,
-    				text: data.text
-    			}
+    		console.log('req.user.userName from before query:',req.user.userName)
+		db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${req.user.userName}', '${socket.id}');`);
+    		socket.on('send message', function (message) {
 
-    			console.log('message that was sent:', message)
-    			socket.broadcast.emit('private message', message);
-    			// connected[data.from].emit('your message', message);
+    			
+    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)
+    			
+    			.done((res) =>{
+    				console.log('res from query:',res)
+    				socket.to(res.socketId).emit('private message',message.text);
+    			});
+    			
     		});
 
-		 	socket.on('disconnect', function (data) {
-		 		socketConnection.removeSocket(req.user.userName, socket);
-		 	});
+  			socket.on('disconnect', function(){
+    			console.log('user disconnected');
+    			db.sequelize.query(`DELETE FROM sockets WHERE user='${req.user.userName}';`);
+  			});
 
     	});
     	res.send(req.user);
     });
+
+    app.get('/getSocket/:userName', function (req,res) {
+    	let connected = socketConnection.getObj();
+    	console.log('Firing after getObj:', req.params.userName)
+    	let userSocket = connected[req.params.userName];
+    	console.log('connected obj:', connected);
+    	console.log('userSocket from backend:', userSocket);
+    	res.send(userSocket)
+    });
+
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
     	db.User.update({online:0}, {
@@ -127,7 +139,8 @@ module.exports = function(app, passport, db, io) {
 		    }
 		    var handlebarsObject = {
 		      currentUser: currentUser,
-		      users: users
+		      users: users,
+		      title: req.user.userName
 		    };
 		    res.render("userview.handlebars", handlebarsObject);
     	});
