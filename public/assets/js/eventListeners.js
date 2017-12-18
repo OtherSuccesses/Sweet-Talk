@@ -134,13 +134,13 @@ $(document).ready(() => {
 	 	socket.on('private message', function (data) {	
 			console.log('data from message:',data)
 			console.log(thisUser)
-			console.log(data.to===thisUser)
-			if (data.to === thisUser){
+			console.log(data.to==thisUser)
+
 				createChatWindow(data.from);
 				let message = $('<div class="bubble-left">').text(data.text);
 				console.log('msgWindow Im trying to append to eventlisteners:', $('.msgWindow'))
 				$('.msgWindow').append(message);
-			} 			
+						
 		});	
 
 		// socket.on('your message', function (data) {

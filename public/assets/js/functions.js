@@ -29,14 +29,12 @@ function loginUser() {
 			data: user
 		}).done((res)=>{
 
-			// if (res = "OK") {
 				console.log('User logged in: ', user, " res: ", res);
 				$('#sign-in-modal').fadeOut();
 				window.location.href="/userView";
 				// var socket = io.connect();
-				// pizza = socket
-				// console.log("socket", socket);
-			// }
+				// console.log('socket:',socket)
+
 		})
 	}
 }
