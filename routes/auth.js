@@ -87,11 +87,13 @@ module.exports = function(app, passport, db, io) {
 
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
-    	socketCon.on('disconnect', function(){
-			console.log('user disconnected');
-			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`);
-		});  	
-        res.redirect('/'); 
+	    	socketCon.on('disconnect', function(){
+				console.log('user disconnected');
+				db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res)=> {
+					console.log('delete firing', res);
+				});
+			});  	
+	        res.redirect('/'); 
 
 	    });
 	});
