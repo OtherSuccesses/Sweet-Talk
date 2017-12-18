@@ -89,9 +89,6 @@ router.post('/userView/swipe', (req,res) => {
   db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE userName='${req.body.user}'`).then((data) => {
     if (data[0].length === 0) {
       db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`)
-      .catch((err) => {
-        console.error("console.log line 97 err", err);
-      });
     } else {
       db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`)
     }

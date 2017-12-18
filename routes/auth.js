@@ -3,6 +3,7 @@ var sessions = require('express-session');
 var io = require('socket.io');
 const socketConnection = require('../controllers/socketConnection.js')
 let currentUser = '';
+let socketCon = '';
 module.exports = function(app, passport, db, io) {
  
     app.get('/api/create', function() {
@@ -86,40 +87,49 @@ module.exports = function(app, passport, db, io) {
 
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
-    	db.User.update({online:0}, {
-    		where: {
-    			userName: req.user.userName
-    		}
-    	})
-
-  	
-        res.redirect('/'); 
+	    	socketCon.on('disconnect', function(){
+				console.log('user disconnected');
+				db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res)=> {
+					console.log('delete firing', res);
+				});
+			});  	
+	        res.redirect('/'); 
 
 	    });
 	});
     app.get('/userView', isLoggedIn, function(req,res) {
     	currentUser = req.user;
-    	db.User.findAll({
-		    where: {
-		      gender: currentUser.seeking,
-		      seeking: currentUser.gender,
-		      online: 1
-		    }
-		}).then((results)=>{
-		    var users = [];
-		    for(var i = 0; i<results.length; i++) {
-		      if(results[i].dataValues.userName !== currentUser.userName) {
-		        users[i] = results[i].dataValues;
-		      }
-		    }
+  //   	db.User.findAll({
+		//     where: {
+		//       gender: currentUser.seeking,
+		//       seeking: currentUser.gender
+		//     }
+		// }).then((results)=>{
+		var users = [];
+		db.sequelize.query(`SELECT userName, seeking, bio, img, gender FROM users INNER JOIN sockets ON user = userName;`).done((results)=>{
+			console.log(results)
+			for(var i = 0; i < results[0].length; i++) {
+				if(results[0][i].gender === currentUser.seeking && results[0][i].seeking === currentUser.gender) {
+					users.push(results[0][i]);
+				}
+			}
+		    // for(var i = 0; i<results.length; i++) {
+		    //     if(results[i].dataValues.userName !== currentUser.userName) {
+		    //   		//compare sessions ids 
+		    //     	users[i] = results[i].dataValues;
+		    //     }
+		    // }
+			
+			console.log(res);
 		    var handlebarsObject = {
 		      currentUser: currentUser,
 		      users: users,
 		      title: req.user.userName
 		    };
 		    res.render("userview.handlebars", handlebarsObject);
-    	})
-    });
+		});
+   	})
+
  	function isLoggedIn(req, res, next) {
 	    if (req.isAuthenticated()) {
 	        return next();	
