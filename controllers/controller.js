@@ -8,7 +8,7 @@ var currentUser = {},
     users = [];
 
 router.get("/", (req, res) => {
-  let currentUser = req.user;
+  // let currentUser = req.user;
   res.render("index", {title: 'Sweet Talk'});
 });
 
@@ -89,6 +89,8 @@ router.post('/userView/swipe', (req,res) => {
 // });
 
 router.get('/getUser', (req,res) =>{
+  console.log('req, controller 92', req);
+
   res.json(req.user.userName);
 })
 
