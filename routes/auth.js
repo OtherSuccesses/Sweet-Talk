@@ -66,7 +66,8 @@ module.exports = function(app, passport, db, io) {
 	    	successRedirect: '/api/login/success',
 	    	failureRedirect: '/api/login/failure',
 	    	failureFlash: true
-    	});
+    	})
+
     );
 
     app.get('/api/login/failure',function(req,res) {
@@ -155,8 +156,7 @@ module.exports = function(app, passport, db, io) {
 			
 		});
 
-	});
-}
+	
 
 
 // db.sequelize.query(`SELECT sockets.user, users.userName, users.seeking, users.gender, INNER JOIN sockets ON sockets.user = users.userName;`).done((res)=>{
@@ -164,16 +164,17 @@ module.exports = function(app, passport, db, io) {
 // });
 
 
-			socket.on('disconnect', function(){
+		socket.on('disconnect', function(){
 			console.log('user disconnected: ', currentUser.userName);
 			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res) =>{
 				console.log('Delete from sockets', res)
-			})
-		})
+			});
+		});
 			
 	});
 
+}
 	
 
-}
+
 
