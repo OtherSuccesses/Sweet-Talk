@@ -3,6 +3,7 @@ var sessions = require('express-session');
 var io = require('socket.io');
 const socketConnection = require('../controllers/socketConnection.js')
 let currentUser = '';
+let socketCon = '';
 module.exports = function(app, passport, db, io) {
  
     app.get('/api/create', function() {
@@ -91,7 +92,11 @@ module.exports = function(app, passport, db, io) {
     			userName: req.user.userName
     		}
     	});
-
+    	socketCon.on('disconnect', function(){
+			console.log('user disconnected');
+			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`)
+			
+		});
         res.redirect('/'); 
 
 	    });
@@ -130,26 +135,25 @@ module.exports = function(app, passport, db, io) {
 	 
 	}
 
-	io.sockets.on("connection", (socket) => {
-    		console.log('req.user.userName from before query:',currentUser.userName)
+io.sockets.on("connection", (socket) => {
+	socketCon = socket;
+		console.log('req.user.userName from before query:',currentUser.userName)
+		
+		db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
+
+		socket.on('send message', function (message) {
+			console.log('message from send message',message)
+	    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)		
+			.done((res) =>{
+				console.log('res from query:',res)
+				socket.to(res[0][0].socketId).emit('private message',message);
+			});
 			
-			db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
-
-    		socket.on('send message', function (message) {
-				console.log('message from send message',message)
-		    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)		
-				.done((res) =>{
-					console.log('res from query:',res)
-					socket.to(res[0][0].socketId).emit('private message',message);
-				});
-    			
-    		});
-
-  			socket.on('disconnect', function(){
-    			console.log('user disconnected');
-    			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`)
-    			
-  			});
-
-    	});
+		});
+	});
 }
+
+
+db.sequelize.query(`SELECT sockets.user, users.userName, users.seeking, users.gender, INNER JOIN sockets ON sockets.user = users.userName;`).done((res)=>{
+	console.log(res);
+});
