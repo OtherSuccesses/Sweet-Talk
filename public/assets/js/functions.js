@@ -180,6 +180,10 @@ function signOut() {
 	});
 }
 
+window.onbeforeunload = function() {
+   $.get('/logout')    
+};
+
 function reorderChatWindows() {
 	let num = 0;
 	$('.chat-container .chat-accordion').each((i, item)=>{

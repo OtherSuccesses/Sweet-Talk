@@ -139,32 +139,42 @@ module.exports = function(app, passport, db, io) {
 	}
 
 	io.sockets.on("connection", (socket) => {
-    		// socketConnection.addSocket(req.user.userName, socket);
 
-    		// socketConnection.checkConnected();
 
-    		// let connected = socketConnection.getObj();
+		console.log('req.user.userName from before query:',currentUser.userName)
 
-    		console.log('req.user.userName from before query:',currentUser.userName)
-			
-			db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
-
-    		socket.on('send message', function (message) {
-				console.log('message from send message',message)
-		    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)		
-				.done((res) =>{
-					console.log('res from query:',res)
-					socket.to(res[0][0].socketId).emit('private message',message);
+		db.Socket.findOne({
+			where: {
+				user: currentUser.userName
+			}
+		}).done((res)=>{
+			if (res) {
+				db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res) =>{
+					console.log('Delete from sockets', res)
 				});
-    			
-    		});
+			} else {
+				db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
+			}
+		})
+		
+		
 
-  			socket.on('disconnect', function(){
-    			console.log('user disconnected');
-    			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`)
-    			
-  			});
-
-    	});
+		socket.on('send message', function (message) {
+			console.log('message from send message',message)
+	    	db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)		
+			.done((res) =>{
+				console.log('res from query:',res)
+				socket.to(res[0][0].socketId).emit('private message',message);
+			});
+			
+		});
+		socket.on('disconnect', function(){
+			console.log('user disconnected: ', currentUser.userName);
+			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res) =>{
+				console.log('Delete from sockets', res)
+			});
+		});
+			
+	});
 
 }
