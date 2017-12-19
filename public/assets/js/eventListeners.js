@@ -100,11 +100,10 @@ $(document).ready(() => {
 
 	//"click" event for enter key on chat inputs
 	$(document).keypress(function (event) {
-
 		enterMessage(event);
 	});
 
-	//click event that hides chat bubble when 
+	//click event that hides chat bubble when nothing is selected
 	
 	// $(document).on('click', function (event) {
 	// 	if($('#connectBubble').css('display') !== 'none') {
@@ -131,21 +130,34 @@ $(document).ready(() => {
     	});
   	});
 
-	 	socket.on('private message', function (data) {	
-			console.log('data from message:',data)
-			console.log(thisUser)
-			console.log(data.to==thisUser)
+	//socket message listener
+ 	socket.on('private message', function (data) {	
+		console.log('data from message:',data);
+		console.log("thisUser from event listener", thisUser);
 
-				createChatWindow(data.from);
-				let message = $('<div class="bubble-left">').text(data.text);
-				console.log('msgWindow Im trying to append to eventlisteners:', $('.msgWindow'))
-				$('.msgWindow').append(message);
-						
-		});	
+			createChatWindow(data.from);
+			let message = $('<div class="bubble-left">').text(data.text);
+			console.log('msgWindow Im trying to append to eventlisteners:', $('.msgWindow'))
+			$('.msgWindow').append(message);
+			$('body, html').css("scrollTop", $(message).offset().top);			
+	});
 
-		// socket.on('your message', function (data) {
-		// 	let message = $('<div class="bubble-right">').text(data.text);
-		// 	$('.msgWindow').append(message);
-		// })
+	socket.on('logins', (data) => {
+		console.log("logins socket data", data);
+		let user = data[0][data[0].length-1];
+		console.log("user from logins", user);
+		$("#userView-container").append(`<div class="userTile centered" data-layer="">
+			<h2 class="tileTitle">Meet ${user.userName}!</h2>
+			<div class="imgContainer">
+				<img src="${user.img}" alt="image of ${user.userName}" class="userImage">
+			</div>
+			<p class="userBio">${user.bio}</p>
+			<button class="choose" data-swipe="false" data-user="${user.userName}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
+			<button class="choose" data-swipe="true" data-user="${user.userName}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
+		</div>`);
+	});
 
+	socket.on('add chat user', function (user) {
+		$('#chat-accordion').append('<p class="chatUser">'+user+'</p>');
+	});	
 });//end of document ready function
