@@ -29,7 +29,15 @@ function loginUser() {
 			console.log('User logged in: ', user, " res: ", res);
 			$('#sign-in-modal').fadeOut();
 			window.location.href="/userView";
+
+		}).fail((res) =>{
+			console.log(res.responseText);
+			clearInputs();
+			$('#username').attr('placeholder', 'Username or password is incorrect.');
+			$('#password').attr('placeholder', 'Username or password is incorrect.');
+			setTimeout(replacePlaceHolders, 3000);
 		});
+
 	}
 }
 
@@ -59,12 +67,18 @@ function createUser() {
 			type:'POST',
 			data: user
 		}).done((res)=>{
-			console.log(res);
-			console.log('User created: ', user)
-			$('#create-account-modal').hide();
-			$('#sign-in-modal').show();
-			$('#username').val(user.userName);
-			$('#password').val(user.password);
+				console.log('User created: ', user)
+				$('#create-account-modal').hide();
+				$('#sign-in-modal').show();
+				$('#username').val(user.userName);
+				$('#password').val(user.password);
+		}).fail((res) => {
+			console.log(res.responseText);
+			clearInputs();
+			$('input').attr('placeholder', '');
+			$('#create-password').attr('placeholder', 'There was a problem with signup. Please try again.');
+			$('textarea').attr('placeholder','');
+			setTimeout(replacePlaceHolders, 1000 * 3);
 		});
 	}
 }
@@ -80,7 +94,18 @@ function clearInputs() {
 		$('#create-bio').val('');
 	});
 }
+function replacePlaceHolders () {
+	$('#create-username').attr('placeholder', "Enter Your User Name");
+	$('#create-password').attr('placeholder', "Enter Password");
+	$('#create-password2').attr('placeholder', "Re-enter Password");
+	$('#create-age').attr('placeholder', 'Age');
+	$('#create-img').attr('placeholder', 'Enter image url');
+	$('#create-bio').attr('placeholder', 'Input user Bio');
+	$('#username').attr('placeholder', 'User Name');
+	$('#password').attr('placeholder', 'Password');
 
+
+}
 function userSwipe(element) {
  	let swipe = $(element).attr('data-swipe'),
  		user  = $(element).data('user'),

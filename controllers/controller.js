@@ -48,6 +48,53 @@ router.post('/api/update/', (req,res) => {
   });
 });
 
+router.post('/userView/swipe', (req,res) => {
+  let currentUser = req.user;
+  //Update or insert into dynamic user swipe table
+  db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE userName='${req.body.user}'`).then((data) => {
+    if (data[0].length === 0) {
+      db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`)
+
+      
+    } else {
+      db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`)
+      
+    }
+  });
+
+
+  //Check for match
+  if (req.body.swipe === "true") {
+    let currentUser = req.user;
+    db.sequelize.query(`SELECT * FROM ${req.body.user} WHERE userName='${currentUser.userName}';`).then((data) => { 
+      if (typeof data[0][0] !== 'undefined') {
+        if (data[0][0].swiped === 1) {
+          console.log("It's a match!");
+          db.VideoChat.create({
+            initiatorId: null,
+            recId: null,
+            initiatorUserName: req.body.user,
+            recUserName: currentUser.userName,
+          }).then((result) => {
+            res.json(result);
+          })
+        } else {
+          res.end();
+        }
+      }
+
+    });
+
+  };
+});
+    
+
+router.get('/getUser', (req,res) =>{
+  res.json(req.user.userName);
+})
+
+module.exports = router;
+
 //Vytas's route
 //Route to check the swipe database for duplicates 
 // router.get('/userView/swipe/:username', (req, res)=>{
@@ -82,46 +129,3 @@ router.post('/api/update/', (req,res) => {
 //     res.json({result:result[0]});
 //   });
 // });
-
-router.post('/userView/swipe', (req,res) => {
-  let currentUser = req.user;
-  //Update or insert into dynamic user swipe table
-  db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE userName='${req.body.user}'`).then((data) => {
-    if (data[0].length === 0) {
-      db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`)
-      
-    } else {
-      db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`)
-      
-    }
-  });
-
-  //Check for match
-  if (req.body.swipe === "true") {
-    let currentUser = req.user;
-    db.sequelize.query(`SELECT * FROM ${req.body.user} WHERE userName='${currentUser.userName}';`).then((data) => { 
-      if (typeof data[0][0] !== 'undefined') {
-        if (data[0][0].swiped === 1) {
-          console.log("It's a match!");
-          db.VideoChat.create({
-            initiatorId: null,
-            recId: null,
-            initiatorUserName: req.body.user,
-            recUserName: currentUser.userName,
-          }).then((result) => {
-            res.json(result);
-          })
-        } else {
-          res.end();
-        }
-      }
-    });
-  };
-});
-    
-
-router.get('/getUser', (req,res) =>{
-  res.json(req.user.userName);
-})
-
-module.exports = router;
