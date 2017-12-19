@@ -54,10 +54,14 @@ router.post('/userView/swipe', (req,res) => {
   db.sequelize.query(`SELECT * FROM ${currentUser.userName} WHERE userName='${req.body.user}'`).then((data) => {
     if (data[0].length === 0) {
       db.sequelize.query(`INSERT INTO ${currentUser.userName} (userName, swiped) VALUES ("${req.body.user}", ${req.body.swipe});`)
+
+      
     } else {
       db.sequelize.query(`UPDATE ${currentUser.userName} SET swiped=${req.body.swipe} WHERE userName='${req.body.user}';`)
+      
     }
-  })
+  });
+
 
   //Check for match
   if (req.body.swipe === "true") {
@@ -78,15 +82,12 @@ router.post('/userView/swipe', (req,res) => {
           res.end();
         }
       }
-    })
+
+    });
+
   };
 });
     
-
-// router.post('/chatInput', (req,res) =>{
-//   console.log(req.body);
-//   res.sendStatus(200).end();
-// });
 
 router.get('/getUser', (req,res) =>{
   res.json(req.user.userName);

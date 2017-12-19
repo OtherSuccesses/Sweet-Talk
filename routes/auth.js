@@ -45,18 +45,20 @@ module.exports = function(app, passport, db, io) {
 	    }, {
 	    	freezeTableName: true,
 	    	timestamps: false,
-	  	})
+	  	});
+
+
 		db.User.update({online: 1}, {
 			where: {
 				userName
 			}
 		}).then(()=>{
-
-		// });
 		  	db.sequelize.sync().then(() => {
 		    	res.json(req.user);
-		  	});   
-		})
+
+		  	}) ;
+		});
+
     });
 
     app.post('/login', passport.authenticate('local-signin', 
@@ -64,12 +66,14 @@ module.exports = function(app, passport, db, io) {
 	    	successRedirect: '/api/login/success',
 	    	failureRedirect: '/api/login/failure',
 	    	failureFlash: true
-    	})
+    	});
     );
+
     app.get('/api/login/failure',function(req,res) {
     	res.status(401).send("User name or password incorrect");
     	
     });
+
     app.get('/api/login/success',function(req,res) {
     	console.log(`successfully logged in...`);
     	currentUser = req.user
@@ -87,6 +91,7 @@ module.exports = function(app, passport, db, io) {
 
     app.get('/logout', function(req, res) { 
 	    req.session.destroy(function(err) { 
+
 	  //   	socketCon.on('disconnect', function(){
 			// 	console.log('user disconnected');
 			// 	db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res)=> {
@@ -97,6 +102,7 @@ module.exports = function(app, passport, db, io) {
 
 	    });
 	});
+
     app.get('/userView', isLoggedIn, function(req,res) {
     	currentUser = req.user;
   //   	db.User.findAll({
@@ -120,7 +126,7 @@ module.exports = function(app, passport, db, io) {
 		    };
 		    res.render("userview.handlebars", handlebarsObject);
 		});
-   	})
+   	});
 
  	function isLoggedIn(req, res, next) {
 	    if (req.isAuthenticated()) {
@@ -131,7 +137,9 @@ module.exports = function(app, passport, db, io) {
 	 
 	}
 
+
 	io.sockets.on("connection", (socket) => {
+
 
 		console.log('req.user.userName from before query:',currentUser.userName)
 		
@@ -147,6 +155,15 @@ module.exports = function(app, passport, db, io) {
 			
 		});
 
+	});
+}
+
+
+// db.sequelize.query(`SELECT sockets.user, users.userName, users.seeking, users.gender, INNER JOIN sockets ON sockets.user = users.userName;`).done((res)=>{
+// 	console.log(res);
+// });
+
+
 			socket.on('disconnect', function(){
 			console.log('user disconnected: ', currentUser.userName);
 			db.sequelize.query(`DELETE FROM sockets WHERE user='${currentUser.userName}';`).done((res) =>{
@@ -159,3 +176,4 @@ module.exports = function(app, passport, db, io) {
 	
 
 }
+
