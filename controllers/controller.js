@@ -78,7 +78,7 @@ app.post('/userView/swipe', (req,res) => {
       if (typeof data[0][0] !== 'undefined') {
         if (data[0][0].swiped === 1) {
           console.log("It's a match!");
-          creating a video chat table, not functioning at the moment
+          //creating a video chat table, not functioning at the moment
           db.VideoChat.create({
             initiatorId: null,
             recId: null,
