@@ -209,7 +209,8 @@ app.get('/userView', function(req,res) {
   //     }//end of if/else statement
   //   }//end of for loop
   //   console.log('users from /userview:',users)
-db.sequelize.query(`SELECT * FROM users WHERE users.userName NOT IN (SELECT userName FROM ${currentUser.userName})`).done((data)=>{
+db.sequelize.query(`SELECT * FROM users`).done((data)=>{
+  console.log(data);
     for (let i = 0; i<data[0].length; i++) {
       if (data[0][i].seeking===currentUser.gender && data[0][i].gender===currentUser.seeking && data[0][i].userName!==currentUser.userName) {
 
