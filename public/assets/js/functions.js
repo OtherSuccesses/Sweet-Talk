@@ -124,10 +124,7 @@ function userSwipe(element) {
  		socket.emit('swipe right', swipeData)
  	}
  	$.post('/userView/swipe', swipeData).done((res) => {
- 		if (res) {
- 			console.log('res from /userview/swipe', res);
- 			window.location.href = `/${res.userName}/video`
- 		}
+ 	
  	});
 }
 
