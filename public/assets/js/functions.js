@@ -324,30 +324,33 @@ function enterMessage(event) {
 	  	socket.emit('send message', user)
   		let myMessage = $('<div class="bubble-right">').text(user.text);
 		$('.msgWindow').append(myMessage);
-		$('body, html').css("scrollTop", $(myMessage).offset().top);
   		$('.chatInput:focus').val('');
+  		$(myMessage).parent().scrollTop($(myMessage).offset().top);
 	  }
 	}
 }
 
-function showChatBubble(element) {
-	let x = $(element).offset();
-	let height = parseInt($(element).css('height'));
-	let pos = x.top - 100 + (height/2);
-	let user = $(element).text();
+//commented out for future use
 
-	$('#connectBubble').css({
-		'top': pos,			
-	}).fadeIn().attr('data-username', user);
-}
+// function showChatBubble(element) {
+// 	let x = $(element).offset();
+// 	let height = parseInt($(element).css('height'));
+// 	let pos = x.top - 100 + (height/2);
+// 	let user = $(element).text();
 
-function hideChatBubble(event) {
-	console.log(!$(event.target).closest('#bubble-container').length)
-	if(!$(event.target).closest('#bubble-container').length) {
-   		console.log('firing inside where fadeout is called')
-        $('#connectBubble').fadeOut();
-    }  
-}
+// 	$('#connectBubble').css({
+// 		'top': pos,			
+// 	}).fadeIn().attr('data-username', user);
+// }
+
+// function hideChatBubble(event) {
+// 	console.log(!$(event.target).closest('#bubble-container').length)
+// 	if(!$(event.target).closest('#bubble-container').length) {
+//    		console.log('firing inside where fadeout is called')
+//         $('#connectBubble').fadeOut();
+//     }  
+// }
+
 // function addBackUser(element) {
 // 	let userName = $(element).attr('data-username');
 // 	let img = $(element).attr('data-img');

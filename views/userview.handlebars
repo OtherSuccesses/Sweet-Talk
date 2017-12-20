@@ -1,16 +1,16 @@
 <div class="userView-container">
 	<header>
 		<img src="{{currentUser.img}}" alt="Image of {{currentUser.userName}}" class="logo">
-		<h1 id="userGreeting">Hello, {{currentUser.userName}}!</h1>
+		<h1 id="userGreeting">Hello, {{currentUser.userName}}...</h1>
 		<nav>
 			<ul>
-				<li id="update-account" class="navItem">Profile</li>
+				<li id="update-account" class="navItem"><i class="fa fa-pencil" aria-hidden="true"></i>  Update Profile</li>
 				<li>|</li>
 				{{!-- <li class="navItem" id="inbox">Inbox</li>
 				<li>|</li> --}}
 				{{!-- <li class="navItem">Conversations</li>
 				<li>|</li> --}}
-				<li class="navItem" id="sign-out">Sign Out</li>
+				<li class="navItem" id="sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</li>
 			</ul>
 		</nav>
 	</header>
@@ -146,13 +146,15 @@
 				<div class="modal-body"></div>
 			</div>
 		</div>
+		
+		{{!-- commented out for future use --}}
 
-		<div class="bubble-container">
+		{{!-- <div class="bubble-container">
 			<div id="connectBubble" data-username="">
 				<button id="connect-chat" class="chat-button">Chat</button>
 				<button id="connect-video" class="chat-button">Video Chat</button>
 			</div>
-		</div>
+		</div> --}}
 
 	<footer></footer>
 </div>
