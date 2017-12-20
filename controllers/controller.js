@@ -167,7 +167,6 @@ app.post('/login',function (req, res) {
 });
 //When the user logs out, the page will redirect to the index
 
-
     // app.get('/getSocket/:userName', function (req,res) {
     //   let connected = socketConnection.getObj();
     //   console.log('Firing after getObj:', req.params.userName)

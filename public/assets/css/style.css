@@ -53,7 +53,7 @@ video {
 #main-title {
 	/*color: rgba(255,20,147, 1);*/
 	font-size: 120px;
-	letter-spacing: 6px;
+	letter-spacing: 11px;
 
 
 	/*style one*/
@@ -382,7 +382,6 @@ textarea#update-bio {
 header {
 	height: 10vh;
 	width: 100%;
-	/*background: rgba(100,250,250, 1);*/
 	background-image: url('/assets/img/header.jpg');
 	background-size: 100%;
 	border-bottom: 5px solid #777;
@@ -391,8 +390,9 @@ header {
 img.logo {
 	position: absolute;
 	left: 3vh;
-	top: 2vh;
+	top: 1.5vh;
 	height: 50px;
+	border: 4px solid white;
 }
 
 #userGreeting {
@@ -402,8 +402,10 @@ img.logo {
 	padding: 20px;
 }
 
+
 .navItem {
 	cursor: pointer;
+	font-weight: bold;
 }
 
 nav ul {
@@ -470,10 +472,12 @@ footer {
 
 .userBio {
 	text-align: center;
+	font-size: 18px;
 }
 
 .tileTitle {
 	text-align: center;
+	color: #777;
 }
 
 .imgContainer {
