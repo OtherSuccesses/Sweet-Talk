@@ -213,32 +213,25 @@ app.get('/userView', function(req,res) {
   //     }//end of if/else statement
   //   }//end of for loop
   //   console.log('users from /userview:',users)
-db.sequelize.query(`SELECT * FROM users`).done((data)=>{
-  console.log(data);
-    for (let i = 0; i<data[0].length; i++) {
-      if (data[0][i].seeking===currentUser.gender && data[0][i].gender===currentUser.seeking && data[0][i].userName!==currentUser.userName) {
 
-        users.push(data[0][i]);
-      }
+db.User.findAll({
+    where: {
+        gender: currentUser.seeking,
+        seeking: currentUser.gender
+
     }
-    
-    db.sequelize.query(`SELECT userName, swiped FROM ${currentUser.userName} INNER JOIN sockets ON user = userName; `).done((result)=>{
-      console.log('result from connections:', result);
-      for (let k = 0; k<result[0].length; k++) {
-        console.log('type of :', typeof result[0][k].swiped);
-        if (result[0][k].swiped===1) {
-            connections.push(result[0][k].userName);
-        } 
-      }
+}).done((results)=>{
+    for (var i = 0; i<results.length; i++) {
+        users.push(results[i].dataValues);
+    }
+    db.sequelize.query(`SELECT userName FROM ${currentUser.userName} WHERE swiped = "1";`).done((data)=>{
+        console.log(data);
+        for (j = 0; j<data[0].length; j++) {
+            console.log('asdfasdfasdfasdfasdfdsfa:',data[0][j]);
+            connections.push(data[0][j].userName);
+        }
 
 
-      // for (let j = 0; j<result.length; j++) {
-      //   db.sequelize.query(`SELECT swiped FROM ${result[j].userName} WHERE userName = "${currentUser.userName}";`).done((response)=>{
-      //     console.log('response from swiped values from other user:', response);
-      //   });
-      // }
-
-      console.log('users from before handlebarsObject:', users)
       console.log('connections from before handlebarsObject:', connections)
       var handlebarsObject = {
        currentUser: currentUser,
@@ -256,7 +249,20 @@ db.sequelize.query(`SELECT * FROM users`).done((data)=>{
      res.render("userview", handlebarsObject);
     });
 
-  });
+})
+    
+
+
+      // for (let j = 0; j<result.length; j++) {
+      //   db.sequelize.query(`SELECT swiped FROM ${result[j].userName} WHERE userName = "${currentUser.userName}";`).done((response)=>{
+      //     console.log('response from swiped values from other user:', response);
+      //   });
+      // }
+
+     
+
+
+
 
 
 

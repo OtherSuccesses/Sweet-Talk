@@ -6,6 +6,8 @@
 			<ul>
 				<li id="update-account" class="navItem"><i class="fa fa-pencil" aria-hidden="true"></i>  Update Profile</li>
 				<li>|</li>
+				{{!-- commented out for future use --}}
+
 				{{!-- <li class="navItem" id="inbox">Inbox</li>
 				<li>|</li> --}}
 				{{!-- <li class="navItem">Conversations</li>
@@ -15,7 +17,7 @@
 		</nav>
 	</header>
 	<video src="" id="userVideo"></video>
-	<div class="userTileContainer">
+
 	{{#each users}}
 		<div class="userTile centered" data-layer="{{@index}}">
 			<h2 class="tileTitle">Meet {{userName}}!</h2>
@@ -26,7 +28,6 @@
 			<button class="choose" data-swipe="false" data-user="{{userName}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
 			<button class="choose" data-swipe="true" data-user="{{userName}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
 		</div>
-	</div>
 	{{/each}}
 
 	<div class="noMore centered">
@@ -34,7 +35,7 @@
 
 	</div>
 
-{{!-- commented out in case we want to utilize in the future --}}
+{{!-- commented out for future use --}}
 
 {{!-- 
 	<div id="swiped-container">
@@ -115,7 +116,7 @@
 
 
 
-	{{!-- commented out in case we want to utilize in the future --}}
+	{{!-- commented out for future use --}}
 
 	{{!-- 	<div class="modal" id="viewAgain-modal">
 			<div class="modal-content">
