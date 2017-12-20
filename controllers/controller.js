@@ -36,6 +36,13 @@ app.get("/api/update/:username", function (req, res){
   });
 });
 
+app.get("/api/dataCount", function(req, res){
+  db.User.count()
+  .then(function(results){
+    res.json(results);
+  });
+});
+
 //Code that actually updates user data!
 app.post('/api/update/', (req,res) => {
   db.User.update(req.body, {

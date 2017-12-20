@@ -44,6 +44,74 @@ function loginUser() {
 	}
 }
 
+function databaseVolumeCheck(){
+	$.ajax("/api/dataCount", {
+		type:'GET'
+	}).done(function(res){
+		if (res<75){
+			databasePopulate();
+		}
+	});
+}
+
+function databasePopulate(){
+	var namesList = ["Marco", "Principio", "Taliesin", "Cochran", "EJ", "Morgan", "Vytas", "Rudzinskas", "Kate", "Upton", "Minnie", "Mickey", "Mouse", "89", "92", "Whatevs", "Grrl", "Boi", "Captain", "Madame", "Planet", "StarWars", "Burger"];
+
+	function randName(){
+		var tempIndex = Math.floor(Math.random()*namesList.length);
+		var tempName=namesList[Math.floor(Math.random()*namesList.length)];
+		tempName += namesList[tempIndex];
+		if (tempName.length < 8){
+			tempName += namesList[Math.floor(Math.random()*namesList.length)];
+		}
+		return tempName;
+	}
+
+	function randGen(){
+		var tempGen = Math.floor(Math.random()*2);
+		if (tempGen < 1){
+			tempGen = 'm';
+		}
+		else{
+			tempGen = 'f';
+		}
+		return tempGen;
+	}
+
+	function randAge(){
+		var tempAge = Math.floor(Math.random()*42);
+		tempAge += 18;
+		return tempAge;
+	}
+	users = []
+	for (var i = 0; i < 15; i++) {
+		var user = {};
+		user.userName = randName();
+		user.password = 'password';
+		user.gender = randGen();
+		user.seeking = randGen();
+		user.age = randAge();
+		user.bio = "Looking to Mingle!";
+		if (user.gender==='m') {
+			user.img =  $('#create-img').val()==='' ? '/assets/img/default_man.jpg':$('#create-img').val().trim();
+		} else {
+			user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
+		}
+		users.push(user);
+
+	}
+	for (var i = 0; i < users.length; i++) {
+		$.ajax('/create', {
+			type:'POST',
+			data: users[i]
+		}).done((res)=>{
+				console.log('User created: ', res);
+		}).fail((res) => {
+			console.log(res.responseText);
+		});
+	}
+}
+
 function createUser() {
 	let user = {},
 		rightAge   = checkAge('#create-age'),
