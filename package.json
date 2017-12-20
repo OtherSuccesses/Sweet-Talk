@@ -19,17 +19,15 @@
     "sequelize-cli": "^3.2.0",
     "serve-favicon": "^2.4.5",
     "simple-peer": "^8.2.0",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "watchify": "^3.9.0",
     "browserify": "^14.5.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "build": "browserify ./public/assets/js/functions.js -o ./public/assets/js/bundle.js",
-    "watch": "watchify ./public/assets/js/functions.js -o ./public/assets/js/bundle.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
