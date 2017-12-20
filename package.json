@@ -27,7 +27,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
     "build": "browserify ./public/assets/js/functions.js -o ./public/assets/js/bundle.js",
     "watch": "watchify ./public/assets/js/functions.js -o ./public/assets/js/bundle.js"
   },
