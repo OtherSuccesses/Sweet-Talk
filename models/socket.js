@@ -1,3 +1,6 @@
+//=============================
+//Table that tracks socket ids.
+//=============================
 module.exports = function(sequelize, DataTypes) {
 	var Socket = sequelize.define('socket', {
 		user: {

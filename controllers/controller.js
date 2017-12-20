@@ -1,3 +1,6 @@
+//==============
+//All the routes
+//==============
 const express = require("express");
 const db = require("../models");
 
@@ -5,11 +8,11 @@ let currentUser = {},
     users = [];
 
 module.exports = function (app, db, io) {
-
+//route to index
 app.get("/", (req, res) => {
   res.render("index", {title: 'Sweet Talk'});
 });
-
+// //Unused code for future video
 // app.get(`/:username/video/`, (req, res) => {
 //     db.VideoChat.findOne({
 //       where: {
@@ -33,6 +36,13 @@ app.get("/api/update/:username", function (req, res){
   });
 });
 
+app.get("/api/dataCount", function(req, res){
+  db.User.count()
+  .then(function(results){
+    res.json(results);
+  });
+});
+
 //Code that actually updates user data!
 app.post('/api/update/', (req,res) => {
   db.User.update(req.body, {
@@ -43,7 +53,7 @@ app.post('/api/update/', (req,res) => {
     res.sendStatus(200).end(); 
   });
 });
-
+//When the user swipes this function will update their personal table with that information
 app.post('/userView/swipe', (req,res) => {
   console.log('req.body',req.body);
 
@@ -66,6 +76,7 @@ app.post('/userView/swipe', (req,res) => {
       if (typeof data[0][0] !== 'undefined') {
         if (data[0][0].swiped === 1) {
           console.log("It's a match!");
+          //creating a video chat table, not functioning at the moment
           db.VideoChat.create({
             initiatorId: null,
             recId: null,
@@ -84,16 +95,7 @@ app.post('/userView/swipe', (req,res) => {
   };
 });
     
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
+//When a user signs up, we create a row in the user table and make a table for the users swipes
 app.post('/create', function(req, res) {
     console.log('api/create called')
     let {userName, password, gender, seeking, age, bio, img} = req.body;
@@ -140,6 +142,8 @@ app.post('/create', function(req, res) {
  
 });
 
+//When the user logs on this checks the password against the password in the database.
+
 app.post('/login',function (req, res) { 
    
     db.User.findOne({
@@ -159,7 +163,7 @@ app.post('/login',function (req, res) {
     
 
 });
-
+//When the user logs out, the page will redirect to the index
 app.get('/logout', function(req, res) { 
       res.redirect('/'); 
 });
@@ -173,7 +177,7 @@ app.get('/logout', function(req, res) {
     //   res.send(userSocket)
     // });
 
-
+//When the user logs in, they get this view.
 app.get('/userView', function(req,res) {
   var users = [];
   var connections = [];
@@ -232,6 +236,7 @@ app.get('/userView', function(req,res) {
      };
      res.render("userview", handlebarsObject);
     });
+
   });
 
 
@@ -240,6 +245,7 @@ app.get('/userView', function(req,res) {
 
 
 });//end of route listener
+
 
 app.get('/getUser', (req,res)=>{
     res.send(currentUser.userName);

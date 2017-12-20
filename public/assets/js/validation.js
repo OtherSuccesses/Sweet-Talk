@@ -1,3 +1,6 @@
+//=============================================
+//Validation functions for sign in and sign up. 
+//=============================================
 function showError(element, bool) {
 	let color = '';
 	bool ? color = 'red' : 'white';	
