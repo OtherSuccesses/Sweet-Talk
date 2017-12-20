@@ -278,7 +278,7 @@ app.get('/getUser', (req,res)=>{
 
 io.sockets.on("connection", (socket) => {
 
-    db.sequelize.query(`SELECT userName, seeking, bio, img, gender FROM users INNER JOIN sockets ON user = userName;`).done((data) => {
+    db.sequelize.query(`SELECT userName, seeking, bio, img, gender FROM Users INNER JOIN sockets ON user = userName;`).done((data) => {
       socket.emit('logins', data); 
     });
 

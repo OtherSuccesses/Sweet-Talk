@@ -17,9 +17,9 @@ function closeModal(modalId) {
 }
 
 function loginUser() {
-	console.log('loginUser called')
+	console.log('loginUser called');
 	let clean = false;
-	let user = {}
+	let user = {};
 	user.userName = $('#username').val().trim();
 	user.password = $('#password').val().trim();
 
