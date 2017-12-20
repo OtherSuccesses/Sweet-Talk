@@ -15,7 +15,7 @@
 		</nav>
 	</header>
 	<video src="" id="userVideo"></video>
-
+	<div class="userTileContainer">
 	{{#each users}}
 		<div class="userTile centered" data-layer="{{@index}}">
 			<h2 class="tileTitle">Meet {{userName}}!</h2>
@@ -26,7 +26,7 @@
 			<button class="choose" data-swipe="false" data-user="{{userName}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
 			<button class="choose" data-swipe="true" data-user="{{userName}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
 		</div>
-
+	</div>
 	{{/each}}
 
 	<div class="noMore centered">
@@ -56,8 +56,8 @@
 	<div id="chat-accordion" class="chat-accordion chats">
 		<h3>Chat</h3>
 		  <div>
-		  	{{#each users}}
-				<p class="chatUser">{{userName}}</p>
+		  	{{#each connections}}
+				<p class="chatUser">{{this}}</p>
 		  	{{/each}}
 		  </div>
 	</div>
@@ -98,7 +98,10 @@
 			</div>
 		</div>{{!-- end of #update-account-modal --}}
 
-		<div class="modal" id="inbox-modal">
+
+		{{!-- commented out for future use --}}
+
+		{{!-- <div class="modal" id="inbox-modal">
 			<div class="modal-content">
 				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
 				<div class="modal-header">
@@ -108,7 +111,7 @@
 					
 				</div>
 			</div>
-		</div>{{!-- end of #inbox-modal --}}
+		</div> --}}{{!-- end of #inbox-modal --}}
 
 
 
@@ -150,7 +153,6 @@
 				<button id="connect-video" class="chat-button">Video Chat</button>
 			</div>
 		</div>
-
 
 	<footer></footer>
 </div>
