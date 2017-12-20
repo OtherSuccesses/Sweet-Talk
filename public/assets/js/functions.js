@@ -93,9 +93,9 @@ function databasePopulate(){
 		user.age = randAge();
 		user.bio = "Looking to Mingle!";
 		if (user.gender==='m') {
-			user.img =  $('#create-img').val()==='' ? '/assets/img/default_man.jpg':$('#create-img').val().trim();
+			user.img =  $('#create-img').val()==='' ? '/assets/img/default_man.jpg':$('#create-img').val();
 		} else {
-			user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
+			user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val();
 		}
 		users.push(user);
 

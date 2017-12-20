@@ -78,7 +78,7 @@ app.post('/userView/swipe', (req,res) => {
       if (typeof data[0][0] !== 'undefined') {
         if (data[0][0].swiped === 1) {
           console.log("It's a match!");
-          //creating a video chat table, not functioning at the moment
+          creating a video chat table, not functioning at the moment
           db.VideoChat.create({
             initiatorId: null,
             recId: null,
@@ -166,14 +166,7 @@ app.post('/login',function (req, res) {
 
 });
 //When the user logs out, the page will redirect to the index
-app.get('/logout', function(req, res) { 
-<<<<<<< HEAD
-    socket.disconnect();
-    res.redirect('/'); 
-=======
-      res.redirect('/'); 
->>>>>>> 62c26282819e8f2e7c683008aaef056232eb933c
-});
+
 
     // app.get('/getSocket/:userName', function (req,res) {
     //   let connected = socketConnection.getObj();
@@ -321,7 +314,10 @@ io.sockets.on("connection", (socket) => {
         }
       });
     });
-
+    app.get('/logout', function(req, res) { 
+      socket.disconnect();
+      res.redirect('/'); 
+  });
 });//end of socket connection code
 
 
