@@ -11,7 +11,7 @@ $(document).ready(() => {
 	closeModal('update-account-modal');
 	closeModal('inbox-modal');
 
-	databaseVolumeCheck();	
+	//databaseVolumeCheck();	
 
 	//click event for submitting login
 	$('#login-submit').on('click', (event) =>{
