@@ -25,16 +25,16 @@ app.get("/", (req, res) => {
 // });
 
 //Get function to bring back the password
-app.get("/api/update/:username", function (req, res){
-  db.User.findOne({
-    where: {
-      username: currentUser.userName
-    }
-  }).then((results)=>{
-    console.log('results from update findOne:', results);
-    res.json(results);
-  });
-});
+// app.get("/api/update/:username", function (req, res){
+//   db.User.findOne({
+//     where: {
+//       username: currentUser.userName
+//     }
+//   }).then((results)=>{
+//     console.log('results from update findOne:', results);
+//     res.json(results);
+//   });
+// });
 
 app.get("/api/dataCount", function(req, res){
   db.User.count()
@@ -45,11 +45,13 @@ app.get("/api/dataCount", function(req, res){
 
 //Code that actually updates user data!
 app.post('/api/update/', (req,res) => {
+    console.log('req.body from update:',req.body)
   db.User.update(req.body, {
     where:{
       userName: currentUser.userName
     }
   }).then(function () {
+
     res.sendStatus(200).end(); 
   });
 });
@@ -181,6 +183,14 @@ app.get('/logout', function(req, res) {
 app.get('/userView', function(req,res) {
   var users = [];
   var connections = [];
+  db.User.findOne({
+    where: {
+        userName: currentUser.userName
+    }
+  }).done((foundUser)=>{
+    console.log('foundUser:', foundUser.dataValues);
+    currentUser = foundUser.dataValues
+  })
   // db.sequelize.query(`SELECT userName, swiped FROM sockets, ${currentUser.userName} INNER JOIN sockets ON user = userName;`).done((swipes)=>{
   //   console.log('Swipes from inner join',swipes);
 
@@ -202,7 +212,7 @@ app.get('/userView', function(req,res) {
   //     }//end of if/else statement
   //   }//end of for loop
   //   console.log('users from /userview:',users)
-  db.sequelize.query(`SELECT * FROM users WHERE users.userName NOT IN (SELECT userName FROM ${currentUser.userName})`).done((data)=>{
+db.sequelize.query(`SELECT * FROM users WHERE users.userName NOT IN (SELECT userName FROM ${currentUser.userName})`).done((data)=>{
     for (let i = 0; i<data[0].length; i++) {
       if (data[0][i].seeking===currentUser.gender && data[0][i].gender===currentUser.seeking && data[0][i].userName!==currentUser.userName) {
 
@@ -234,6 +244,13 @@ app.get('/userView', function(req,res) {
        users: users,
        title: currentUser.userName
      };
+     console.log('=========================================================')
+     console.log('=========================================================')
+     console.log('=========================================================')
+     console.log('handlebarsObject:',handlebarsObject)
+     console.log('=========================================================')
+     console.log('=========================================================')
+     console.log('=========================================================')
      res.render("userview", handlebarsObject);
     });
 
