@@ -48,7 +48,7 @@ function databaseVolumeCheck(){
 	$.ajax("/api/dataCount", {
 		type:'GET'
 	}).done(function(res){
-		if (res<75){
+		if (res<10){
 			databasePopulate();
 		}
 	});
@@ -59,7 +59,7 @@ function databasePopulate(){
 
 	function randName(){
 		var tempIndex = Math.floor(Math.random()*namesList.length);
-		var tempName=namesList[Math.floor(Math.random()*namesList.length)];
+		var tempName = namesList[Math.floor(Math.random()*namesList.length)];
 		tempName += namesList[tempIndex];
 		if (tempName.length < 8){
 			tempName += namesList[Math.floor(Math.random()*namesList.length)];
@@ -84,7 +84,7 @@ function databasePopulate(){
 		return tempAge;
 	}
 	users = []
-	for (var i = 0; i < 15; i++) {
+	for (var i = 0; i < 10; i++) {
 		var user = {};
 		user.userName = randName();
 		user.password = 'password';
@@ -98,7 +98,6 @@ function databasePopulate(){
 			user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val();
 		}
 		users.push(user);
-
 	}
 	for (var i = 0; i < users.length; i++) {
 		$.ajax('/create', {
