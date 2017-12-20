@@ -166,10 +166,6 @@ app.post('/login',function (req, res) {
 
 });
 //When the user logs out, the page will redirect to the index
-app.get('/logout', function(req, res) { 
-    socket.disconnect();
-    res.redirect('/'); 
-});
 
     // app.get('/getSocket/:userName', function (req,res) {
     //   let connected = socketConnection.getObj();
@@ -317,7 +313,10 @@ io.sockets.on("connection", (socket) => {
         }
       });
     });
-
+    app.get('/logout', function(req, res) { 
+      socket.disconnect();
+      res.redirect('/'); 
+  });
 });//end of socket connection code
 
 
