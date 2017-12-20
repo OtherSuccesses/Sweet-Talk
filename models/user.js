@@ -2,7 +2,7 @@
 //Model for user table
 //=====================
 module.exports = function(sequelize, DataTypes) {
-    var User = sequelize.define('User', {
+    var User = sequelize.define('user', {
         userName: {
             type: DataTypes.STRING,
             allowNull: false,
