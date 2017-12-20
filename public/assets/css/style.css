@@ -69,14 +69,14 @@ video {
 				 7px 7px 0px rgba(100,250,250, 0.9), 
 				 8px 8px 0px rgba(100,250,250, 0.9), 
 				 9px 9px 0px rgba(100,250,250, 0.9),  
-				 10px 10px 10px rgba(0,0,0, 0.9);
-*/
+				 10px 10px 10px rgba(0,0,0, 0.9);*/
+
 
 	
 	/*style two*/
 	-webkit-text-fill-color: rgba(255,255,255, 1);
 	-webkit-text-stroke-width: 0.5px;
-	-webkit-text-stroke-color: rgba(0,0,0,1);
+	-webkit-text-stroke-color: rgba(0,0,0,0.3);
 	text-shadow: 1px 1px 20px rgba(0,0,0, 0.5),
 				 2px 2px 0px rgba(100,250,250, 0.9), 
 				 3px 3px 0px rgba(100,250,250, 0.9), 
@@ -518,7 +518,8 @@ footer {
 a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
-	background: #777;
+	/*background: #777;*/
+	background-image: url('/assets/img/header.jpg');
 	outline: none;
 }
 
@@ -595,7 +596,7 @@ a.ui-button:active,
 	margin-bottom: 5px;
 	padding: 10px;
 	margin-bottom: 5px;
-	background-color: lightgray;
+	background-color: rgb(255,255,153);
 	border-radius: 10px 10px 10px 0px; 
 	position: relative;  
 	color: #777777;
@@ -621,7 +622,7 @@ a.ui-button:active,
 	border: 10px solid black;
 	border-top-color: transparent;
 	border-right-color: transparent;
-	border-bottom-color: lightgray;
+	border-bottom-color: rgb(255,255,153);
 	border-left-color: transparent;
 	left: 0;
 	transform: translateX(-50%);
@@ -629,13 +630,14 @@ a.ui-button:active,
 }
 
 .bubble-right {
+	color: #777;
 	float:right;
 	clear: both;
 	display: inline-block;
 	margin:0;
 	margin-bottom: 5px;
 	padding: 10px;
-	background-color: gray;
+	background-color: lightblue;
 	border-radius: 10px 0px 10px 10px; 
 	position: relative;
 }
@@ -658,7 +660,7 @@ a.ui-button:active,
 	height: 0px;
 	width: 0px;
 	border: 10px solid black;
-	border-top-color: gray;
+	border-top-color: lightblue;
 	border-right-color: transparent;
 	border-bottom-color: transparent;
 	border-left-color: transparent;

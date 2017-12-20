@@ -228,9 +228,9 @@ function updateUser(element) {
 	updateUser.img      = $('#update-img').val().trim() || undefined;
 	updateUser.bio      = $('#update-bio').val().trim() || undefined;
 
-	$.ajax('/api/update/'+userName, {
-		type:'GET'
-	}).done((res)=>{
+	// $.ajax('/api/update/'+userName, {
+	// 	type:'GET'
+	// }).done((res)=>{
 
 		$.ajax('/api/update', {
 			type: 'POST',
@@ -239,7 +239,7 @@ function updateUser(element) {
 			$('#update-account-modal').hide();
 			location.reload();
 		});
-	});
+	// });
 }
 //===================================
 //In the future we hope to add video
