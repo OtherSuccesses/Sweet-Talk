@@ -201,10 +201,7 @@ function userSwipe(element) {
  		socket.emit('swipe right', swipeData)
  	}
  	$.post('/userView/swipe', swipeData).done((res) => {
- 		if (res) {
- 			console.log('res from /userview/swipe', res);
- 			window.location.href = `/${res.userName}/video`
- 		}
+ 	
  	});
 }
 //This function layers the user tiles as they are populated

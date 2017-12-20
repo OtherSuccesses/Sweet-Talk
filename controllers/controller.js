@@ -26,13 +26,13 @@ app.get("/", (req, res) => {
 
 //Get function to bring back the password
 app.get("/api/update/:username", function (req, res){
-
   db.User.findOne({
     where: {
       username: currentUser.userName
     }
   }).then((results)=>{
-      res.json(results);
+    console.log('results from update findOne:', results);
+    res.json(results);
   });
 });
 
@@ -141,16 +141,16 @@ app.post('/create', function(req, res) {
     });
  
 });
+
 //When the user logs on this checks the password against the password in the database.
+
 app.post('/login',function (req, res) { 
-    console.log('user from /login', req.body)
-    
+   
     db.User.findOne({
         where: {
             userName: req.body.userName
         }
     }).then((result)=>{
-        console.log('result from db find one:',result)
         let password = result.dataValues.password;
         if (req.body.password===password) {
             currentUser = result.dataValues;
@@ -165,7 +165,6 @@ app.post('/login',function (req, res) {
 });
 //When the user logs out, the page will redirect to the index
 app.get('/logout', function(req, res) { 
-
       res.redirect('/'); 
 });
 
@@ -180,43 +179,86 @@ app.get('/logout', function(req, res) {
 
 //When the user logs in, they get this view.
 app.get('/userView', function(req,res) {
-    console.log('current user from userview',currentUser)
-    var users = [];
-    db.sequelize.query(`SELECT userName, seeking, bio, img, gender FROM users INNER JOIN sockets ON user = userName;`).done((results)=>{
-      console.log("results from /userview db query", results);
-      // check for gender compatible users
-      for(var i = 0; i < results[0].length; i++) {
-        console.log('firing inside for loop')
-        console.log('gender',results[0][i].gender);
-        console.log('seeking',currentUser.seeking);
-        console.log('seeking',results[0][i].seeking);
-        console.log('gender',currentUser.gender);
-        if(results[0][i].gender === currentUser.seeking && results[0][i].seeking === currentUser.gender) {
-            console.log('firing inside results from for loop', results[0][i]);
-          users.push(results[0][i]);
-        }
+  var users = [];
+  var connections = [];
+  // db.sequelize.query(`SELECT userName, swiped FROM sockets, ${currentUser.userName} INNER JOIN sockets ON user = userName;`).done((swipes)=>{
+  //   console.log('Swipes from inner join',swipes);
+
+  //   for (var i = 0; i<swipes[0].length; i++) {
+  //     if (typeof swipes[0][i].swiped!=='undefined') {
+  //       db.sequelize.query(`SELECT * FROM users WHERE userName = "${swipes[0][i].userName}"`).done((newUser)=>{
+  //         console.log('newUser from select *: ',newUser[0]);
+  //         for (var j = 0; j<newUser[0][j].length; j++){
+  //           users.push(newUser[0][j]);
+  //         }
+  //       });
+  //     } else {
+  //        db.sequelize.query(`SELECT * FROM ${swipes[0][i].userName} WHERE userName = "${currentUser.userName}"`).done((connected)=>{
+  //         console.log('connected from select *: ',connected);
+  //         if (connected.swiped = 1){
+  //           connections.push(swipes[0][i].userName);
+  //         }
+  //       });
+  //     }//end of if/else statement
+  //   }//end of for loop
+  //   console.log('users from /userview:',users)
+  db.sequelize.query(`SELECT * FROM users WHERE users.userName NOT IN (SELECT userName FROM ${currentUser.userName})`).done((data)=>{
+    for (let i = 0; i<data[0].length; i++) {
+      if (data[0][i].seeking===currentUser.gender && data[0][i].gender===currentUser.seeking && data[0][i].userName!==currentUser.userName) {
+
+        users.push(data[0][i]);
       }
-      console.log('users from /userview:',users)
-        var handlebarsObject = {
-          currentUser: currentUser,
-          users: users,
-          title: currentUser.userName
-        };
-        res.render("userview", handlebarsObject);
+    }
+    
+    db.sequelize.query(`SELECT userName, swiped FROM ${currentUser.userName} INNER JOIN sockets ON user = userName; `).done((result)=>{
+      console.log('result from connections:', result);
+      for (let k = 0; k<result[0].length; k++) {
+        console.log('type of :', typeof result[0][k].swiped);
+        if (result[0][k].swiped===1) {
+            connections.push(result[0][k].userName);
+        } 
+      }
+
+
+      // for (let j = 0; j<result.length; j++) {
+      //   db.sequelize.query(`SELECT swiped FROM ${result[j].userName} WHERE userName = "${currentUser.userName}";`).done((response)=>{
+      //     console.log('response from swiped values from other user:', response);
+      //   });
+      // }
+
+      console.log('users from before handlebarsObject:', users)
+      console.log('connections from before handlebarsObject:', connections)
+      var handlebarsObject = {
+       currentUser: currentUser,
+       connections: connections,
+       users: users,
+       title: currentUser.userName
+     };
+     res.render("userview", handlebarsObject);
     });
-});
-//this route sends the user info to whatever calls it.
+
+  });
+
+
+
+  // });//end of swipes query
+
+
+});//end of route listener
+
+
 app.get('/getUser', (req,res)=>{
     res.send(currentUser.userName);
 })
 
 io.sockets.on("connection", (socket) => {
 
-    console.log('currentUser.userName from before query:',currentUser.userName)
+    db.sequelize.query(`SELECT userName, seeking, bio, img, gender FROM users INNER JOIN sockets ON user = userName;`).done((data) => {
+      socket.emit('logins', data); 
+    });
 
     db.sequelize.query(`SELECT user FROM sockets WHERE user='${currentUser.userName}';`)
     .done((res)=>{
-      console.log("res from db socket connection query", res);
       if (res[0] === []) {
         db.sequelize.query(`INSERT INTO sockets (user, socketId) VALUES ('${currentUser.userName}', '${socket.id}');`);
       } else {
@@ -228,10 +270,8 @@ io.sockets.on("connection", (socket) => {
     });
 
     socket.on('send message', function (message) {
-      console.log('message from send message',message)
         db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)    
       .done((res) =>{
-        console.log('res from query:',res)
         socket.to(res[0][0].socketId).emit('private message',message);
       });
     });
@@ -243,24 +283,21 @@ io.sockets.on("connection", (socket) => {
       });
     });
 
-    db.sequelize.query(`SELECT userName, seeking, bio, img, gender FROM users INNER JOIN sockets ON user = userName;`).done((res) => {
-      socket.emit('logins', res);
-    });
 
     socket.on('swipe right', function (data) {
-        console.log('data from swipe right socket listener:',data)
-        let user = data.user
-        db.sequelize.query(`SELECT * FROM ${user} WHERE userName='${currentUser.userName}';`).then((data) => { 
-            if (typeof data[0][0] !== 'undefined') {
-                if (data[0][0].swiped === 1) {
-                    db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)      
-                    .done((res) =>{
-                        console.log('res from query:',res)
-                        socket.to(res[0][0].socketId).emit('add chat user',user);
-                    });
-                } 
-            }
-        });
+      console.log('data from swipe right socket listener:',data)
+      let user = data.user
+      db.sequelize.query(`SELECT * FROM ${user} WHERE userName='${currentUser.userName}';`).then((data) => { 
+        if (typeof data[0][0] !== 'undefined') {
+          if (data[0][0].swiped === 1) {
+            db.sequelize.query(`SELECT socketId FROM sockets WHERE user="${message.to}";`)      
+            .done((res) =>{
+                console.log('res from query:',res)
+                socket.to(res[0][0].socketId).emit('add chat user',user);
+            });
+          } 
+        }
+      });
     });
 
 });//end of socket connection code
