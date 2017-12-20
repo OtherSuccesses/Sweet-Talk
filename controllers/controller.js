@@ -158,8 +158,8 @@ app.post('/login',function (req, res) {
 });
 //When the user logs out, the page will redirect to the index
 app.get('/logout', function(req, res) { 
-
-      res.redirect('/'); 
+    socket.disconnect();
+    res.redirect('/'); 
 });
 
     // app.get('/getSocket/:userName', function (req,res) {
