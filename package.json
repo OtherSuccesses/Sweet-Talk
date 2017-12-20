@@ -2,7 +2,7 @@
   "name": "sweet-talk",
   "version": "1.0.0",
   "description": "Speed Dating application",
-  "main": "gulpfile.js",
+  "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
