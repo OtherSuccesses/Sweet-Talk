@@ -166,9 +166,6 @@ app.post('/login',function (req, res) {
 
 });
 //When the user logs out, the page will redirect to the index
-app.get('/logout', function(req, res) { 
-      res.redirect('/'); 
-});
 
     // app.get('/getSocket/:userName', function (req,res) {
     //   let connected = socketConnection.getObj();
@@ -212,10 +209,12 @@ app.get('/userView', function(req,res) {
   //     }//end of if/else statement
   //   }//end of for loop
   //   console.log('users from /userview:',users)
+
 db.User.findAll({
     where: {
         gender: currentUser.seeking,
         seeking: currentUser.gender
+
     }
 }).done((results)=>{
     for (var i = 0; i<results.length; i++) {
@@ -321,7 +320,10 @@ io.sockets.on("connection", (socket) => {
         }
       });
     });
-
+    app.get('/logout', function(req, res) { 
+      socket.disconnect();
+      res.redirect('/'); 
+  });
 });//end of socket connection code
 
 
