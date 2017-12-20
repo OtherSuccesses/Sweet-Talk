@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 const path = require("path");
-// const favicon = require("serve-favicon");
+const favicon = require("serve-favicon");
 const routes = require("./controllers/controller.js");
 const db = require("./models");
 // const passport = require('passport');
@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(favicon(__dirname + '/public/assets/img/favicon.ico'));
+app.use(favicon(__dirname + '/public/assets/img/favicon.ico'));
 // app.use(session({
 // 	secret: 'chupacabra', 
 // 	resave: false, 
