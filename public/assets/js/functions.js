@@ -1,3 +1,7 @@
+//========================
+//Functions for login page
+//========================
+
 function openModal(triggerId, modalId) {
 	$(document).on('click','#' + triggerId, (event)=>{
 		event.preventDefault();
@@ -52,13 +56,13 @@ function createUser() {
 	user.seeking  = $("input[name='seeking']:checked").val();
 	user.age      = $('#create-age').val().trim();
 	user.bio      = $('#create-bio').val().trim();
-
+	//creates a default image based on gender
 	if (user.gender==='m') {
 		user.img =  $('#create-img').val()==='' ? '/assets/img/default_man.jpg':$('#create-img').val().trim();
 	} else {
 		user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
 	}
-
+//checks if all parameters meet expectations then does post to create the user on the backend
 if (rightAge && cleanInput && cleanRadio && samePswd) {
 		$.ajax('/create', {
 			type:'POST',
@@ -91,6 +95,7 @@ function clearInputs() {
 		$('#create-bio').val('');
 	});
 }
+//if there is an error on login or signup, this will fire after the error message to repopulate the placeholders
 function replacePlaceHolders () {
 	$('#create-username').attr('placeholder', "Enter Your User Name");
 	$('#create-password').attr('placeholder', "Enter Password");
@@ -103,6 +108,10 @@ function replacePlaceHolders () {
 
 
 }
+//=====================================
+//Logic for functions on user view page
+//=====================================
+//logic for when the user swipes left or right on the user
 function userSwipe(element) {
  	let swipe = $(element).attr('data-swipe'),
  		user  = $(element).data('user'),
@@ -130,7 +139,7 @@ function userSwipe(element) {
  		}
  	});
 }
-
+//This function layers the user tiles as they are populated
 function layerTiles() {
 	let first = true;
  	$('.userTile').each(function (i, item) {
@@ -167,7 +176,9 @@ function updateUser(element) {
 		});
 	});
 }
-
+//===================================
+//In the future we hope to add video
+//===================================
 function requestVideo() {
 	console.log("Getting initiator ID...");
     const Peer = require("simple-peer");
@@ -184,18 +195,23 @@ function requestVideo() {
 
     peer.on('error', function (err) { console.error('error', err) });
 };
-
+//===============================
+//Functions dealing with signout
+//===============================
+//Calls logout
 function signOut() {
 	$.ajax('/logout', {type: 'GET'}).done( function(results) {
 		console.log('logged out', results);
  		window.location.href = `/`;
 	});
 }
-
+//If the user closes the window with out logging out this calls the logout
 window.onbeforeunload = function() {
     $.get('/logout')    
 };
-
+//=========================================
+//Functions to deal with the chat windows.
+//=========================================
 function reorderChatWindows() {
 	let num = 0;
 	$('.chat-container .chat-accordion').each((i, item)=>{
