@@ -16,6 +16,7 @@ function closeModal(modalId) {
 	});
 }
 
+//Function on User Login
 function loginUser() {
 	console.log('loginUser called')
 	let clean = false;
@@ -44,6 +45,8 @@ function loginUser() {
 	}
 }
 
+
+//Database number of records check
 function databaseVolumeCheck(){
 	$.ajax("/api/dataCount", {
 		type:'GET'
@@ -54,8 +57,9 @@ function databaseVolumeCheck(){
 	});
 }
 
+//If insufficient data points this populates the table.
 function databasePopulate(){
-	var namesList = ["Marco", "Principio", "Taliesin", "Cochran", "EJ", "Morgan", "Vytas", "Rudzinskas", "Kate", "Upton", "Minnie", "Mickey", "Mouse", "89", "92", "Whatevs", "Grrl", "Boi", "Captain", "Madame", "Planet", "StarWars", "Burger"];
+	var namesList = ["Marco", "Principio", "Taliesin", "Cochran", "EJ", "Morgan", "Vytas", "Rudzinskas", "Kate", "Upton", "Minnie", "Mickey", "Mouse", "89", "92", "Whatevs", "Grrl", "Boi", "Captain", "Madame", "Planet", "StarWars", "Burger", "Steak", "TheReal", "Stephanie"];
 
 	function randName(){
 		var tempIndex = Math.floor(Math.random()*namesList.length);
@@ -221,6 +225,7 @@ function layerTiles() {
  	});
  }
 
+//Function to update the User's profile information
 function updateUser(element) {
 	let userName = $(element).data('user'),
 		updateUser = {};

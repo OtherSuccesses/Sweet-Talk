@@ -36,6 +36,7 @@ app.get("/api/update/:username", function (req, res){
   });
 });
 
+//Route to ping database to check how many records there are
 app.get("/api/dataCount", function(req, res){
   db.User.count()
   .then(function(results){
