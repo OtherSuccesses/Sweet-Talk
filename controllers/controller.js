@@ -154,7 +154,7 @@ module.exports = function (app, db, io) {
         handlebarsObject = {
           currentUser: currentUser,
           connections: connections,
-          potentialMatches: potentialMatches,
+          users: potentialMatches,
           title: currentUser.userName
         };
         console.log('handlebarsObject:',handlebarsObject);
@@ -179,6 +179,7 @@ module.exports = function (app, db, io) {
 
   function createConnection() {
     io.sockets.on("connection", (socket) => {
+      console.log('socket: ', socket);
 
       db.sequelize.query(`SELECT userName, seeking, bio, img, gender FROM Users INNER JOIN sockets ON user = userName;`).done((data) => {
         socket.emit('logins', data); 
@@ -229,6 +230,8 @@ module.exports = function (app, db, io) {
       });
     });//end of socket connection code
   }
+
+  createConnection();
 
   //When the user logs out, the page will redirect to the index
   app.get('/logout', function(req, res) { 
