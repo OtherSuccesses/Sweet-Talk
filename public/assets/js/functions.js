@@ -31,7 +31,7 @@ function loginUser() {
 			data: user
 		}).done((res)=>{
 			$('#sign-in-modal').fadeOut();
-			// window.location.href="/userView";
+			window.location.href="/userView";
 			thisUser = user;
 		}).fail((res) =>{
 			console.log(res.responseText);

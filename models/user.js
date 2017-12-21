@@ -12,7 +12,6 @@ module.exports = function(sequelize, DataTypes) {
                 len: [8,25]
             }
         },
-        
         password: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -21,7 +20,6 @@ module.exports = function(sequelize, DataTypes) {
                 len: [8, 1000]
             }
         },
-
         gender: {
             type: DataTypes.STRING,
             allowNull:false,
@@ -29,7 +27,6 @@ module.exports = function(sequelize, DataTypes) {
                 len: [1, 1]
             }
         },
-
         seeking: {
             type: DataTypes.STRING,
             allowNull:false,
@@ -37,7 +34,6 @@ module.exports = function(sequelize, DataTypes) {
                 len: [1, 1]
             }
         },
-
         age: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -45,12 +41,10 @@ module.exports = function(sequelize, DataTypes) {
                 min: 18
             }
         },
-
         img: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-
         bio: {
             type: DataTypes.STRING,
             allowNull: true,
