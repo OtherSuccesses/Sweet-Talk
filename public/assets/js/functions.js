@@ -1,7 +1,6 @@
 //========================
 //Functions for login page
 //========================
-
 function openModal(triggerId, modalId) {
 	$(document).on('click','#' + triggerId, (event)=>{
 		event.preventDefault();
@@ -16,33 +15,20 @@ function closeModal(modalId) {
 	});
 }
 
-function loginUser() {
-	console.log('loginUser called');
-	let clean = false;
-	let user = {};
-	user.userName = $('#username').val().trim();
-	user.password = $('#password').val().trim();
-
-	clean = checkEmpty('#password', '#username');
-	if (clean) {
-		console.log("Getting to ajax request", user);
-		$.ajax('/login', {
-			type:'POST',
-			data: user
-		}).done((res)=>{
-			$('#sign-in-modal').fadeOut();
-			window.location.href="/userView";
-			thisUser = user;
-		}).fail((res) =>{
-			console.log(res.responseText);
-			clearInputs();
-			$('#username').attr('placeholder', 'Username or password is incorrect.');
-			$('#password').attr('placeholder', 'Username or password is incorrect.');
-			setTimeout(replacePlaceHolders, 3000);
-		});
-	}
+//Clears inputs on login and create user modals
+function clearInputs() {
+	$(':input').each((i, item) => {
+		let type = $(item).attr('type');
+		if (type==='radio') {
+			$(item).prop('checked', false).siblings('.radio-label').css('color', 'white')
+		} else if(type==='text' || type === 'password') {
+			$(item).val('').css('border-color', 'white');
+		}
+		$('#create-bio').val('');
+	});
 }
 
+//Runs /create POST
 function createUser() {
 	let user = {},
 		rightAge   = checkAge('#create-age'),
@@ -55,25 +41,21 @@ function createUser() {
 	user.seeking  = $("input[name='seeking']:checked").val();
 	user.age      = $('#create-age').val().trim();
 	user.bio      = $('#create-bio').val().trim();
-	//creates a default image based on gender
+	//Creates a default image based on gender
 	if (user.gender==='m') {
 		user.img =  $('#create-img').val()==='' ? '/assets/img/default_man.jpg':$('#create-img').val().trim();
 	} else {
 		user.img = $('#create-img').val()==='' ? '/assets/img/default_woman.jpg':$('#create-img').val().trim();
 	}
-//checks if all parameters meet expectations then does post to create the user on the backend
-if (rightAge && cleanInput && cleanRadio && samePswd) {
-		$.ajax('/create', {
-			type:'POST',
-			data: user
-		}).done((res)=>{
-				console.log('User created: ', user)
-				$('#create-account-modal').hide();
-				$('#sign-in-modal').show();
-				$('#username').val(user.userName);
-				$('#password').val(user.password);
+	//Checks if all parameters meet expectations then does post to create the user on the backend
+	if (rightAge && cleanInput && cleanRadio && samePswd) {
+		$.post('/create', user)
+		.done((res)=>{
+			$('#create-account-modal').hide();
+			$('#sign-in-modal').show();
+			$('#username').val(user.userName);
+			$('#password').val(user.password);
 		}).fail((res) => {
-			console.log(res.responseText);
 			clearInputs();
 			$('input').attr('placeholder', '');
 			$('#create-password').attr('placeholder', 'There was a problem with signup. Please try again.');
@@ -83,17 +65,30 @@ if (rightAge && cleanInput && cleanRadio && samePswd) {
 	}
 }
 
-function clearInputs() {
-	$(':input').each((i, item) => {
-		let type = $(item).attr('type');
-		if (type==='radio') {
-			$(item).prop('checked', false).siblings('.radio-label').css('color', 'white')
-		} else if(type==='text' || type === 'password') {
-			$(item).val('').css('border-color', 'white');
-		}
-		$('#create-bio').val('');
-	});
+//Runs /login POST
+function loginUser() {
+	let clean = false;
+	let user = {};
+	user.userName = $('#username').val().trim();
+	user.password = $('#password').val().trim();
+
+	clean = checkEmpty('#password', '#username');
+	if (clean) {
+		$.post('/login', user)
+		.done((res)=>{
+			$('#sign-in-modal').fadeOut();
+			window.location.href="/userView";
+			thisUser = user;
+			console.log(thisUser);
+		}).fail((res) =>{
+			clearInputs();
+			$('#username').attr('placeholder', 'Username or password is incorrect.');
+			$('#password').attr('placeholder', 'Username or password is incorrect.');
+			setTimeout(replacePlaceHolders, 3000);
+		});
+	}
 }
+
 //if there is an error on login or signup, this will fire after the error message to repopulate the placeholders
 function replacePlaceHolders () {
 	$('#create-username').attr('placeholder', "Enter Your User Name");
@@ -104,13 +99,12 @@ function replacePlaceHolders () {
 	$('#create-bio').attr('placeholder', 'Input user Bio');
 	$('#username').attr('placeholder', 'User Name');
 	$('#password').attr('placeholder', 'Password');
-
-
 }
+
 //=====================================
 //Logic for functions on user view page
 //=====================================
-//logic for when the user swipes left or right on the user
+//logic for when the user swipes left or right on a potential match tile
 function userSwipe(element) {
  	let swipe = $(element).attr('data-swipe'),
  		user  = $(element).data('user'),
@@ -129,13 +123,13 @@ function userSwipe(element) {
  		$('.noMore').show();
  	}		
 	if (swipe === "true") {
-		console.log("Swiped right!!!!!");
  		socket.emit('swipe right', swipeData)
  	}
  	$.post('/userView/swipe', swipeData).done((res) => {
  	
  	});
-}
+};
+
 //This function layers the user tiles as they are populated
 function layerTiles() {
 	let first = true;
@@ -160,52 +154,15 @@ function updateUser(element) {
 	updateUser.img      = $('#update-img').val().trim() || undefined;
 	updateUser.bio      = $('#update-bio').val().trim() || undefined;
 
-	// $.ajax('/api/update/'+userName, {
-	// 	type:'GET'
-	// }).done((res)=>{
-
-		$.ajax('/api/update', {
-			type: 'POST',
-			data: updateUser
-		}).done((result) => {
-			$('#update-account-modal').hide();
-			location.reload();
-		});
-	// });
-}
-//===================================
-//In the future we hope to add video
-//===================================
-function requestVideo() {
-	console.log("Getting initiator ID...");
-    const Peer = require("simple-peer");
-    const peer = new Peer({
-      	initiator: location.hash === "#init",
-      	trickle: false,
-    });
-
-	peer.on('signal', (data) => {
-		let id = data;
-		console.log("Initiator ID", id);
-		$.post("/video", id);
-	});
-
-    peer.on('error', function (err) { console.error('error', err) });
-};
-//===============================
-//Functions dealing with signout
-//===============================
-//Calls logout
-function signOut() {
-	$.ajax('/logout', {type: 'GET'}).done( function(results) {
-		console.log('logged out', results);
- 		window.location.href = `/`;
+	$.ajax('/api/update', {
+		type: 'POST',
+		data: updateUser
+	}).done((result) => {
+		$('#update-account-modal').hide();
+		location.reload();
 	});
 }
-//If the user closes the window with out logging out this calls the logout
-window.onbeforeunload = function() {
-    $.get('/logout')    
-};
+
 //=========================================
 //Functions to deal with the chat windows.
 //=========================================
@@ -240,27 +197,39 @@ function createChatWindow(user) {
 	}
 }
 
-
 function removeChatWindow(element) {
 	element.closest('.chat-accordion').remove();
 }
 
 function enterMessage(event) {
-
 	if (typeof $('.chatInput:focus').val() !== 'undefined') {
 		let user = {};
 		user.to = $('.chatInput:focus').data('username');
 		user.from = thisUser;
 		user.text = $('.chatInput:focus').val().trim();
-	  if(event.keyCode == 13){
-	  	socket.emit('send message', user)
-  		let myMessage = $('<div class="bubble-right">').text(user.text);
-		$('.msgWindow').append(myMessage);
-  		$('.chatInput:focus').val('');
-  		$(myMessage).parent().scrollTop($(myMessage).offset().top);
-	  }
+	  	if(event.keyCode == 13){
+	  		socket.emit('send message', user)
+  			let myMessage = $('<div class="bubble-right">').text(user.text);
+			$('.msgWindow').append(myMessage);
+  			$('.chatInput:focus').val('');
+  			$(myMessage).parent().scrollTop($(myMessage).offset().top);
+	  	}
 	}
 }
+
+//===============================
+//Functions dealing with signout
+//===============================
+//Calls logout
+function signOut() {
+	$.ajax('/logout', {type: 'GET'}).done( function(results) {
+ 		window.location.href = `/`;
+	});
+}
+//If the user closes the window with out logging out this calls the logout
+window.onbeforeunload = function() {
+    $.get('/logout')    
+};
 
 function databaseVolumeCheck(){
 	$.ajax("/api/dataCount", {
@@ -272,6 +241,9 @@ function databaseVolumeCheck(){
 	});
 }
 
+//===============================
+//Database auto-populate
+//===============================
 function databasePopulate(){
 	var namesList = ["Marco", "Principio", "Taliesin", "Cochran", "EJ", "Morgan", "Vytas", "Rudzinskas", "Kate", "Upton", "Minnie", "Mickey", "Mouse", "89", "92", "Whatevs", "Grrl", "Boi", "Captain", "Madame", "Planet", "StarWars", "Burger"];
 
@@ -322,15 +294,34 @@ function databasePopulate(){
 			type:'POST',
 			data: users[i]
 		}).done((res)=>{
-			// console.log('User created: ', res);
+
 		}).fail((res) => {
 			console.log(res.responseText);
 		});
 	}
 }
-
 //commented out for future use
 
+
+//===================================
+// //In the future we hope to add video
+// //===================================
+// function requestVideo() {
+// 	console.log("Getting initiator ID...");
+//     const Peer = require("simple-peer");
+//     const peer = new Peer({
+//       	initiator: location.hash === "#init",
+//       	trickle: false,
+//     });
+
+// 	peer.on('signal', (data) => {
+// 		let id = data;
+// 		console.log("Initiator ID", id);
+// 		$.post("/video", id);
+// 	});
+
+//     peer.on('error', function (err) { console.error('error', err) });
+// };
 // function showChatBubble(element) {
 // 	let x = $(element).offset();
 // 	let height = parseInt($(element).css('height'));

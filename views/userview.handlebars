@@ -6,12 +6,6 @@
 			<ul>
 				<li id="update-account" class="navItem"><i class="fa fa-pencil" aria-hidden="true"></i>  Update Profile</li>
 				<li>|</li>
-				{{!-- commented out for future use --}}
-
-				{{!-- <li class="navItem" id="inbox">Inbox</li>
-				<li>|</li> --}}
-				{{!-- <li class="navItem">Conversations</li>
-				<li>|</li> --}}
 				<li class="navItem" id="sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</li>
 			</ul>
 		</nav>
@@ -32,27 +26,7 @@
 
 	<div class="noMore centered">
 		<h1 class="noMoreText">There are no more users online. Try back later!</h1>
-
 	</div>
-
-{{!-- commented out for future use --}}
-
-{{!-- 
-	<div id="swiped-container">
-		<div class="swiped-user">
-			<img src="https://www.fillmurray.com/300/300" alt="">
-			<h3 class="swiped-userName">Bill Murray</h3>
-			<button class="viewAgain" data-userName="Bill Murray" data-img="https://www.fillmurray.com/300/300">View Again</button>
-		</div>
-		{{#each swiped}}
-			<div class="swiped-user">
-				<img src="{{img}}" alt="image of {{userName}}">
-				<h3 class="swiped-userName">{{userName}}</h3>
-				<button class="viewAgain" data-userName="{{userName}}" data-img="{{img}}">View Again</button>
-			</div>
-		{{/each}}
-	</div> --}}
-
 
 	<div id="chat-accordion" class="chat-accordion chats">
 		<h3>Chat</h3>
@@ -99,6 +73,74 @@
 			</div>
 		</div>{{!-- end of #update-account-modal --}}
 
+		<div id="match-modal" class="modal">
+			<div class="modal-content">
+				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
+				<div class="modal-header">
+					<h2>Hello {{currentUser.userName}}, update your account:</h2>
+				</div>
+				<div class="modal-body"></div>
+			</div>
+		</div>
+
+	<footer></footer>
+</div>
+<script>
+	$(document).ready(function () {
+		let thisUser = '';
+		var socket = io.connect();
+		console.log('socket',socket)
+		$.ajax('/getUser',{type:'GET'}).done(function (res) {
+			thisUser = res;
+		});
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- commented out for future use --}}
+
+{{!-- 
+	<div id="swiped-container">
+		<div class="swiped-user">
+			<img src="https://www.fillmurray.com/300/300" alt="">
+			<h3 class="swiped-userName">Bill Murray</h3>
+			<button class="viewAgain" data-userName="Bill Murray" data-img="https://www.fillmurray.com/300/300">View Again</button>
+		</div>
+		{{#each swiped}}
+			<div class="swiped-user">
+				<img src="{{img}}" alt="image of {{userName}}">
+				<h3 class="swiped-userName">{{userName}}</h3>
+				<button class="viewAgain" data-userName="{{userName}}" data-img="{{img}}">View Again</button>
+			</div>
+		{{/each}}
+	</div> --}}
+
+
+		
+		{{!-- commented out for future use --}}
+
+		{{!-- <div class="bubble-container">
+			<div id="connectBubble" data-username="">
+				<button id="connect-chat" class="chat-button">Chat</button>
+				<button id="connect-video" class="chat-button">Video Chat</button>
+			</div>
+		</div> --}}
 
 		{{!-- commented out for future use --}}
 
@@ -113,8 +155,6 @@
 				</div>
 			</div>
 		</div> --}}{{!-- end of #inbox-modal --}}
-
-
 
 	{{!-- commented out for future use --}}
 
@@ -137,37 +177,3 @@
 				</div>
 			</div>
 		</div> --}}
-
-		<div id="match-modal" class="modal">
-			<div class="modal-content">
-				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
-				<div class="modal-header">
-					<h2>Hello {{currentUser.userName}}, update your account:</h2>
-				</div>
-				<div class="modal-body"></div>
-			</div>
-		</div>
-		
-		{{!-- commented out for future use --}}
-
-		{{!-- <div class="bubble-container">
-			<div id="connectBubble" data-username="">
-				<button id="connect-chat" class="chat-button">Chat</button>
-				<button id="connect-video" class="chat-button">Video Chat</button>
-			</div>
-		</div> --}}
-
-	<footer></footer>
-</div>
-<script>
-var socket;
-let thisUser = '';
-	$(document).ready(function () {
-		socket = io.connect();
-		console.log('socket',socket)
-		$.ajax('/getUser',{type:'GET'}).done(function (res) {
-			console.log('response of hopefully username',res)
-			thisUser = res;
-		});
-	});
-</script>
