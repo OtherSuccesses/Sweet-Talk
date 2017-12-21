@@ -222,13 +222,17 @@ db.User.findAll({
     }
 }).done((results)=>{
     for (var i = 0; i<results.length; i++) {
-        users.push(results[i].dataValues);
+        if(currentUser !== result[i].dataValues.userName) {
+            users.push(results[i].dataValues);
+        }
     }
     db.sequelize.query(`SELECT userName FROM ${currentUser.userName} WHERE swiped = "1";`).done((data)=>{
         console.log(data);
         for (j = 0; j<data[0].length; j++) {
             console.log('asdfasdfasdfasdfasdfdsfa:',data[0][j]);
-            connections.push(data[0][j].userName);
+            if(currentUser.userName !== data[0][j].userName) {
+              connections.push(data[0][j].userName);
+            }
         }
 
 
