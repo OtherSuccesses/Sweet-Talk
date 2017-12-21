@@ -196,7 +196,7 @@ function userSwipe(element) {
  	if ($(element).parent()==tileArr[tileArr.length-1]){
  		$('.noMore').show();
  	}		
-	if (swipe===true) {
+	if (swipe==="true") {
  		socket.emit('swipe right', swipeData)
  	}
  	$.post('/userView/swipe', swipeData).done((res) => {

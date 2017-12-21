@@ -222,7 +222,8 @@ db.User.findAll({
     }
 }).done((results)=>{
     for (var i = 0; i<results.length; i++) {
-        if(currentUser !== result[i].dataValues.userName) {
+      console.log(results[i].dataValues);
+        if(currentUser !== result[i].dataValues) {
             users.push(results[i].dataValues);
         }
     }
