@@ -1,4 +1,14 @@
+{{!-- <h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+
+<a href="/register"><button class="btn btn-primary">Register</button></a>
+<a href="/login"><button class="btn btn-primary">Login</button></a> --}}
+
 <div class="landing-page-container">
+  {{#if message}}
+    <div class="alert alert-danger">{{message}}</div>
+  {{/if}}
 	<div class="wrapper">
 		<h1 id="main-title">Sweet Talk</h1>
 		<div class="button" id="sign-in">SIGN IN</div>
@@ -12,11 +22,11 @@
 				<h2>Please enter your user name and password:</h2>
 			</div>
 			<div class="modal-body">
-				<form id="sign-in-form">
+				<form id="sign-in-form" action="/login" method="post">
 
 					<input name="username" type="text" id="username" placeholder="User Name" class="centered text-input" autofocus>
 					<input name="password" type="password" id="password" placeholder="Password" class="centered text-input">
-					<input type="button" value="Log In" id="login-submit" class="submit-button centered">
+					<input type="submit" value="Log In" id="login-submit" class="submit-button centered">
 				</form>
 			</div>
 		</div>
@@ -30,12 +40,12 @@
 				<h2>Create an account:</h2>
 			</div>
 			<div class="modal-body">
-				<form id="create-account-form">
-					<input name="create-username" type="text" id="create-username" placeholder="Enter User Name" class="centered text-input" autofocus>
-					<input name="create-age" type="text" id="create-age" placeholder="Age" class="centered text-input">
-					<input name="create-password" type="password" id="create-password" placeholder="Enter Password" class="centered text-input">
-					<input name="create-password" type="password" id="create-password2" placeholder="Re-enter Password" class="centered text-input">
-					
+				<form id="create-account-form" action="/signup" method="post">
+					<input name="username" type="text" id="create-username" placeholder="Enter User Name" class="centered text-input" autofocus>
+					<input name="age" type="text" id="create-age" placeholder="Age" class="centered text-input">
+					<input name="password" type="password" id="create-password" placeholder="Enter Password" class="centered text-input">
+					<input  type="password" id="create-password2" placeholder="Re-enter Password" class="centered text-input">
+
 					<div class="gender-wrapper centered">
 						<h3 class="radio-label">I am a:</h3>
 						<input type="radio" name="gender" value="m" id="gender-m">
@@ -43,7 +53,7 @@
 		  				<input type="radio" name="gender" value="f" id="gender-f">
 		  				<label for="gender-f">Woman</label>
 					</div>
-				
+
 					<div class="seeking-wrapper centered">
 						<h3 class="radio-label">Seeking:</h3>
 						<input type="radio" name="seeking" value="m" id="seeking-m">
@@ -52,12 +62,11 @@
 		  				<label for="seeking-f">Women</label>
 					</div>
 
-					<input name="create-img" id="create-img" type="text" placeholder="Enter image url" class="centered text-input" value="{{currentUser.img}}">
+					<input name="img" id="create-img" type="text" placeholder="Enter image url" class="centered text-input" >
 					<textarea name="bio" id="create-bio" cols="60" rows="4" class="bio"placeholder="Input user Bio" class="centered text-input" value="{{currentUser.bio}}"></textarea>
-					<input type="button" value="Create Account!" id="create-submit" class="submit-button centered">
+					<input type="submit" value="Create Account!" id="create-submit" class="submit-button centered">
 				</form>
 			</div>
-		</div> 	
+		</div>
 	</div>{{!-- end of #create-account-modal --}}
 </div>{{!-- end of landing-page-container --}}
-

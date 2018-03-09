@@ -11,20 +11,6 @@ $(document).ready(() => {
 	closeModal('update-account-modal');
 	closeModal('inbox-modal');
 
-	databaseVolumeCheck();	
-
-	//click event for submitting login
-	$('#login-submit').on('click', (event) =>{
-		event.preventDefault();
-		loginUser();
-	});
-
-	//click event for submitting a newly created user
-	$('#create-submit').on('click', (event) =>{
-		event.preventDefault();
-		createUser();
-		/// addUserTable(); 
-	});
 
 	//click event for clearing all inputs
 	$('#sign-in, #create-account').on('click', (event) => {
@@ -41,6 +27,7 @@ $(document).ready(() => {
 	//click event for updating a user
 	$(document).on('click', '#update-submit', function (event) {
 		event.preventDefault();
+		console.log('firing:', $(this))
 		updateUser($(this));
 	});
 
@@ -55,12 +42,6 @@ $(document).ready(() => {
 	// });
 
 	//click event for declining to request video chat
-
-	//click event for logging user out
-	$('#sign-out').on('click', function (event) {
-		event.preventDefault();
-		signOut();
-	});
 
 	//click event for creating a chat window
 	$(document).on('click', '.chatUser', function (event) {
@@ -96,9 +77,9 @@ $(document).ready(() => {
 	// 	//
 	// });
 
-	//event listener for 
+	//event listener for
 	$(document).on('click','.viewAgain', function (event) {
-		event.preventDefault();		
+		event.preventDefault();
 		$('#viewAgain-modal').fadeIn();
 		addBackUser($(this));
 	});
@@ -109,14 +90,14 @@ $(document).ready(() => {
 	});
 
 	//click event that hides chat bubble when nothing is selected
-	
+
 	// $(document).on('click', function (event) {
 	// 	if($('#connectBubble').css('display') !== 'none') {
 	// 		console.log('firing inside where function is called')
 	// 		hideChatBubble(event);
 	// 	}
 	// });
-	
+
 
 	//click event for populating modal of user you would like a second chance at
 
@@ -136,34 +117,21 @@ $(document).ready(() => {
   	});
 
 	//socket message listener
- 	socket.on('private message', function (data) {	
-		console.log('data from message:',data);
-		console.log("thisUser from event listener", thisUser);
+	if (typeof socket!=='undefined') {//conditional avoids program throwing errors if socket is undefined
+		socket.on('private message', function (data) {
+				createChatWindow(data.from);
+				let message = $('<div class="bubble-left">').text(data.text);
+				$('.msgWindow').append(message);
+				$(message).parent().scrollTop($(message).offset().top);
+		});
 
-			createChatWindow(data.from);
-			let message = $('<div class="bubble-left">').text(data.text);
-			console.log('msgWindow Im trying to append to eventlisteners:', $('.msgWindow'))
-			$('.msgWindow').append(message);
-			$(message).parent().scrollTop($(message).offset().top);		
-	});
+		socket.on('add match', function (username){
+			addChatUser(username)
+		});
 
-	socket.on('logins', (data) => {
-		console.log("logins socket data", data);
-		let user = data[0][data[0].length-1];
-		console.log("user from logins", user);
-		$("#userTileContainer").append(
-			`<div class="userTile centered" data-layer="">
-				<h2 class="tileTitle">Meet ${user.userName}!</h2>
-				<div class="imgContainer">
-					<img src="${user.img}" alt="image of ${user.userName}" class="userImage">
-				</div>
-				<p class="userBio">${user.bio}</p>
-				<button class="choose" data-swipe="false" data-user="${user.userName}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
-				<button class="choose" data-swipe="true" data-user="${user.userName}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
-			</div>`);
-	});
+		socket.on('delete match', function (username){
+			$('#onlineUsers>p:contains('+username+')').remove();
+		});
+	}
 
-	socket.on('add chat user', function (user) {
-		$('#chat-accordion').append('<p class="chatUser">'+user+'</p>');
-	});	
 });//end of document ready function
