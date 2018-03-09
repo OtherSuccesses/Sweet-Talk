@@ -1,16 +1,18 @@
 <div class="userView-container">
 	<header>
-		<img src="{{currentUser.img}}" alt="Image of {{currentUser.userName}}" class="logo">
-		<h1 id="userGreeting">Hello, {{currentUser.userName}}!</h1>
+		<img src="{{currentUser.img}}" alt="Image of {{currentUser.username}}" class="logo">
+		<h1 id="userGreeting">Hello, {{currentUser.username}}...</h1>
 		<nav>
 			<ul>
-				<li id="update-account" class="navItem">Profile</li>
+				<li id="update-account" class="navItem"><i class="fa fa-pencil" aria-hidden="true"></i>  Update Profile</li>
 				<li>|</li>
+				{{!-- commented out for future use --}}
+
 				{{!-- <li class="navItem" id="inbox">Inbox</li>
 				<li>|</li> --}}
 				{{!-- <li class="navItem">Conversations</li>
 				<li>|</li> --}}
-				<li class="navItem" id="sign-out">Sign Out</li>
+				<li class="navItem" id="sign-out"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -18,15 +20,14 @@
 
 	{{#each users}}
 		<div class="userTile centered" data-layer="{{@index}}">
-			<h2 class="tileTitle">Meet {{userName}}!</h2>
+			<h2 class="tileTitle">Meet {{username}}!</h2>
 			<div class="imgContainer">
-				<img src="{{img}}" alt="image of {{userName}}" class="userImage">
+				<img src="{{img}}" alt="image of {{username}}" class="userImage">
 			</div>
 			<p class="userBio">{{bio}}</p>
-			<button class="choose" data-swipe="false" data-user="{{userName}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
-			<button class="choose" data-swipe="true" data-user="{{userName}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
+			<button class="choose" data-swipe="false" data-user="{{_id}}"><i class="fa fa-times fa-3x" aria-hidden="true"></i></button>
+			<button class="choose" data-swipe="true" data-user="{{_id}}"><i class="fa fa-check fa-3x" aria-hidden="true"></i></button>
 		</div>
-
 	{{/each}}
 
 	<div class="noMore centered">
@@ -34,20 +35,20 @@
 
 	</div>
 
-{{!-- commented out in case we want to utilize in the future --}}
+{{!-- commented out for future use --}}
 
-{{!-- 
+{{!--
 	<div id="swiped-container">
 		<div class="swiped-user">
 			<img src="https://www.fillmurray.com/300/300" alt="">
-			<h3 class="swiped-userName">Bill Murray</h3>
-			<button class="viewAgain" data-userName="Bill Murray" data-img="https://www.fillmurray.com/300/300">View Again</button>
+			<h3 class="swiped-username">Bill Murray</h3>
+			<button class="viewAgain" data-username="Bill Murray" data-img="https://www.fillmurray.com/300/300">View Again</button>
 		</div>
 		{{#each swiped}}
 			<div class="swiped-user">
-				<img src="{{img}}" alt="image of {{userName}}">
-				<h3 class="swiped-userName">{{userName}}</h3>
-				<button class="viewAgain" data-userName="{{userName}}" data-img="{{img}}">View Again</button>
+				<img src="{{img}}" alt="image of {{username}}">
+				<h3 class="swiped-username">{{username}}</h3>
+				<button class="viewAgain" data-username="{{username}}" data-img="{{img}}">View Again</button>
 			</div>
 		{{/each}}
 	</div> --}}
@@ -55,21 +56,21 @@
 
 	<div id="chat-accordion" class="chat-accordion chats">
 		<h3>Chat</h3>
-		  <div>
-		  	{{#each users}}
-				<p class="chatUser">{{userName}}</p>
+		  <div id="onlineUsers">
+		  	{{#each connections}}
+				<p class="chatUser">{{username}}</p>
 		  	{{/each}}
 		  </div>
 	</div>
 	<div class="chat-container">
-		
+
 	</div>
 
 	<div class="modal" id="update-account-modal">
 			<div class="modal-content">
 				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
 				<div class="modal-header">
-					<h2>Hello {{currentUser.userName}}, update your account:</h2>
+					<h2>Hello {{currentUser.username}}, update your account:</h2>
 				</div>
 				<div class="modal-body">
 					<form id="update-account-form">
@@ -92,37 +93,40 @@
 						<input name="update-img" id="update-img" type="text" placeholder="Enter image url" class="centered text-input" value="{{currentUser.img}}">
 						<textarea name="bio" id="update-bio" cols="60" rows="4" class="bio"placeholder="Input user Bio" class="centered text-input" >{{currentUser.bio}}</textarea>
 
-						<input type="button" value="Update Account!" id="update-submit" class="submit-button centered" data-user="{{currentUser.userName}}">
+						<input type="button" value="Update Account!" id="update-submit" class="submit-button centered" data-user="{{currentUser.username}}">
 					</form>
 				</div>
 			</div>
 		</div>{{!-- end of #update-account-modal --}}
 
-		<div class="modal" id="inbox-modal">
+
+		{{!-- commented out for future use --}}
+
+		{{!-- <div class="modal" id="inbox-modal">
 			<div class="modal-content">
 				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
 				<div class="modal-header">
-					<h2>Hello {{currentUser.userName}}, here are the people you have contacted</h2>
+					<h2>Hello {{currentUser.username}}, here are the people you have contacted</h2>
 				</div>
 				<div class="modal-body">
-					
+
 				</div>
 			</div>
-		</div>{{!-- end of #inbox-modal --}}
+		</div> --}}{{!-- end of #inbox-modal --}}
 
 
 
-	{{!-- commented out in case we want to utilize in the future --}}
+	{{!-- commented out for future use --}}
 
 	{{!-- 	<div class="modal" id="viewAgain-modal">
 			<div class="modal-content">
 				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
 				<div class="modal-header">
-					
+
 				</div>
 				<div class="modal-body">
 					<div class="centered">
-						<h2 class="tileTitle" id="viewAgain-userName"></h2>
+						<h2 class="tileTitle" id="viewAgain-username"></h2>
 						<div class="imgContainer">
 							<img src="" alt="" class="userImage" id="viewAgain-img">
 						</div>
@@ -138,31 +142,39 @@
 			<div class="modal-content">
 				<div class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></div>
 				<div class="modal-header">
-					<h2>Hello {{currentUser.userName}}, update your account:</h2>
+					<h2>Hello {{currentUser.username}}, update your account:</h2>
 				</div>
 				<div class="modal-body"></div>
 			</div>
 		</div>
 
-		<div class="bubble-container">
+		{{!-- commented out for future use --}}
+
+		{{!-- <div class="bubble-container">
 			<div id="connectBubble" data-username="">
 				<button id="connect-chat" class="chat-button">Chat</button>
 				<button id="connect-video" class="chat-button">Video Chat</button>
 			</div>
-		</div>
-
+		</div> --}}
 
 	<footer></footer>
 </div>
+<script src="/socket.io/socket.io.js"></script>
 <script>
-var socket;
-let thisUser = '';
-	$(document).ready(function () {
-		socket = io.connect();
-		console.log('socket',socket)
-		$.ajax('/getUser',{type:'GET'}).done(function (res) {
-			console.log('response of hopefully username',res)
-			thisUser = res;
-		});
-	});
+  let socket = io();
+	let thisUser;
+	console.log('Socket Connection:',socket)
+
+	$.ajax({
+		url: '/getUser',
+		type: 'GET',
+		success: function (user){
+			{{log currentUser}}
+			console.log('user from /getUser:', user)
+			thisUser = user;
+		},
+		error: function (err){
+			console.log('error from /getuser',err)
+		}
+	})
 </script>
